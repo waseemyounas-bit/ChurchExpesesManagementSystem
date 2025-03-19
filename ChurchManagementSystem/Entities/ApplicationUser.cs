@@ -12,7 +12,6 @@ namespace Entities
         public string? FirstName { get; set; } //For Commercial User: Full Name
         public string? FullName { get; set; } //For Commercial User: Full Name
 
-        public Guid RoleId { get; set; }
-        public ApplicationRole Role { get; set; }
+        public ApplicationRole? Role { get; set; }
     }
 }
