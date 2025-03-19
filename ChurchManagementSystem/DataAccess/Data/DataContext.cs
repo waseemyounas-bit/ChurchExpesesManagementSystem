@@ -1,15 +1,17 @@
 ﻿using Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DataAccess.Data
 {
-    public class DataContext : DbContext
+    public class DataContext : IdentityDbContext
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
         public DbSet<ApplicationUser> ApplicaitonUsers { get; set; }
@@ -21,12 +23,19 @@ namespace DataAccess.Data
         public DbSet<Donation> Donations { get; set; }
         public DbSet<Expense> Expenses { get; set; }
         public DbSet<BankAccount> BankAccounts { get; set; }
-        public DbSet<ApplicationRole> ApplicationRoles { get; set; }
+        //public DbSet<ApplicationRole> ApplicationRoles { get; set; }
         public DbSet<Vendor> Vendors { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            
+            base.OnModelCreating(builder);
+            // Fix Role Foreign Key Issue
+            builder.Entity<ApplicationUser>()
+                .HasOne<IdentityRole>(u => u.Role)
+                .WithMany()
+                .HasForeignKey(u => u.RoleId)
+                .OnDelete(DeleteBehavior.Restrict);  // ✅ Prevents cascade delete issue
+
         }
 
     }
