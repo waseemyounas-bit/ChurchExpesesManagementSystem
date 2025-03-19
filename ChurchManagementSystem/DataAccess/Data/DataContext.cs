@@ -36,6 +36,22 @@ namespace DataAccess.Data
                 .HasForeignKey(u => u.RoleId)
                 .OnDelete(DeleteBehavior.Restrict);  // ✅ Prevents cascade delete issue
 
+
+            #region Dataseeding
+            // Static GUIDs
+            string adminRoleId = "a1b2c3d4-e5f6-4g7h-8i9j-k0l1m2n3o4p5";
+
+            // Seed Role
+            var adminRole = new IdentityRole
+            {
+                Id = adminRoleId,
+                Name = "Admin",
+                NormalizedName = "ADMIN"
+            };
+
+            builder.Entity<IdentityRole>().HasData(adminRole);
+            #endregion
+
         }
 
     }
