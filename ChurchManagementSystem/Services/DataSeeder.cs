@@ -16,6 +16,7 @@ namespace Services
             using var scope = serviceProvider.CreateScope();
             var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var roles= roleManager.Roles.ToList();
 
             string adminEmail = "admin@example.com";
             string adminPassword = "Admin@123";
@@ -38,7 +39,8 @@ namespace Services
                     Email = adminEmail,
                     EmailConfirmed = true,
                     FirstName = "System",
-                    FullName = "System Administrator"
+                    FullName = "System Administrator",
+                    RoleId = roles.Where(x=>x.Name=="Admin").Select(x=>x.Id).FirstOrDefault()
                 };
 
                 var result = await userManager.CreateAsync(adminUser, adminPassword);
