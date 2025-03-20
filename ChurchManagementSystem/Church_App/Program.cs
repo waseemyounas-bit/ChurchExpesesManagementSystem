@@ -6,8 +6,13 @@ using Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddRazorPages();
+
+builder.Services.AddRazorPages().AddMvcOptions(options =>
+{
+    options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor(
+        _ => "This field is required.");
+});
+
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -15,6 +20,10 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddSignInManager()
     .AddDefaultTokenProviders()
     .AddRoles<IdentityRole>();
+
+
+builder.Services.AddScoped<AuthService>();
+
 
 
 var app = builder.Build();
