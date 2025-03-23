@@ -31,7 +31,10 @@ namespace Services
             var existing = await _context.Members.FindAsync(member.Id);
             if (existing == null)
                 throw new Exception("Member not found.");
-
+            if (member.PicturePath==null)
+            {
+                member.PicturePath = existing.PicturePath;
+            }
             _context.Entry(existing).CurrentValues.SetValues(member);
             await _context.SaveChangesAsync();
             return existing;

@@ -23,7 +23,7 @@ namespace Church_App.Pages.ManagementSystem
 
         // For image upload
         [BindProperty]
-        public IFormFile ProfileImage { get; set; }
+        public IFormFile? ProfileImage { get; set; }
 
         // Used to bind the ID for delete
         [BindProperty]
