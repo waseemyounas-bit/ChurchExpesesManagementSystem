@@ -26,7 +26,7 @@ builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<IMemberService, MemberService>();
 builder.Services.AddScoped<IVisitorService, VisitorService>();
 builder.Services.AddScoped<IGroupService, GroupService>();
-
+builder.Services.AddScoped<IDonationTypeService, DonationTypeService>();
 
 
 var app = builder.Build();
