@@ -53,9 +53,13 @@ namespace Services
             return await _context.DonationTypes.FindAsync(id);
         }
 
-        public async Task<IEnumerable<DonationType>> GetAllDonationTypesAsync()
+        public async Task<List<DonationType>> GetAllDonationTypesAsync()
         {
             return await _context.DonationTypes.ToListAsync();
+        }
+        public  List<DonationType> GetAllDonationType()
+        {
+            return _context.DonationTypes.ToList();
         }
     }
 
@@ -65,6 +69,7 @@ namespace Services
         Task<DonationType> UpdateDonationTypeAsync(DonationType donationType);
         Task<bool> DeleteDonationTypeAsync(Guid id);
         Task<DonationType> GetDonationTypeByIdAsync(Guid id);
-        Task<IEnumerable<DonationType>> GetAllDonationTypesAsync();
+        Task<List<DonationType>> GetAllDonationTypesAsync();
+        List<DonationType> GetAllDonationType();
     }
 }

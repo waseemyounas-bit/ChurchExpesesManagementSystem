@@ -25,6 +25,7 @@ namespace Church_App.Pages.ManagementSystem
         [BindProperty]
         public Guid DonationTypeId { get; set; }
 
+
         public async Task OnGetAsync()
         {
             var types = await _donationTypeService.GetAllDonationTypesAsync();

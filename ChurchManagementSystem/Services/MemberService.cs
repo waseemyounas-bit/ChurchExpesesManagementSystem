@@ -56,9 +56,13 @@ namespace Services
             return await _context.Members.FindAsync(id);
         }
 
-        public async Task<IEnumerable<Member>> GetAllMembersAsync()
+        public async Task<List<Member>> GetAllMembersAsync()
         {
             return await _context.Members.ToListAsync();
+        }
+        public List<Member> GetAllMembers()
+        {
+            return  _context.Members.ToList();
         }
     }
 
@@ -68,6 +72,7 @@ namespace Services
         Task<Member> UpdateMemberAsync(Member member);
         Task<bool> DeleteMemberAsync(Guid id);
         Task<Member> GetMemberByIdAsync(Guid id);
-        Task<IEnumerable<Member>> GetAllMembersAsync();
+        Task<List<Member>> GetAllMembersAsync();
+        List<Member> GetAllMembers();
     }
 }

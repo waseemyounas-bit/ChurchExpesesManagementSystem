@@ -5,7 +5,6 @@
     Layout = "~/Pages/Shared/_HomeLayout.cshtml";
 }
 
-
 <div class="page-wrapper">
     <div class="content">
         <div class="row">
@@ -14,377 +13,199 @@
             </div>
             <div class="col-sm-8 col-7 text-right m-b-30">
                 <button class="btn btn-primary btn-rounded float-right" data-bs-toggle="modal" data-bs-target="#addDonationModal">
-                    <i class="fa fa-plus"></i>  Add Donation
+                    <i class="fa fa-plus"></i> Add Donation
                 </button>
-            
             </div>
         </div>
-        <div class="row filter-row">
 
-            <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-12">
-                <div class="form-group form-focus select-focus">
-                    <label class="focus-label">Donner</label>
-                    <select class="select floating">
-                        <option> -- Select -- </option>
-                        <option>Employee</option>
-                        <option>Manager</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-12">
-                <div class="form-group form-focus select-focus">
-                    <label class="focus-label">Type</label>
-                    <select class="select floating">
-                        <option> -- Select -- </option>
-                        <option> Pending </option>
-                        <option> Approved </option>
-                        <option> Rejected </option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
-                <div class="form-group form-focus">
-                    <label class="focus-label">From</label>
-                    <div class="cal-icon">
-                        <input class="form-control floating datetimepicker" type="text">
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
-                <div class="form-group form-focus">
-                    <label class="focus-label">To</label>
-                    <div class="cal-icon">
-                        <input class="form-control floating datetimepicker" type="text">
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
-                <a href="#" class="btn btn-success btn-block"> Search </a>
-            </div>
-        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="table-responsive">
                     <table class="table table-striped custom-table datatable">
                         <thead>
                             <tr>
-                                <th >Donner</th>
+                                <th>Donor</th>
                                 <th>Type</th>
                                 <th>Date</th>
                                 <th>Amount</th>
-                                <th style="width:25%;">Description</th>
-                                <th>Payslip</th>
                                 <th class="text-right">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    John Doe
-                                </td>
-                                <td>Donation Type</td>
-                                  <td>1 Jan 2013</td>
-                                <td>
-                                   $ 300
-                                </td>
-                                <td>This is Dummy record & static</td>
-                                <td><a class="btn btn-sm btn-primary" href="salary-view.html">Generate Slip</a></td>
-                                <td class="text-right">
-                                    <div class="dropdown dropdown-action">
-                                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="edit-salary.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_salary"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                            @foreach (var donation in Model.DonationList)
+                            {
+                                <tr>
+                                    <td>@donation.Member.FName @donation.Member.LName</td>
+                                    <td>@donation.Type</td>
+                                    <td>@donation.Date.ToString("d")</td>
+                                    <td>@donation.Amount</td>
+                                    <td class="text-right">
+                                        <div class="dropdown dropdown-action">
+                                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown">
+                                                <i class="fa fa-ellipsis-v"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a class="dropdown-item" href="#" onclick='editDonation(@Html.Raw(Json.Serialize(donation)))'>
+                                                    <i class="fa fa-pencil"></i> Edit
+                                                </a>
+
+                                                <a class="dropdown-item text-danger" href="#" onclick="confirmDelete('@donation.Id')">
+                                                    <i class="fa fa-trash"></i> Delete
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
-    <div class="notification-box">
-        <div class="msg-sidebar notifications msg-noti">
-            <div class="topnav-dropdown-header">
-                <span>Messages</span>
-            </div>
-            <div class="drop-scroll msg-list-scroll" id="msg_list">
-                <ul class="list-box">
-                    <li>
-                        <a href="chat.html">
-                            <div class="list-item">
-                                <div class="list-left">
-                                    <span class="avatar">R</span>
-                                </div>
-                                <div class="list-body">
-                                    <span class="message-author">Richard Miles </span>
-                                    <span class="message-time">12:28 AM</span>
-                                    <div class="clearfix"></div>
-                                    <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="chat.html">
-                            <div class="list-item new-message">
-                                <div class="list-left">
-                                    <span class="avatar">J</span>
-                                </div>
-                                <div class="list-body">
-                                    <span class="message-author">John Doe</span>
-                                    <span class="message-time">1 Aug</span>
-                                    <div class="clearfix"></div>
-                                    <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="chat.html">
-                            <div class="list-item">
-                                <div class="list-left">
-                                    <span class="avatar">T</span>
-                                </div>
-                                <div class="list-body">
-                                    <span class="message-author"> Tarah Shropshire </span>
-                                    <span class="message-time">12:28 AM</span>
-                                    <div class="clearfix"></div>
-                                    <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="chat.html">
-                            <div class="list-item">
-                                <div class="list-left">
-                                    <span class="avatar">M</span>
-                                </div>
-                                <div class="list-body">
-                                    <span class="message-author">Mike Litorus</span>
-                                    <span class="message-time">12:28 AM</span>
-                                    <div class="clearfix"></div>
-                                    <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="chat.html">
-                            <div class="list-item">
-                                <div class="list-left">
-                                    <span class="avatar">C</span>
-                                </div>
-                                <div class="list-body">
-                                    <span class="message-author"> Catherine Manseau </span>
-                                    <span class="message-time">12:28 AM</span>
-                                    <div class="clearfix"></div>
-                                    <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="chat.html">
-                            <div class="list-item">
-                                <div class="list-left">
-                                    <span class="avatar">D</span>
-                                </div>
-                                <div class="list-body">
-                                    <span class="message-author"> Domenic Houston </span>
-                                    <span class="message-time">12:28 AM</span>
-                                    <div class="clearfix"></div>
-                                    <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="chat.html">
-                            <div class="list-item">
-                                <div class="list-left">
-                                    <span class="avatar">B</span>
-                                </div>
-                                <div class="list-body">
-                                    <span class="message-author"> Buster Wigton </span>
-                                    <span class="message-time">12:28 AM</span>
-                                    <div class="clearfix"></div>
-                                    <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="chat.html">
-                            <div class="list-item">
-                                <div class="list-left">
-                                    <span class="avatar">R</span>
-                                </div>
-                                <div class="list-body">
-                                    <span class="message-author"> Rolland Webber </span>
-                                    <span class="message-time">12:28 AM</span>
-                                    <div class="clearfix"></div>
-                                    <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="chat.html">
-                            <div class="list-item">
-                                <div class="list-left">
-                                    <span class="avatar">C</span>
-                                </div>
-                                <div class="list-body">
-                                    <span class="message-author"> Claire Mapes </span>
-                                    <span class="message-time">12:28 AM</span>
-                                    <div class="clearfix"></div>
-                                    <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="chat.html">
-                            <div class="list-item">
-                                <div class="list-left">
-                                    <span class="avatar">M</span>
-                                </div>
-                                <div class="list-body">
-                                    <span class="message-author">Melita Faucher</span>
-                                    <span class="message-time">12:28 AM</span>
-                                    <div class="clearfix"></div>
-                                    <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="chat.html">
-                            <div class="list-item">
-                                <div class="list-left">
-                                    <span class="avatar">J</span>
-                                </div>
-                                <div class="list-body">
-                                    <span class="message-author">Jeffery Lalor</span>
-                                    <span class="message-time">12:28 AM</span>
-                                    <div class="clearfix"></div>
-                                    <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="chat.html">
-                            <div class="list-item">
-                                <div class="list-left">
-                                    <span class="avatar">L</span>
-                                </div>
-                                <div class="list-body">
-                                    <span class="message-author">Loren Gatlin</span>
-                                    <span class="message-time">12:28 AM</span>
-                                    <div class="clearfix"></div>
-                                    <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="chat.html">
-                            <div class="list-item">
-                                <div class="list-left">
-                                    <span class="avatar">T</span>
-                                </div>
-                                <div class="list-body">
-                                    <span class="message-author">Tarah Shropshire</span>
-                                    <span class="message-time">12:28 AM</span>
-                                    <div class="clearfix"></div>
-                                    <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="topnav-dropdown-footer">
-                <a href="chat.html">See all messages</a>
-            </div>
-        </div>
-    </div>
-</div>
-<div id="delete_salary" class="modal fade delete-modal" role="dialog">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-body text-center">
-                <img src="assets/img/sent.png" alt="" width="50" height="46">
-                <h3>Are you sure want to delete this Salary?</h3>
-                <div class="m-t-20">
-                    <a href="#" class="btn btn-white" data-dismiss="modal">Close</a>
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-
-
-
-<!-- Add Donation Modal -->
-<div id="addDonationModal" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-            <form method="post" asp-page-handler="AddDonation">
-                <div class="modal-header">
-                    <h4 class="modal-title">Add Donation</h4>
-                    <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Donor  <span class="text-danger">*</span></label>
-                                <select class="select Donner">
-                                    <option> -- Select -- </option>
-                                    <option> Visitor </option>
-                                    <option> John </option>
-                                    <option> Aden </option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Donation Type  <span class="text-danger">*</span></label>
-                                <select class="select Donner">
-                                    <option> -- Select -- </option>
-                                    <option> xyz </option>
-                                    <option> abc </option>
-                                    <option> DEF </option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Amount <span class="text-danger">*</span></label>
-                                <input type="number" name="Amount" class="form-control" step="0.01" required />
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Description</label>
-                                <textarea name="Notes" class="form-control" rows="3"></textarea>
-                            </div>
+    <!-- Delete Confirmation Modal -->
+    <div id="delete_donation" class="modal fade delete-modal" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form method="post" asp-page-handler="DeleteDonation">
+                    <div class="modal-body text-center">
+                        <img src="/assets/img/sent.png" alt="" width="50" height="46">
+                        <h3>Are you sure you want to delete this donation?</h3>
+                        <input type="hidden" name="DonationId" id="deleteDonationId" />
+                        <div class="m-t-20">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-danger">Delete</button>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Save Donation</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                </div>
-            </form>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Donation Modal -->
+    <div id="addDonationModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <form method="post" asp-page-handler="AddDonation">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Add Donation</h4>
+                        <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label asp-for="Donation.MemberId"></label>
+                            <select asp-for="Donation.MemberId" class="form-control">
+                                <option>-- Select Donor --</option>
+                                @foreach (var member in Model.Donors)
+                                {
+                                    <option value="@member.Id">@member.FName @member.LName</option>
+                                }
+                            </select>
+                            <span asp-validation-for="Donation.MemberId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Donation.Type"></label>
+                            <select asp-for="Donation.Type" class="form-control">
+                                <option>-- Select Type --</option>
+                                @foreach (var type in Model.DonationTypes)
+                                {
+                                    <option value="@type.Name">@type.Name</option>
+                                }
+                            </select>
+                            <span asp-validation-for="Donation.Type" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Donation.Amount"></label>
+                            <input asp-for="Donation.Amount" class="form-control" />
+                            <span asp-validation-for="Donation.Amount" class="text-danger"></span>
+                        </div>
+                      
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Donation Modal -->
+    <div id="editDonation" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <form method="post" asp-page-handler="EditDonation">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Edit Donation</h4>
+                        <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" asp-for="Donation.Id" id="editDonationId" />
+                        <div class="form-group">
+                            <label asp-for="Donation.MemberId"></label>
+                            <select asp-for="Donation.MemberId" class="form-control" id="editDonationMember">
+                                <option>-- Select Donor --</option>
+                                @foreach (var member in Model.Donors)
+                                {
+                                    <option value="@member.Id">@member.FName @member.LName</option>
+                                }
+                            </select>
+                            <span asp-validation-for="Donation.MemberId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Donation.Type"></label>
+                            <select asp-for="Donation.Type" class="form-control" id="editDonationType">
+                                <option>-- Select Type --</option>
+                                @foreach (var type in Model.DonationTypes)
+                                {
+                                    <option value="@type.Name">@type.Name</option>
+                                }
+                            </select>
+                            <span asp-validation-for="Donation.Type" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Donation.Amount"></label>
+                            <input asp-for="Donation.Amount" class="form-control" id="editDonationAmount" />
+                            <span asp-validation-for="Donation.Amount" class="text-danger"></span>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
+
+<script>
+     function editDonation(donation) {
+        // Make sure the modal exists and the ID is correct
+        console.log(donation); // Check if the donation object is correct
+
+        // Set values for modal fields
+        var modalId = document.getElementById("editDonation"); // Ensure this matches the modal ID
+        if (modalId) {
+            document.getElementById("editDonationId").value = donation.id;
+            document.getElementById("editDonationMember").value = donation.memberId;
+            document.getElementById("editDonationType").value = donation.type;
+            document.getElementById("editDonationAmount").value = donation.amount;
+
+            // Show the modal
+            var modal = new bootstrap.Modal(modalId);
+            modal.show();
+        } else {
+            console.error("Modal not found: editDonation");
+        }
+    }
+
+
+    function confirmDelete(id) {
+        document.getElementById("deleteDonationId").value = id;
+        var modal = new bootstrap.Modal(document.getElementById('delete_donation'));
+        modal.show();
+    }
+</script>
