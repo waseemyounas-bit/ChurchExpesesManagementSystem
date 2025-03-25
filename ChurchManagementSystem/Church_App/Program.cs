@@ -28,6 +28,7 @@ builder.Services.AddScoped<IVisitorService, VisitorService>();
 builder.Services.AddScoped<IGroupService, GroupService>();
 builder.Services.AddScoped<IDonationTypeService, DonationTypeService>();
 builder.Services.AddScoped<IDonationService, DonationService>();
+builder.Services.AddScoped<IBankAccountService, BankAccountService>();
 
 var app = builder.Build();
 
