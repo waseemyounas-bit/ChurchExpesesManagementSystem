@@ -39,6 +39,7 @@ builder.Services.AddScoped<IBankAccountService, BankAccountService>();
 builder.Services.AddScoped<IVendorService, VendorService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IDepositService, DepositService>();
+builder.Services.AddScoped<IExpenseTypeService, ExpenseTypeService>();
 
 
 var app = builder.Build();

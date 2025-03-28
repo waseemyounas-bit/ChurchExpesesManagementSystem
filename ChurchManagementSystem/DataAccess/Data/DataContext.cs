@@ -21,12 +21,13 @@ namespace DataAccess.Data
         public DbSet<GroupMember> GroupMembers { get; set; }
         public DbSet<Attendance> Attendances { get; set; }
         public DbSet<Donation> Donations { get; set; }
+        public DbSet<ExpenseType> ExpenseTypes { get; set; }
         public DbSet<Expense> Expenses { get; set; }
         public DbSet<BankAccount> BankAccounts { get; set; }
         public DbSet<DonationType> DonationTypes { get; set; }
         public DbSet<DepositTB> DepositTBs { get; set; }
         public DbSet<Vendor> Vendors { get; set; }
-
+        public DbSet<SystemRout> SystemRouts { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
