@@ -40,6 +40,7 @@ builder.Services.AddScoped<IVendorService, VendorService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IDepositService, DepositService>();
 builder.Services.AddScoped<IExpenseTypeService, ExpenseTypeService>();
+builder.Services.AddScoped<IExpenseService, ExpenseService>();
 
 
 var app = builder.Build();
