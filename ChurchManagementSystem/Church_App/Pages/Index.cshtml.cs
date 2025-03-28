@@ -1,4 +1,5 @@
 ﻿using Entities.DTO;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Services;
@@ -36,7 +37,15 @@ namespace Church_App.Pages
 
             if (isAuthenticated)
             {
-                return RedirectToPage("/Dashboard"); // Change to your dashboard page
+                var user = await _authService.GetVerifiedUserAsync(LoginData.UsernameOrEmail, LoginData.Password);
+                if (user != null)
+                {
+                    HttpContext.Session.SetString("UserEmail", user.Email);
+                    HttpContext.Session.SetString("UserName", user.FullName);
+
+                    return RedirectToPage("/ManagementSystem/Dashboard");
+
+                }
             }
 
             ErrorMessage = "Invalid login credentials. Please try again.";

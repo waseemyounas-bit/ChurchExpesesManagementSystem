@@ -1,4 +1,4 @@
-using DataAccess.Data;
+﻿using DataAccess.Data;
 using Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +21,13 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddDefaultTokenProviders()
     .AddRoles<IdentityRole>();
 
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<IMemberService, MemberService>();
@@ -58,7 +65,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-
+app.UseSession(); // 🔥 Add this here
 app.MapRazorPages();
 
 app.Run();

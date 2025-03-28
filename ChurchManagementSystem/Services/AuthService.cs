@@ -45,6 +45,22 @@ namespace Services
             return result;
         }
 
+        public async Task<ApplicationUser?> GetVerifiedUserAsync(string usernameOrEmail, string password)
+        {
+            var user = await _userManager.FindByNameAsync(usernameOrEmail)
+                       ?? await _userManager.FindByEmailAsync(usernameOrEmail);
+
+            if (user == null)
+                return null;
+
+            var result = await _signInManager.CheckPasswordSignInAsync(user, password, false);
+
+            if (!result.Succeeded)
+                return null;
+
+            return user;
+        }
+
         public async Task LogoutAsync()
         {
             await _signInManager.SignOutAsync();
