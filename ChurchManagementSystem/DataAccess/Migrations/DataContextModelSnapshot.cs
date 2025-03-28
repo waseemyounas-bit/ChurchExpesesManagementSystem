@@ -43,7 +43,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("MemberId");
 
-                    b.ToTable("Attendances");
+                    b.ToTable("Attendances", (string)null);
                 });
 
             modelBuilder.Entity("Entities.BankAccount", b =>
@@ -95,7 +95,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BankAccounts");
+                    b.ToTable("BankAccounts", (string)null);
                 });
 
             modelBuilder.Entity("Entities.DepositTB", b =>
@@ -126,7 +126,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DepositTBs");
+                    b.ToTable("DepositTBs", (string)null);
                 });
 
             modelBuilder.Entity("Entities.Donation", b =>
@@ -158,7 +158,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("VisitorId");
 
-                    b.ToTable("Donations");
+                    b.ToTable("Donations", (string)null);
                 });
 
             modelBuilder.Entity("Entities.DonationType", b =>
@@ -179,7 +179,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DonationTypes");
+                    b.ToTable("DonationTypes", (string)null);
                 });
 
             modelBuilder.Entity("Entities.Expense", b =>
@@ -204,7 +204,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Expenses");
+                    b.ToTable("Expenses", (string)null);
                 });
 
             modelBuilder.Entity("Entities.ExpenseType", b =>
@@ -219,7 +219,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ExpenseTypes");
+                    b.ToTable("ExpenseTypes", (string)null);
                 });
 
             modelBuilder.Entity("Entities.Group", b =>
@@ -240,7 +240,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Groups");
+                    b.ToTable("Groups", (string)null);
                 });
 
             modelBuilder.Entity("Entities.GroupMember", b =>
@@ -261,7 +261,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("MemberId");
 
-                    b.ToTable("GroupMembers");
+                    b.ToTable("GroupMembers", (string)null);
                 });
 
             modelBuilder.Entity("Entities.Member", b =>
@@ -336,7 +336,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Members");
+                    b.ToTable("Members", (string)null);
                 });
 
             modelBuilder.Entity("Entities.SystemRout", b =>
@@ -351,7 +351,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SystemRouts");
+                    b.ToTable("SystemRouts", (string)null);
                 });
 
             modelBuilder.Entity("Entities.Vendor", b =>
@@ -399,7 +399,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Vendors");
+                    b.ToTable("Vendors", (string)null);
                 });
 
             modelBuilder.Entity("Entities.Visitor", b =>
@@ -459,7 +459,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Visitors");
+                    b.ToTable("Visitors", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

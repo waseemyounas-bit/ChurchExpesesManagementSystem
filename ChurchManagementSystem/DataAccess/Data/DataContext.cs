@@ -52,6 +52,7 @@ namespace DataAccess.Data
             };
 
             builder.Entity<IdentityRole>().HasData(adminRole);
+
             #endregion
 
         }
