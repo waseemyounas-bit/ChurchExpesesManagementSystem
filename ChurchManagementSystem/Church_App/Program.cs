@@ -41,7 +41,8 @@ builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IDepositService, DepositService>();
 builder.Services.AddScoped<IExpenseTypeService, ExpenseTypeService>();
 builder.Services.AddScoped<IExpenseService, ExpenseService>();
-
+builder.Services.AddScoped<ISystemRoutService, SystemRoutService>();
+builder.Services.AddScoped<IPagePermissionService, PagePermissionService>();
 
 var app = builder.Build();
 

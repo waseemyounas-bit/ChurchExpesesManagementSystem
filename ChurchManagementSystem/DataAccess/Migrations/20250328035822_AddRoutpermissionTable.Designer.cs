@@ -4,6 +4,7 @@ using DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20250328035822_AddRoutpermissionTable")]
+    partial class AddRoutpermissionTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -350,7 +353,10 @@ namespace DataAccess.Migrations
                     b.Property<bool>("IsAllow")
                         .HasColumnType("bit");
 
-                    b.Property<string>("RolId")
+                    b.Property<Guid>("RolId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("RolId1")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
@@ -359,7 +365,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RolId");
+                    b.HasIndex("RolId1");
 
                     b.HasIndex("RoutId");
 
@@ -779,7 +785,7 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", "Rol")
                         .WithMany()
-                        .HasForeignKey("RolId")
+                        .HasForeignKey("RolId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -1,0 +1,68 @@
+﻿@page "/permissions"
+@model Church_App.Pages.ManagementSystem.PagePermissionModel
+@{
+    ViewData["Title"] = "Group Management";
+    Layout = "~/Pages/Shared/_HomeLayout.cshtml";
+}
+
+<h3>Page Permissions</h3>
+
+
+<div class="page-wrapper">
+    <div class="content">
+        <div class="row">
+            <div class="col-sm-4 col-5">
+                <h4 class="page-title">Rout Permissions</h4>
+            </div>
+            <div class="col-sm-8 col-7 text-right m-b-30">
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <form method="post">
+                    <select id="roleSelect" class="form-control" asp-items="Model.Roles" onchange="onRoleChange(this)">
+                        <option value="">-- Select Role --</option>
+                    </select>
+
+                    @if (Model.Permissions != null)
+                    {
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Page</th>
+                                    <th>Is Allowed</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 0; i < Model.Permissions.Count; i++)
+                                {
+                                    <tr>
+                                        <td>@Model.Permissions[i].PageName</td>
+                                        <td>
+                                            <input type="hidden" asp-for="Permissions[i].RoutId" />
+                                            <input type="checkbox" asp-for="Permissions[i].IsAllow" />
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <button type="submit" asp-page-handler="Save" class="btn btn-primary">Update Permissions</button>
+                    }
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<script>
+    function onRoleChange(select) {
+        const roleId = select.value;
+        if (roleId) {
+            window.location.href = '?roleId=' + roleId;
+        }
+    }
+</script>

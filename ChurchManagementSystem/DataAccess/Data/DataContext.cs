@@ -28,6 +28,7 @@ namespace DataAccess.Data
         public DbSet<DepositTB> DepositTBs { get; set; }
         public DbSet<Vendor> Vendors { get; set; }
         public DbSet<SystemRout> SystemRouts { get; set; }
+        public DbSet<RoutPermission> RoutPermissions { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
