@@ -25,36 +25,23 @@ namespace Church_App.Pages.ManagementSystem
         [BindProperty]
         public List<PagePermissionDto> Permissions { get; set; }
 
-        public SelectList Roles { get; set; }
+        public List<IdentityRole> Roles { get; set; } = new List<IdentityRole>();
+        //public SelectList Roles { get; set; }
 
         public async Task OnGetAsync()
         {
-            var roles = await _roleManager.Roles.ToListAsync();
-            Roles = new SelectList(roles, "Id", "Name");
-
+            Roles = await _roleManager.Roles.ToListAsync();
+            SelectedRoleId = Roles.FirstOrDefault()?.Id;
             if (!string.IsNullOrEmpty(SelectedRoleId))
             {
                 Permissions = await _pagePermissionService.GetPermissionsByRoleAsync(SelectedRoleId);
             }
         }
 
-        public async Task OnGetAsync(string roleId)
-        {
-            var roles = await _roleManager.Roles.ToListAsync();
-            Roles = new SelectList(roles, "Id", "Name");
-
-            if (!string.IsNullOrEmpty(roleId))
-            {
-                SelectedRoleId = roleId;
-                Permissions = await _pagePermissionService.GetPermissionsByRoleAsync(roleId);
-            }
-        }
-
         public async Task<IActionResult> OnPostAsync()
         {
-            var roles = await _roleManager.Roles.ToListAsync();
-            Roles = new SelectList(roles, "Id", "Name");
 
+            Roles = await _roleManager.Roles.ToListAsync();
             if (!string.IsNullOrEmpty(SelectedRoleId))
             {
                 Permissions = await _pagePermissionService.GetPermissionsByRoleAsync(SelectedRoleId);
@@ -67,7 +54,25 @@ namespace Church_App.Pages.ManagementSystem
         {
             await _pagePermissionService.UpdatePermissionsAsync(SelectedRoleId, Permissions);
             TempData["Message"] = "Permissions updated successfully!";
-            return RedirectToPage();
+
+            Roles = await _roleManager.Roles.ToListAsync(); // Add this
+            Permissions = await _pagePermissionService.GetPermissionsByRoleAsync(SelectedRoleId); // Optional: reload view
+
+            return Page(); // or RedirectToPage() if you want fresh state
         }
+
+
+        public async Task<IActionResult> OnPostChangeRoleAsync()
+        {
+            Roles = await _roleManager.Roles.ToListAsync();
+
+            if (!string.IsNullOrEmpty(SelectedRoleId))
+            {
+                Permissions = await _pagePermissionService.GetPermissionsByRoleAsync(SelectedRoleId);
+            }
+
+            return Page();
+        }
+
     }
 }

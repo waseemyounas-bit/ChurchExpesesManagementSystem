@@ -28,7 +28,8 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
-
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<PermissionHelper>();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<IMemberService, MemberService>();
 builder.Services.AddScoped<IVisitorService, VisitorService>();
@@ -43,6 +44,7 @@ builder.Services.AddScoped<IExpenseTypeService, ExpenseTypeService>();
 builder.Services.AddScoped<IExpenseService, ExpenseService>();
 builder.Services.AddScoped<ISystemRoutService, SystemRoutService>();
 builder.Services.AddScoped<IPagePermissionService, PagePermissionService>();
+
 
 var app = builder.Build();
 

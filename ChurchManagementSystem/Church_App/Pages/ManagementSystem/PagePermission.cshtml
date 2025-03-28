@@ -21,11 +21,18 @@
 
         <div class="row">
             <div class="col-md-12">
-                <form method="post">
-                    <select id="roleSelect" class="form-control" asp-items="Model.Roles" onchange="onRoleChange(this)">
-                        <option value="">-- Select Role --</option>
+                <form method="post" asp-page-handler="ChangeRole">
+                    <select asp-for="SelectedRoleId" class="form-control" onchange="this.form.submit()">
+                        @foreach (var rol in Model.Roles)
+                        {
+                            <option value="@rol.Id" selected="@(rol.Id == Model.SelectedRoleId ? "selected" : null)">
+                                @rol.Name
+                            </option>
+                        }
                     </select>
+                </form>
 
+                <form method="post">
                     @if (Model.Permissions != null)
                     {
                         <table class="table">
@@ -58,11 +65,3 @@
 
 </div>
 
-<script>
-    function onRoleChange(select) {
-        const roleId = select.value;
-        if (roleId) {
-            window.location.href = '?roleId=' + roleId;
-        }
-    }
-</script>

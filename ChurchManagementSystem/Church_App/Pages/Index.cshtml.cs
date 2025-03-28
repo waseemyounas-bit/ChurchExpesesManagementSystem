@@ -42,6 +42,8 @@ namespace Church_App.Pages
                 {
                     HttpContext.Session.SetString("UserEmail", user.Email);
                     HttpContext.Session.SetString("UserName", user.FullName);
+                    HttpContext.Session.SetString("RoleId", user.RoleId);          // 👈 Add this
+                    //HttpContext.Session.SetString("RoleName", user.Role?.Name);    // 👈 Optional: friendly display name
 
                     return RedirectToPage("/ManagementSystem/Dashboard");
 

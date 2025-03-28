@@ -1,12 +1,26 @@
 ﻿<!DOCTYPE html>
-
+@using Services
+@inject PermissionHelper PermissionHelper
 @{
     var isLoginPage = Context.Request.Path.Value?.ToLower().Contains("index") ?? false;
 
     if (!isLoginPage && string.IsNullOrEmpty(Context.Session.GetString("UserEmail")))
     {
         Context.Response.Redirect("/");
+    }else
+    {
+        var path = Context.Request.Path.Value?.Trim('/').ToLower();
+        var roleId = Context.Session.GetString("RoleId");
+        bool allowAccess = await PermissionHelper.HasAccessAsync(path, roleId);
+        // var allowAccess = await PermissionHelper.HasAccessAsync(path);
+
+        if (!string.IsNullOrEmpty(path) && !allowAccess && path != "index")
+        {
+            Context.Response.Redirect("/NotFound");
+        }
     }
+
+  
 }
 
 <html>
@@ -142,6 +156,7 @@
                 <div id="sidebar-menu" class="sidebar-menu">
                     <ul>
                         <li class="menu-title">Main</li>
+
                         <li class="active">
                             <a href="dashboard"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
                         </li>
@@ -178,6 +193,9 @@
                         <li class="menu-title">System Administrator</li>
                         <li>
                             <a href="administrators"><i class="fa fa-laptop"></i> <span>Manage Access</span></a>
+                        </li>
+                        <li>
+                            <a href="permissions"><i class="fa fa-laptop"></i> <span>Permission</span></a>
                         </li>
                     </ul>
                 </div>
