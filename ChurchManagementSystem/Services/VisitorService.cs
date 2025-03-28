@@ -60,6 +60,10 @@ namespace Services
         {
             return await _context.Visitors.ToListAsync();
         }
+        public List<Visitor> GetAllVisitors()
+        {
+            return  _context.Visitors.ToList();
+        }
     }
 
     public interface IVisitorService
@@ -69,5 +73,6 @@ namespace Services
         Task<bool> DeleteVisitorAsync(Guid id);
         Task<Visitor> GetVisitorByIdAsync(Guid id);
         Task<IEnumerable<Visitor>> GetAllVisitorsAsync();
+        List<Visitor> GetAllVisitors();
     }
 }

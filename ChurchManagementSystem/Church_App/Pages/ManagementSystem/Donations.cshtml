@@ -25,6 +25,7 @@
                         <thead>
                             <tr>
                                 <th>Donor</th>
+                                <th>Donor Type</th>
                                 <th>Type</th>
                                 <th>Date</th>
                                 <th>Amount</th>
@@ -35,19 +36,26 @@
                             @foreach (var donation in Model.DonationList)
                             {
                                 <tr>
-                                    <td>@donation.Member.FName @donation.Member.LName</td>
-                                    <td>@donation.Type</td>
-                                    <td>@donation.Date.ToString("d")</td>
-                                    <td>@donation.Amount</td>
-                                    <td class="text-right">
-                                        <div class="dropdown dropdown-action">
-                                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown">
-                                                <i class="fa fa-ellipsis-v"></i>
+                                    <td>
+                                        @(donation.Member != null
+                                                                            ? donation.Member.FName + " " + donation.Member.LName
+                                                                            : donation.Visitor.FName + " " + donation.Visitor.LName)
+                                </td>
+                                <td>
+                                    @(donation.Member != null ? "Member" : "Visitor")
+                                </td>
+                                <td>@donation.Type</td>
+                                <td>@donation.Date.ToString("d")</td>
+                                <td>@donation.Amount</td>
+                                <td class="text-right">
+                                    <div class="dropdown dropdown-action">
+                                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown">
+                                            <i class="fa fa-ellipsis-v"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a class="dropdown-item" href="#" onclick='editDonation(@Html.Raw(Json.Serialize(donation)))'>
+                                                <i class="fa fa-pencil"></i> Edit
                                             </a>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a class="dropdown-item" href="#" onclick='editDonation(@Html.Raw(Json.Serialize(donation)))'>
-                                                    <i class="fa fa-pencil"></i> Edit
-                                                </a>
 
                                                 <a class="dropdown-item text-danger" href="#" onclick="confirmDelete('@donation.Id')">
                                                     <i class="fa fa-trash"></i> Delete
@@ -55,8 +63,8 @@
                                             </div>
                                         </div>
                                     </td>
-                                </tr>
-                            }
+                            </tr>
+                                                        }
                         </tbody>
                     </table>
                 </div>
@@ -94,6 +102,16 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
+                            <label>Donor Type</label><br />
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="donorTypeToggle" onchange="toggleDonorType()" />
+                                <label class="form-check-label" for="donorTypeToggle">Visitor</label>
+                                <span asp-validation-summary="ModelOnly" class="text-danger"></span>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="memberDropdown">
                             <label asp-for="Donation.MemberId"></label>
                             <select asp-for="Donation.MemberId" class="form-control">
                                 <option>-- Select Donor --</option>
@@ -102,8 +120,21 @@
                                     <option value="@member.Id">@member.FName @member.LName</option>
                                 }
                             </select>
-                            <span asp-validation-for="Donation.MemberId" class="text-danger"></span>
+                           
                         </div>
+
+                        <div class="form-group d-none" id="visitorDropdown">
+                            <label asp-for="Donation.VisitorId"></label>
+                            <select asp-for="Donation.VisitorId" class="form-control">
+                                <option>-- Select Donor --</option>
+                                @foreach (var visitor in Model.Visitors)
+                                {
+                                    <option value="@visitor.Id">@visitor.FName @visitor.LName</option>
+                                }
+                            </select>
+                           
+                        </div>
+
                         <div class="form-group">
                             <label asp-for="Donation.Type"></label>
                             <select asp-for="Donation.Type" class="form-control">
@@ -143,6 +174,14 @@
                     <div class="modal-body">
                         <input type="hidden" asp-for="Donation.Id" id="editDonationId" />
                         <div class="form-group">
+                            <label>Donor Type</label><br />
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="editDonorTypeToggle" onchange="toggleEditDonorType()" />
+                                <label class="form-check-label" for="editDonorTypeToggle">Visitor</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="editMemberDropdown">
                             <label asp-for="Donation.MemberId"></label>
                             <select asp-for="Donation.MemberId" class="form-control" id="editDonationMember">
                                 <option>-- Select Donor --</option>
@@ -151,8 +190,21 @@
                                     <option value="@member.Id">@member.FName @member.LName</option>
                                 }
                             </select>
-                            <span asp-validation-for="Donation.MemberId" class="text-danger"></span>
+         
                         </div>
+
+                        <div class="form-group d-none" id="editVisitorDropdown">
+                            <label asp-for="Donation.VisitorId"></label>
+                            <select asp-for="Donation.VisitorId" class="form-control" id="editDonationVisitor">
+                                <option>-- Select Donor --</option>
+                                @foreach (var visitor in Model.Visitors)
+                                {
+                                    <option value="@visitor.Id">@visitor.FName @visitor.LName</option>
+                                }
+                            </select>
+                           
+                        </div>
+
                         <div class="form-group">
                             <label asp-for="Donation.Type"></label>
                             <select asp-for="Donation.Type" class="form-control" id="editDonationType">
@@ -207,5 +259,48 @@
         document.getElementById("deleteDonationId").value = id;
         var modal = new bootstrap.Modal(document.getElementById('delete_donation'));
         modal.show();
+    }
+
+
+    function editDonation(donation) {
+        console.log(donation);
+
+        document.getElementById("editDonationId").value = donation.id;
+        document.getElementById("editDonationType").value = donation.type;
+        document.getElementById("editDonationAmount").value = donation.amount;
+
+        // Detect if donor is visitor or member
+        const isVisitor = donation.visitorId != null;
+
+        // Toggle visibility
+        document.getElementById("editDonorTypeToggle").checked = isVisitor;
+        toggleEditDonorType();
+
+        // Set donor dropdown values
+        if (isVisitor) {
+            document.getElementById("editDonationVisitor").value = donation.visitorId;
+        } else {
+            document.getElementById("editDonationMember").value = donation.memberId;
+        }
+
+        // Show modal
+        const modal = new bootstrap.Modal(document.getElementById("editDonation"));
+        modal.show();
+    }
+
+</script>
+<script>
+    function toggleDonorType() {
+        const isVisitor = document.getElementById("donorTypeToggle").checked;
+        const memberDropdown = document.getElementById("memberDropdown");
+        const visitorDropdown = document.getElementById("visitorDropdown");
+
+        if (isVisitor) {
+            visitorDropdown.classList.remove("d-none");
+            memberDropdown.classList.add("d-none");
+        } else {
+            memberDropdown.classList.remove("d-none");
+            visitorDropdown.classList.add("d-none");
+        }
     }
 </script>

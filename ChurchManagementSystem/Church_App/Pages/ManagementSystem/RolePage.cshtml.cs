@@ -22,6 +22,7 @@ namespace Church_App.Pages.ManagementSystem
         [BindProperty]
         public string RoleId { get; set; }
 
+
         public async Task OnGetAsync()
         {
             RoleList = _roleService.GetAllRoles().ToList();

@@ -31,9 +31,31 @@ namespace Services
             return result.Succeeded;
         }
 
+        public async Task<IdentityResult> RegisterAsync(string email, string password,Member member, string RolId)
+        {
+            var user = new ApplicationUser
+            {
+                UserName = email,
+                Email = email,
+                 MemberId= member.Id, FirstName= member.FName,
+                FullName = member.FName + " " + member.LName, RoleId = RolId
+            };
+
+            var result = await _userManager.CreateAsync(user, password);
+            return result;
+        }
+
         public async Task LogoutAsync()
         {
             await _signInManager.SignOutAsync();
         }
+
+        public List<ApplicationUser> GetUsersWitMemberAsync()
+        {
+            return _userManager.Users
+                    .Where(u => u.MemberId != null)
+                    .ToList();
+        }
+
     }
 }

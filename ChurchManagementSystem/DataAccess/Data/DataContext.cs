@@ -24,7 +24,7 @@ namespace DataAccess.Data
         public DbSet<Expense> Expenses { get; set; }
         public DbSet<BankAccount> BankAccounts { get; set; }
         public DbSet<DonationType> DonationTypes { get; set; }
-        //public DbSet<ApplicationRole> ApplicationRoles { get; set; }
+        public DbSet<DepositTB> DepositTBs { get; set; }
         public DbSet<Vendor> Vendors { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)

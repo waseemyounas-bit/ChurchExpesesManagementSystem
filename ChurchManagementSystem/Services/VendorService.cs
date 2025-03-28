@@ -21,7 +21,10 @@ namespace Services
         {
             return await _context.Vendors.ToListAsync();
         }
-
+        public List<Vendor> GetAllVendors()
+        {
+            return  _context.Vendors.ToList();
+        }
         public async Task<Vendor> GetVendorByIdAsync(Guid id)
         {
             return await _context.Vendors.FindAsync(id);
@@ -74,5 +77,6 @@ namespace Services
         Task<Vendor> AddVendorAsync(Vendor vendor);
         Task<bool> UpdateVendorAsync(Vendor vendor);
         Task<bool> DeleteVendorAsync(Guid id);
+        List<Vendor> GetAllVendors();
     }
 }

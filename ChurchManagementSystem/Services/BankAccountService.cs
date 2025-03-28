@@ -22,6 +22,10 @@ namespace Services
             return await _context.BankAccounts.ToListAsync();
         }
 
+        public  List<BankAccount> GetAllBank()
+        {
+            return  _context.BankAccounts.ToList();
+        }
         public async Task<BankAccount> GetByIdAsync(Guid id)
         {
             return await _context.BankAccounts.FindAsync(id);
@@ -72,5 +76,6 @@ namespace Services
         Task<BankAccount> CreateAsync(BankAccount account);
         Task<BankAccount> UpdateAsync(Guid id, BankAccount account);
         Task<bool> DeleteAsync(Guid id);
+        List<BankAccount> GetAllBank();
     }
 }

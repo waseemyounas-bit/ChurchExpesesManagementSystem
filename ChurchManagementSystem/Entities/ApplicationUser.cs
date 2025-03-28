@@ -14,6 +14,7 @@ namespace Entities
 
         public string RoleId { get; set; }
 
+        public Guid? MemberId { get; set; }
         public IdentityRole? Role { get; set; }
     }
 }

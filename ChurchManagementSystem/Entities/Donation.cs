@@ -11,9 +11,12 @@ namespace Entities
     {
         public Guid Id { get; set; }
 
-        [Required(ErrorMessage = "Member is required.")]
+
         public Guid? MemberId { get; set; }
 
+        public Guid? VisitorId { get; set; }
+
+       
         [Required(ErrorMessage = "Amount is required.")]
         [Range(0.01, double.MaxValue, ErrorMessage = "Amount must be greater than zero.")]
         public decimal Amount { get; set; }
@@ -26,5 +29,19 @@ namespace Entities
         public DateTime Date { get; set; } = DateTime.Now;
 
         public Member? Member { get; set; }
+        public Visitor? Visitor { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (MemberId == null && VisitorId == null)
+            {
+                yield return new ValidationResult("Either Member or Visitor must be selected.", new[] { "MemberId", "VisitorId" });
+            }
+
+            if (MemberId != null && VisitorId != null)
+            {
+                yield return new ValidationResult("Select only one: Member or Visitor — not both.", new[] { "MemberId", "VisitorId" });
+            }
+        }
     }
 }

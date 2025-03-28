@@ -25,30 +25,34 @@
                         <thead>
                             <tr>
                                 <th>User's Name</th>
+                                <th>Email</th>
                                 <th>User's Level</th>
-                                <th>Username</th>
                                 <th class="text-right">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>John Doe</td>
-                                <td>Super Admin</td>
-                                <td>admin_john</td>
-                                <td class="text-right">
-                                    <div class="dropdown dropdown-action">
-                                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown">
-                                            <i class="fa fa-ellipsis-v"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="#"><i class="fa fa-pencil"></i> Edit</a>
-                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_admin">
-                                                <i class="fa fa-trash"></i> Delete
+                            @foreach (var item in Model.applicationUsers)
+                            {
+                                <tr>
+                                    <td>@item.FullName</td>
+                                    <td>@item.Email</td>
+                                    <td>@item.Role.Name</td>
+                                    <td class="text-right">
+                                        <div class="dropdown dropdown-action">
+                                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown">
+                                                <i class="fa fa-ellipsis-v"></i>
                                             </a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a class="dropdown-item" href="#"><i class="fa fa-pencil"></i> Edit</a>
+                                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_admin">
+                                                    <i class="fa fa-trash"></i> Delete
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
+                            }
+                           
                             <!-- More admin entries here -->
                         </tbody>
                     </table>
@@ -88,11 +92,12 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>User's Name <span class="text-danger">*</span></label>
-                                <select name="UserName" class="form-control" required>
+                                <select asp-for="Acccess.MemberId" class="form-control">
                                     <option value="">Select a User</option>
-                                    <option value="John Doe">John Doe</option>
-                                    <option value="Jane Smith">Jane Smith</option>
-                                    <option value="Michael Brown">Michael Brown</option>
+                                    @foreach (var member in Model.members)
+                                    {
+                                        <option value="@member.Id">@member.FName @member.LName</option>
+                                    }
                                     <!-- More users can be added here -->
                                 </select>
                             </div>
@@ -101,11 +106,12 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>User's Level <span class="text-danger">*</span></label>
-                                <select name="UserLevel" class="form-control" required>
+                                < <select asp-for="Acccess.RolId" class="form-control">
                                     <option value="">Select a Level</option>
-                                    <option value="Super Admin">Super Admin</option>
-                                    <option value="Admin">Admin</option>
-                                    <option value="Moderator">Moderator</option>
+                                    @foreach (var rol in Model.roles)
+                                    {
+                                        <option value="@rol.Id">@rol.Name</option>
+                                    }
                                     <!-- More levels can be added here -->
                                 </select>
                             </div>
@@ -113,15 +119,17 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Username <span class="text-danger">*</span></label>
-                                <input type="text" name="Username" class="form-control" required />
+                                <label>Email <span class="text-danger">*</span></label>
+                                <input asp-for="Acccess.Email" class="form-control" id="Email" />
+                                <span asp-validation-for="Acccess.Email" class="text-danger"></span>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Password <span class="text-danger">*</span></label>
-                                <input type="password" name="Password" class="form-control" required />
+                                <input type="password" asp-for="Acccess.Password" class="form-control" id="Password" />
+                                <span asp-validation-for="Acccess.Password" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
