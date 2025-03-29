@@ -26,6 +26,14 @@ namespace Services
         {
             return  _context.DepositTBs.OrderByDescending(d => d.Date).ToList();
         }
+        public List<DepositTB> GetAll(DateTime fromdate, DateTime todate)
+        {
+            return _context.DepositTBs.Where(x=>x.Date>=fromdate.Date && x.Date <= todate.Date).OrderByDescending(d => d.Date).ToList();
+        }
+        public List<DepositTB> GetAll(DateTime fromdate, DateTime todate, string bankname)
+        {
+            return _context.DepositTBs.Where(x => x.Date >= fromdate.Date && x.Date <= todate.Date && x.Bank==bankname).OrderByDescending(d => d.Date).ToList();
+        }
 
         public async Task<DepositTB> GetByIdAsync(Guid id)
         {
@@ -71,6 +79,8 @@ namespace Services
     public interface IDepositService
     {
         Task<IEnumerable<DepositTB>> GetAllAsync();
+        List<DepositTB> GetAll(DateTime fromdate, DateTime todate);
+        List<DepositTB> GetAll(DateTime fromdate, DateTime todate, string bankname);
         Task<DepositTB> GetByIdAsync(Guid id);
         Task<DepositTB> CreateAsync(DepositTB deposit);
         Task<DepositTB> UpdateAsync(Guid id, DepositTB deposit);

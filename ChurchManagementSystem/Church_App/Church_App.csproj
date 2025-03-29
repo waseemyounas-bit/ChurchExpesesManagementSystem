@@ -28,6 +28,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="wwwroot\dataset\DepositDS.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DepositDS.xsd</DependentUpon>
+    </Content>
+    <Content Update="wwwroot\dataset\DepositDS.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DepositDS.Designer.cs</LastGenOutput>
+    </Content>
     <Content Update="wwwroot\dataset\DonationDS.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

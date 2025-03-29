@@ -8,6 +8,9 @@
     <Controller_SelectedScaffolderCategoryPath>root/Common/Api</Controller_SelectedScaffolderCategoryPath>
   </PropertyGroup>
   <ItemGroup>
+    <Content Update="wwwroot\dataset\DepositDS.xsd">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Update="wwwroot\dataset\DonationDS.xsd">
       <SubType>Designer</SubType>
     </Content>
