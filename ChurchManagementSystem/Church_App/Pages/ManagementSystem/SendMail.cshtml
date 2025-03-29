@@ -16,38 +16,41 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="mb-3">
-                    <label class="form-label">Recipients</label>
-                    <select asp-for="SelectedRecipients" class="form-select" multiple size="8">
-                        @foreach (var user in Model.AllRecipients)
-                        {
-                            <option value="@user.Email">@user.Name (@user.Email)</option>
-                        }
-                    </select>
-                    <span asp-validation-for="SelectedRecipients" class="text-danger"></span>
-                </div>
-                <div class="mb-3">
-                    <label asp-for="Email.Subject" class="form-label">Subject</label>
-                    <input asp-for="Email.Subject" class="form-control" />
-                    <span asp-validation-for="Email.Subject" class="text-danger"></span>
-                </div>
+        <form method="post">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mb-3">
+                        <label class="form-label">Recipients</label>
+                        <select asp-for="SelectedRecipients" class="form-select" multiple size="8">
+                            @foreach (var user in Model.AllRecipients)
+                            {
+                                <option value="@user.Email">@user.Name (@user.Email)</option>
+                            }
+                        </select>
+                        <span asp-validation-for="SelectedRecipients" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Email.Subject" class="form-label">Subject</label>
+                        <input asp-for="Email.Subject" class="form-control" />
+                        <span asp-validation-for="Email.Subject" class="text-danger"></span>
+                    </div>
 
-                <div class="mb-3">
-                    <label asp-for="Email.Body" class="form-label">Body</label>
-                    <textarea asp-for="Email.Body" class="form-control" rows="5"></textarea>
-                    <span asp-validation-for="Email.Body" class="text-danger"></span>
+                    <div class="mb-3">
+                        <label asp-for="Email.Body" class="form-label">Body</label>
+                        <textarea asp-for="Email.Body" class="form-control" rows="5"></textarea>
+                        <span asp-validation-for="Email.Body" class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Send Email</button>
+
+                    @if (Model.MessageSent)
+                    {
+                        <div class="alert alert-success mt-3">Email sent successfully!</div>
+                    }
                 </div>
-
-                <button type="submit" class="btn btn-primary">Send Email</button>
-
-                @if (Model.MessageSent)
-                {
-                    <div class="alert alert-success mt-3">Email sent successfully!</div>
-                }
             </div>
-        </div>
+        </form>
+
     </div>
 
 

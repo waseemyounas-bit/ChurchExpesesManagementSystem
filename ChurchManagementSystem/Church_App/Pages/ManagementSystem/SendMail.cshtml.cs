@@ -1,5 +1,8 @@
+using Entities.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Options;
+using Services;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
 using System.Net.Mail;
@@ -18,6 +21,14 @@ namespace Church_App.Pages.ManagementSystem
 
         public List<UserDto> AllRecipients { get; set; }
 
+        private readonly EmailSettings _emailSettings;
+
+        private readonly IMemberService _memberService;
+        public SendMailModel(IOptions<EmailSettings> emailOptions, IMemberService memberService)
+        {
+            _emailSettings = emailOptions.Value;
+            _memberService = memberService;
+        }
         public void OnGet()
         {
             LoadRecipients();
@@ -60,16 +71,16 @@ namespace Church_App.Pages.ManagementSystem
 
         private void SendEmail(string to, string subject, string body)
         {
-            var smtpClient = new SmtpClient("smtp.your-email.com")
+            var smtpClient = new SmtpClient(_emailSettings.Host)
             {
-                Port = 587,
-                Credentials = new NetworkCredential("your-email@example.com", "your-email-password"),
-                EnableSsl = true,
+                Port = _emailSettings.Port,
+                Credentials = new NetworkCredential(_emailSettings.Username, _emailSettings.Password),
+                EnableSsl = _emailSettings.EnableSsl,
             };
 
             var mailMessage = new MailMessage
             {
-                From = new MailAddress("your-email@example.com"),
+                From = new MailAddress(_emailSettings.FromEmail, _emailSettings.FromName),
                 Subject = subject,
                 Body = body,
                 IsBodyHtml = true,
@@ -79,30 +90,18 @@ namespace Church_App.Pages.ManagementSystem
             smtpClient.Send(mailMessage);
         }
 
+
         private void LoadRecipients()
         {
-            // Simulated data - replace with DB call to Members & Visitors table
-            AllRecipients = new List<UserDto>
-        {
-            new UserDto { Name = "John Doe", Email = "john@example.com" },
-            new UserDto { Name = "Mary Smith", Email = "mary@example.com" },
-            new UserDto { Name = "Visitor Joe", Email = "joe.visitor@example.com" }
-        };
+            var results= _memberService.GetAllMembers();
+            foreach (var item in results)
+            {
+                AllRecipients.Add(new UserDto { Name = item.FName + " " + item.LName, Email = item.Email });
+            }
+        
         }
 
-        public class EmailDto
-        {
-            [Required]
-            public string Subject { get; set; }
-
-            [Required]
-            public string Body { get; set; }
-        }
-
-        public class UserDto
-        {
-            public string Name { get; set; }
-            public string Email { get; set; }
-        }
+      
+       
     }
 }

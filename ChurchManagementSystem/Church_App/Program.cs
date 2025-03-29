@@ -1,5 +1,6 @@
 ﻿using DataAccess.Data;
 using Entities;
+using Entities.DTO;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Services;
@@ -30,6 +31,7 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<PermissionHelper>();
 builder.Services.AddScoped<AuthService>();

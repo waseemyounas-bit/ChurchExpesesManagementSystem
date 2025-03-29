@@ -75,7 +75,7 @@ namespace Church_App.Pages.ManagementSystem
             }
             foreach (var item in collection)
             {
-                datalist.Add(new DonationReportDS { Date= item.Date.ToString("d"), DonnerType = item.MemberId == null ? "Visitor" : "Member", Name = item.MemberId == null ? item.Visitor.FName : item.Member.FName, Amount =Convert.ToDouble(item.Amount) });
+                datalist.Add(new DonationReportDS { Date= item.Date.ToString("d"), DonnerType = item.MemberId == null ? "Visitor" : "Member", Name = item.MemberId == null ? item.Visitor.FName+" "+item.Visitor.LName : item.Member.FName + " " + item.Member.LName, Amount =Convert.ToDouble(item.Amount) });
             }
                
             parameters.Add(new BoldReports.Models.ReportViewer.ReportParameter() { Name = "type", Values = new List<string>() { SelectedOption } });
