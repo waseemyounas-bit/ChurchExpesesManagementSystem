@@ -1,0 +1,61 @@
+﻿@page "/donationreport"
+@model Church_App.Pages.ManagementSystem.DonationreportsModel
+@{
+    ViewData["Title"] = "Donation Report";
+    Layout = "~/Pages/Shared/_HomeLayout.cshtml";
+}
+
+
+<div class="page-wrapper">
+    <div class="content">
+        <div class="row">
+            <div class="col-sm-4 col-5">
+                <h4 class="page-title">Donation Report</h4>
+            </div>
+            <div class="col-sm-8 col-7 text-right m-b-30">
+               
+            </div>
+        </div>
+        <form method="post" >
+        <div class="row">
+            <div class="col-md-3">
+                <b>From</b>
+                <input type="date" style="height: 27px;   padding: 2px; font-size: 13px;" asp-for="fromdate" class="form-control" />
+            </div>
+            <div class="col-md-3">
+                <b>To</b>
+                <input type="date" style="height: 27px;   padding: 2px; font-size: 13px;" asp-for="todate" class="form-control" />
+            </div>
+            <div class="col-md-3">
+                <b>Products</b>
+                <select id="product" asp-for="SelectedOption" style="height: 27px;   padding: 2px; font-size: 13px;" class="form-control" asp-items="Model.Options">
+                </select>
+            </div>
+            <div class="col-md-3" style="padding-top:20px">
+                <button type="submit" class="btn btn-primary filter-button" asp-page-handler="ButtonClick">Filter</button>
+            </div>
+        </div>
+        </form>
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <bold-report-viewer id="viewer" report-path="@Model.report" report-service-url="/api/ReportViewer" dataSources="@Model.Dataset" parameters="@Model.parameters"></bold-report-viewer>
+
+
+            </div>
+        </div>
+    </div>
+
+   
+</div>
+
+<style>
+    #viewer_viewerContainer{
+        height:600px !important
+    }
+
+    #viewer_viewBlockContainer{
+        display:none !important
+    }
+</style>

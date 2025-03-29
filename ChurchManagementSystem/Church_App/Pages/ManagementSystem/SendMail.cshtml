@@ -1,0 +1,54 @@
+﻿@page "/sendmail"
+@model Church_App.Pages.ManagementSystem.SendMailModel
+@{
+    ViewData["Title"] = "Group Management";
+    Layout = "~/Pages/Shared/_HomeLayout.cshtml";
+}
+
+
+<div class="page-wrapper">
+    <div class="content">
+        <div class="row">
+            <div class="col-sm-4 col-5">
+                <h4 class="page-title">Send Messages</h4>
+            </div>
+            <div class="col-sm-8 col-7 text-right m-b-30">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="mb-3">
+                    <label class="form-label">Recipients</label>
+                    <select asp-for="SelectedRecipients" class="form-select" multiple size="8">
+                        @foreach (var user in Model.AllRecipients)
+                        {
+                            <option value="@user.Email">@user.Name (@user.Email)</option>
+                        }
+                    </select>
+                    <span asp-validation-for="SelectedRecipients" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Email.Subject" class="form-label">Subject</label>
+                    <input asp-for="Email.Subject" class="form-control" />
+                    <span asp-validation-for="Email.Subject" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Email.Body" class="form-label">Body</label>
+                    <textarea asp-for="Email.Body" class="form-control" rows="5"></textarea>
+                    <span asp-validation-for="Email.Body" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Send Email</button>
+
+                @if (Model.MessageSent)
+                {
+                    <div class="alert alert-success mt-3">Email sent successfully!</div>
+                }
+            </div>
+        </div>
+    </div>
+
+
+</div>

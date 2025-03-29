@@ -21,17 +21,39 @@ namespace Services
         public async Task<IEnumerable<Donation>> GetAllDonationsAsync()
         {
             return await _context.Donations
-                                 .Include(d => d.Member)  // Include Member for the join
+                                 .Include(d => d.Member).Include(d=>d.Visitor)  // Include Member for the join
                                  .ToListAsync();
         }
         // Get all donations
         public List<Donation> GetAllDonations()
         {
             return  _context.Donations
-                                 .Include(d => d.Member)  // Include Member for the join
+                                 .Include(d => d.Member).Include(d => d.Visitor)  // Include Member for the join
+                                 .ToList();
+        }
+        public List<Donation> GetAllDonations(DateTime fromdate, DateTime todate)
+        {
+            return _context.Donations.Where(x=>x.Date.Date>= fromdate.Date && x.Date <= todate.Date)
+                                 .Include(d => d.Member).Include(d => d.Visitor)  // Include Member for the join
                                  .ToList();
         }
 
+        public List<Donation> GetAllDonations(DateTime fromdate, DateTime todate, string type)
+        {
+            if (type=="M")
+            {
+                return _context.Donations.Where(x => x.Date.Date >= fromdate.Date && x.Date <= todate.Date && x.VisitorId==null)
+                                     .Include(d => d.Member).Include(d => d.Visitor)  // Include Member for the join
+                                     .ToList();
+            }
+            else
+            {
+                return _context.Donations.Where(x => x.Date.Date >= fromdate.Date && x.Date <= todate.Date && x.MemberId==null)
+                                     .Include(d => d.Member).Include(d => d.Visitor)  // Include Member for the join
+                                     .ToList();
+            }
+                
+        }
         // Get a donation by its ID
         public async Task<Donation> GetDonationByIdAsync(Guid donationId)
         {
@@ -74,5 +96,7 @@ namespace Services
         Task UpdateDonationAsync(Donation donation);
         Task DeleteDonationAsync(Guid donationId);
         List<Donation> GetAllDonations();
+        List<Donation> GetAllDonations(DateTime fromdate, DateTime todate);
+        List<Donation> GetAllDonations(DateTime fromdate, DateTime todate, string type);
     }
 }

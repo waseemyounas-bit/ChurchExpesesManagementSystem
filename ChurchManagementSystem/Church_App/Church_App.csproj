@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BoldReports.AspNet.Core" Version="7.1.10" />
+    <PackageReference Include="BoldReports.Net.Core" Version="7.1.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="9.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.3">
@@ -23,6 +25,27 @@
   <ItemGroup>
     <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
     <ProjectReference Include="..\Services\Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\dataset\DonationDS.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DonationDS.xsd</DependentUpon>
+    </Content>
+    <Content Update="wwwroot\dataset\DonationDS.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DonationDS.Designer.cs</LastGenOutput>
+    </Content>
+    <Content Update="wwwroot\dataset\ImagesDs.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ImagesDs.xsd</DependentUpon>
+    </Content>
+    <Content Update="wwwroot\dataset\ImagesDs.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ImagesDs.Designer.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
 
 </Project>

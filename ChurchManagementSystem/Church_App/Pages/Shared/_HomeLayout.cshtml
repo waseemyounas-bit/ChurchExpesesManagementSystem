@@ -37,6 +37,19 @@
     <!-- DataTables Buttons Bootstrap 4 support -->
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap4.min.css" />
 
+
+
+
+    <!-- Report Viewer component styles -->
+    <link href="https://cdn.boldreports.com/8.1.1/content/v2.0/tailwind-light/bold.report-viewer.min.css" rel="stylesheet" />
+
+    <!-- Report Viewer component dependent script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.boldreports.com/8.1.1/scripts/v2.0/common/bold.reports.common.min.js"></script>
+    <script src="https://cdn.boldreports.com/8.1.1/scripts/v2.0/common/bold.reports.widgets.min.js"></script>
+
+    <!-- Report Viewer component script -->
+    <script src="https://cdn.boldreports.com/8.1.1/scripts/v2.0/bold.report-viewer.min.js"></script>
 </head>
 <body>
     <div class="main-wrapper">
@@ -183,6 +196,14 @@
 
                         </li>
                         <li class="submenu">
+                            <a href="#"><i class="fa fa-cog"></i> <span> Reporting </span> <span class="menu-arrow"></span></a>
+                            <ul style="display: none;">
+                                <li><a href="donationreport">Donation Report</a></li>
+
+                            </ul>
+
+                        </li>
+                        <li class="submenu">
                             <a href="#"><i class="fa fa-money"></i> <span> Account </span> <span class="menu-arrow"></span></a>
                             <ul style="display: none;">
                                 <li><a href="banks">Banks</a></li>
@@ -197,13 +218,17 @@
                         <li>
                             <a href="permissions"><i class="fa fa-laptop"></i> <span>Permission</span></a>
                         </li>
+                        <li>
+                            <a href="sendmail"><i class="fa fa-laptop"></i> <span>Send Mail</span></a>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
         @RenderBody()
     </div>
-
+    <!-- Bold Reports<sup>®</sup> script manager -->
+    <bold-script-manager></bold-script-manager>
     <div class="sidebar-overlay" data-reff=""></div>
     <script src="~/assets/js/jquery-3.2.1.min.js"></script>
     <script src="~/assets/js/popper.min.js"></script>

@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Services;
 
+// Add bold report services
+Bold.Licensing.BoldLicenseProvider.RegisterLicense("Y6LiubUOovhwkp6Tx51f35QqKEWgI47X8rMfB3QkgQQ=");
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -68,7 +70,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.MapControllers(); // User For Bold Report Controller
 app.UseAuthorization();
 app.UseSession(); // 🔥 Add this here
 app.MapRazorPages();
