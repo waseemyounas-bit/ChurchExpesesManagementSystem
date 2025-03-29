@@ -31,6 +31,11 @@ namespace Services
             return result.Succeeded;
         }
 
+        public async Task<ApplicationUser?> GetUserByEmailAsync(string email)
+        {
+            return await _userManager.FindByEmailAsync(email);
+        }
+
         public async Task<IdentityResult> RegisterAsync(string email, string password,Member member, string RolId)
         {
             var user = new ApplicationUser
@@ -72,6 +77,39 @@ namespace Services
                     .Where(u => u.MemberId != null)
                     .ToList();
         }
+
+        public async Task<IdentityResult> UpdateUserAsync(ApplicationUser updatedUser, string? newPassword = null)
+        {
+            var user = await _userManager.FindByIdAsync(updatedUser.Id);
+            if (user == null)
+                return IdentityResult.Failed(new IdentityError { Description = "User not found." });
+
+            // Update basic fields
+            user.FirstName = updatedUser.FirstName;
+            user.FullName = updatedUser.FullName;
+            user.PhoneNumber = updatedUser.PhoneNumber;
+
+            // Update password if provided
+            IdentityResult passwordResult = IdentityResult.Success;
+            if (!string.IsNullOrWhiteSpace(newPassword))
+            {
+                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                passwordResult = await _userManager.ResetPasswordAsync(user, token, newPassword);
+                if (!passwordResult.Succeeded)
+                    return passwordResult;
+            }
+
+            // Save updates
+            var result = await _userManager.UpdateAsync(user);
+            return result;
+        }
+
+        public async Task<ApplicationUser?> GetUserByIdAsync(string userId)
+        {
+            return await _userManager.FindByIdAsync(userId);
+        }
+
+
 
     }
 }

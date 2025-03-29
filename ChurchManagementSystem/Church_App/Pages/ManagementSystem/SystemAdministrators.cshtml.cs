@@ -25,6 +25,9 @@ namespace Church_App.Pages.ManagementSystem
         public List<Member> members { get; set; } = new List<Member>();
         public List<IdentityRole> roles { get; set; } = new List<IdentityRole>();
         public List<ApplicationUser> applicationUsers { get; set; } = new List<ApplicationUser>();
+        [BindProperty]
+        public UpdatePasswordDTO UpdatePasswordModel { get; set; } = new UpdatePasswordDTO();
+
         public void OnGet()
         {
             members = _memberService.GetAllMembers().ToList();
@@ -51,5 +54,37 @@ namespace Church_App.Pages.ManagementSystem
 
             return RedirectToPage();
         }
+
+        public async Task<IActionResult> OnPostUpdatePasswordAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                OnGet(); // Refresh page data
+                return Page();
+            }
+
+            var user = await _authService.GetUserByIdAsync(UpdatePasswordModel.UserId);
+            if (user == null)
+            {
+                ModelState.AddModelError("", "User not found.");
+                OnGet();
+                return Page();
+            }
+
+            var result = await _authService.UpdateUserAsync(user, UpdatePasswordModel.NewPassword);
+
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                    ModelState.AddModelError(string.Empty, error.Description);
+
+                OnGet();
+                return Page();
+            }
+
+            TempData["Success"] = "Password updated successfully.";
+            return RedirectToPage();
+        }
+
     }
 }
