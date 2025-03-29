@@ -22,7 +22,10 @@ namespace Services
         {
             return await _context.ExpenseTypes.ToListAsync();
         }
-
+        public List<ExpenseType> GetAlltypes()
+        {
+            return  _context.ExpenseTypes.ToList();
+        }
         public async Task<ExpenseType?> GetByIdAsync(Guid id)
         {
             return await _context.ExpenseTypes.FindAsync(id);
@@ -63,5 +66,6 @@ namespace Services
         Task AddAsync(ExpenseType expenseType);
         Task<bool> UpdateAsync(ExpenseType expenseType);
         Task<bool> DeleteAsync(Guid id);
+        List<ExpenseType> GetAlltypes();
     }
 }

@@ -23,6 +23,14 @@ namespace Services
             return await _context.Expenses.ToListAsync();
         }
 
+        public List<Expense> GetExpenses(DateTime fromdate, DateTime todate)
+        {
+            return  _context.Expenses.Where(x=>x.Date >= fromdate.Date && x.Date <= todate.Date).ToList();
+        }
+        public List<Expense> GetExpenses(DateTime fromdate, DateTime todate, string type)
+        {
+            return _context.Expenses.Where(x => x.Date >= fromdate.Date && x.Date <= todate.Date && x.Category==type).ToList();
+        }
         public async Task<Expense> GetByIdAsync(Guid id)
         {
             return await _context.Expenses.FindAsync(id);
@@ -62,6 +70,8 @@ namespace Services
     public interface IExpenseService
     {
         Task<List<Expense>> GetAllAsync();
+        List<Expense> GetExpenses(DateTime fromdate, DateTime todate);
+        List<Expense> GetExpenses(DateTime fromdate, DateTime todate, string type);
         Task<Expense> GetByIdAsync(Guid id);
         Task AddAsync(Expense expense);
         Task UpdateAsync(Expense expense);
