@@ -19,7 +19,7 @@ namespace Church_App.Pages.ManagementSystem
 
         public bool MessageSent { get; set; } = false;
 
-        public List<UserDto> AllRecipients { get; set; }
+        public List<UserDto> AllRecipients { get; set; }= new List<UserDto>();  
 
         private readonly EmailSettings _emailSettings;
 
@@ -93,6 +93,7 @@ namespace Church_App.Pages.ManagementSystem
 
         private void LoadRecipients()
         {
+            AllRecipients = new List<UserDto>();
             var results= _memberService.GetAllMembers();
             foreach (var item in results)
             {
