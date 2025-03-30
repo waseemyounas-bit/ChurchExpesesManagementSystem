@@ -19,13 +19,15 @@ namespace Church_App.Pages.ManagementSystem
             this._roleService = roleService;
             _authService = authService;
         }
-        [BindProperty]
-        public AccessManageDTO Acccess { get; set; }
+
 
         public List<Member> members { get; set; } = new List<Member>();
         public List<IdentityRole> roles { get; set; } = new List<IdentityRole>();
         public List<ApplicationUser> applicationUsers { get; set; } = new List<ApplicationUser>();
-        [BindProperty]
+        [BindProperty(SupportsGet = false)]
+        public AccessManageDTO Acccess { get; set; }
+
+        [BindProperty(SupportsGet = false)]
         public UpdatePasswordDTO UpdatePasswordModel { get; set; } = new UpdatePasswordDTO();
 
         public void OnGet()
@@ -38,13 +40,15 @@ namespace Church_App.Pages.ManagementSystem
 
         public async Task<IActionResult> OnPostAddAdminAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                 OnGet();
-                return Page();
-            }
-            Member member =await _memberService.GetMemberByIdAsync(Acccess.MemberId);
-            var result =await _authService.RegisterAsync(Acccess.Email,Acccess.Password, member,Acccess.RolId);
+            //if (!TryValidateModel(Acccess, nameof(Acccess)))
+            //{
+            //    OnGet(); // reload members/roles/users
+            //    return Page();
+            //}
+
+            var member = await _memberService.GetMemberByIdAsync(Acccess.MemberId);
+            var result = await _authService.RegisterAsync(Acccess.Email, Acccess.Password, member, Acccess.RolId);
+
             if (!result.Succeeded)
             {
                 ModelState.AddModelError("", "Failed to add role.");
@@ -55,13 +59,14 @@ namespace Church_App.Pages.ManagementSystem
             return RedirectToPage();
         }
 
+
         public async Task<IActionResult> OnPostUpdatePasswordAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                OnGet(); // Refresh page data
-                return Page();
-            }
+            //if (!TryValidateModel(UpdatePasswordModel, nameof(UpdatePasswordModel)))
+            //{
+            //    OnGet();
+            //    return Page();
+            //}
 
             var user = await _authService.GetUserByIdAsync(UpdatePasswordModel.UserId);
             if (user == null)
@@ -85,6 +90,7 @@ namespace Church_App.Pages.ManagementSystem
             TempData["Success"] = "Password updated successfully.";
             return RedirectToPage();
         }
+
 
     }
 }
