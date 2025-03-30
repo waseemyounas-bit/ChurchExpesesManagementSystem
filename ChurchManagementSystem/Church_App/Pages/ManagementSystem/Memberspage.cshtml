@@ -155,7 +155,7 @@
 
                         <div class="col-md-6 form-group">
                             <label asp-for="Member.BaptismalDate"></label>
-                            <input asp-for="Member.BaptismalDate" type="date" class="form-control" />
+                            <input asp-for="Member.BaptismalDate" type="date" class="form-control" id="birthday" />
                             <span asp-validation-for="Member.BaptismalDate" class="text-danger"></span>
                         </div>
 
@@ -169,7 +169,7 @@
 
                         <div class="col-md-6 form-group">
                             <label asp-for="Member.Age"></label>
-                            <input asp-for="Member.Age" class="form-control" type="number" min="0" />
+                            <input asp-for="Member.Age" class="form-control" type="number" min="0" id="age" />
                             <span asp-validation-for="Member.Age" class="text-danger"></span>
                         </div>
 
@@ -275,7 +275,7 @@
                         </div>
                         <div class="col-md-6 form-group">
                             <label asp-for="Member.Birthday"></label>
-                            <input asp-for="Member.Birthday" type="date" class="form-control" />
+                            <input asp-for="Member.Birthday" type="date" class="form-control" id="editBirthday" />
                             <span asp-validation-for="Member.Birthday" class="text-danger"></span>
                         </div>
                         <div class="col-md-6 form-group">
@@ -292,7 +292,7 @@
                         </div>
                         <div class="col-md-6 form-group">
                             <label asp-for="Member.Age"></label>
-                            <input asp-for="Member.Age" class="form-control" type="number" min="0" />
+                            <input asp-for="Member.Age" class="form-control" type="number" min="0" id="editAge" />
                             <span asp-validation-for="Member.Age" class="text-danger"></span>
                         </div>
                         <div class="col-md-6 form-group">
@@ -436,6 +436,29 @@
             });
         });
     </script>
+<script>
+    function calculateAge(birthdayValue) {
+        const birthDate = new Date(birthdayValue);
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        return age;
+    }
+
+    document.getElementById('birthday')?.addEventListener('change', function () {
+        const age = calculateAge(this.value);
+        document.getElementById('age').value = age >= 0 ? age : '';
+    });
+
+    document.getElementById('editBirthday')?.addEventListener('change', function () {
+        const age = calculateAge(this.value);
+        document.getElementById('editAge').value = age >= 0 ? age : '';
+    });
+</script>
+
 
 
 @{
