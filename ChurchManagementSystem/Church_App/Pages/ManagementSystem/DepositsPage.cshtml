@@ -131,9 +131,23 @@
                         <label>Cash</label>
                         <input asp-for="Deposit.Cash" class="form-control" id="addCash" oninput="calculateTotal('add')" />
                     </div>
-
                     <div class="form-group col-md-6">
-                        <label>Cheque</label>
+                        <label>Check Number</label>
+                        <input asp-for="Deposit.Check" class="form-control"   />
+                        <span asp-validation-for="Deposit.Check" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Check Number</label>
+                        <input asp-for="Deposit.Check2" class="form-control" />
+                        <span asp-validation-for="Deposit.Check2" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Check Number</label>
+                        <input asp-for="Deposit.Check3" class="form-control" />
+                        <span asp-validation-for="Deposit.Check3" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Cheque Amount</label>
                         <input asp-for="Deposit.Cheque" class="form-control" id="addCheque" oninput="calculateTotal('add')" />
                     </div>
 
@@ -193,9 +207,23 @@
                         <label>Cash</label>
                         <input asp-for="Deposit.Cash" class="form-control" id="editCash" oninput="calculateTotal('edit')" />
                     </div>
-
                     <div class="form-group col-md-6">
-                        <label>Cheque</label>
+                        <label>Check Number</label>
+                        <input asp-for="Deposit.Check" class="form-control" />
+                        <span asp-validation-for="Deposit.Check" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Check Number</label>
+                        <input asp-for="Deposit.Check2" class="form-control" />
+                        <span asp-validation-for="Deposit.Check2" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Check Number</label>
+                        <input asp-for="Deposit.Check3" class="form-control" />
+                        <span asp-validation-for="Deposit.Check3" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Cheque Amount</label>
                         <input asp-for="Deposit.Cheque" class="form-control" id="editCheque" oninput="calculateTotal('edit')" />
                     </div>
 
