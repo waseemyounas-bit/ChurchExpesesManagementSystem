@@ -48,6 +48,7 @@ builder.Services.AddScoped<IExpenseTypeService, ExpenseTypeService>();
 builder.Services.AddScoped<IExpenseService, ExpenseService>();
 builder.Services.AddScoped<ISystemRoutService, SystemRoutService>();
 builder.Services.AddScoped<IPagePermissionService, PagePermissionService>();
+builder.Services.AddScoped<IChurchSettingService, ChurchSettingService>();
 
 
 var app = builder.Build();

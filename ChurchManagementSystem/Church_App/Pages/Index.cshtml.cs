@@ -9,6 +9,7 @@ namespace Church_App.Pages
     public class IndexModel : PageModel
     {
         private readonly AuthService _authService;
+        private readonly IChurchSettingService _churchSettingService;
         private readonly ILogger<IndexModel> _logger;
 
         [BindProperty]
@@ -16,10 +17,11 @@ namespace Church_App.Pages
 
         public string ErrorMessage { get; set; }
 
-        public IndexModel(AuthService authService, ILogger<IndexModel> logger)
+        public IndexModel(AuthService authService, ILogger<IndexModel> logger, IChurchSettingService churchSettingService)
         {
             _logger = logger;
             _authService = authService;
+            _churchSettingService = churchSettingService;
         }
 
         public void OnGet()
@@ -44,8 +46,18 @@ namespace Church_App.Pages
                     HttpContext.Session.SetString("UserName", user.FullName);
                     HttpContext.Session.SetString("RoleId", user.RoleId);          // 👈 Add this
                     //HttpContext.Session.SetString("RoleName", user.Role?.Name);    // 👈 Optional: friendly display name
-
-                    return RedirectToPage("/ManagementSystem/Dashboard");
+                    var settings = await _churchSettingService.GetAllAsync();
+                    if (settings.Any())
+                    {
+                        HttpContext.Session.SetString("ChurchName", settings.First().Name);
+                        HttpContext.Session.SetString("ChurchLogo", settings.First().Logo);
+                        return RedirectToPage("/ManagementSystem/Dashboard");
+                    }
+                    else
+                    {
+                        return Redirect("/setting");
+                    }
+                   
 
                 }
             }

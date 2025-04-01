@@ -29,6 +29,7 @@ namespace DataAccess.Data
         public DbSet<Vendor> Vendors { get; set; }
         public DbSet<SystemRout> SystemRouts { get; set; }
         public DbSet<RoutPermission> RoutPermissions { get; set; }
+        public DbSet<ChurchSetting> ChurchSettings { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
