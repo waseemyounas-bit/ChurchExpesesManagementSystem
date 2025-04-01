@@ -1,4 +1,5 @@
 ﻿@page "/expenses"
+@using System.Text.Json
 @model Church_App.Pages.ManagementSystem.ExpensesPageModel
 @{
     ViewData["Title"] = "Expenses";
@@ -49,6 +50,7 @@
                                                 <a class="dropdown-item" href="#" onclick='editExpense(@Html.Raw(Json.Serialize(expense)))'>
                                                     <i class="fa fa-pencil"></i> Edit
                                                 </a>
+
                                                 <a class="dropdown-item text-danger" href="#" onclick="confirmDelete('@expense.Id')">
                                                     <i class="fa fa-trash"></i> Delete
                                                 </a>
@@ -95,7 +97,9 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label>Category</label>
-                            <select asp-for="Expense.Category" class="form-control" asp-items="Model.ExpenseTypeOptions"></select>
+                            <select asp-for="Expense.Category" class="form-control" asp-items="Model.ExpenseTypeOptions">
+                                <option value="">-- Select Category --</option>
+                            </select>
                             <span asp-validation-for="Expense.Category" class="text-danger"></span>
                         </div>
                         <div class="form-group">
@@ -130,13 +134,15 @@
                 <form method="post" asp-page-handler="EditExpense">
                     <div class="modal-header">
                         <h4 class="modal-title">Edit Expense</h4>
-                        <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
                         <input type="hidden" asp-for="Expense.Id" id="editExpenseId" />
                         <div class="form-group">
                             <label>Category</label>
-                            <select asp-for="Expense.Category" class="form-control" asp-items="Model.ExpenseTypeOptions" id="editExpenseCategory"></select>
+                            <select asp-for="Expense.Category" class="form-control" id="editExpenseCategory" asp-items="Model.ExpenseTypeOptions">
+                                <option value="" >-- Select Category --</option>
+                            </select>                            
                             <span asp-validation-for="Expense.Category" class="text-danger"></span>
                         </div>
                         <div class="form-group">
@@ -157,7 +163,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Update</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     </div>
                 </form>
             </div>
@@ -167,16 +173,26 @@
 
 <script>
     function editExpense(expense) {
+        debugger;
         document.getElementById("editExpenseId").value = expense.id;
-        document.getElementById("editExpenseCategory").value = expense.category;
-        document.getElementById("editExpenseAmount").value = expense.amount;
+    document.getElementById("editExpenseCategory").value = expense.category;
+    document.getElementById("editExpenseAmount").value = expense.amount;
+
+    if (expense.date) {
         document.getElementById("editExpenseDate").value = expense.date.split('T')[0];
-        document.getElementById("editExpenseDescription").value = expense.description;
-        new bootstrap.Modal(document.getElementById('editExpenseModal')).show();
+    }
+
+    document.getElementById("editExpenseDescription").value = expense.description;
+
+    const modal = new bootstrap.Modal(document.getElementById('editExpenseModal'));
+    modal.show();
     }
 
     function confirmDelete(id) {
+        debugger;
         document.getElementById("deleteExpenseId").value = id;
         new bootstrap.Modal(document.getElementById('delete_expense')).show();
     }
+
+
 </script>
