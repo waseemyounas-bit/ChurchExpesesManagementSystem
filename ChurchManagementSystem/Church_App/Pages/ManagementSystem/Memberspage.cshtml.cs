@@ -66,7 +66,6 @@ namespace Church_App.Pages.ManagementSystem
 
                 Member.PicturePath = "/uploads/" + fileName;
             }
-
             Member.Id = Guid.NewGuid();
             await _memberService.AddMemberAsync(Member);
             return RedirectToPage();
@@ -102,7 +101,6 @@ namespace Church_App.Pages.ManagementSystem
 
                 Member.PicturePath = "/uploads/" + fileName;
             }
-
             await _memberService.UpdateMemberAsync(Member);
             return RedirectToPage();
         }

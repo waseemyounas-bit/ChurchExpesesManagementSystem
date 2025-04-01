@@ -43,7 +43,7 @@ namespace DataAccess.Data
             #region Dataseeding
             // Static GUIDs
             string adminRoleId = "a1b2c3d4-e5f6-4g7h-8i9j-k0l1m2n3o4p5";
-
+            string adminUserId = "12345678-90ab-cdef-ghij-klmnopqrstuv";
             // Seed Role
             var adminRole = new IdentityRole
             {
@@ -53,7 +53,7 @@ namespace DataAccess.Data
             };
 
             builder.Entity<IdentityRole>().HasData(adminRole);
-
+            
             #endregion
 
         }

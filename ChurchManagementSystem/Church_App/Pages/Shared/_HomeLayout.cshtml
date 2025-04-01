@@ -94,16 +94,16 @@
                             <a href="dashboard"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
                         </li>
                         <li>
-                            <a href="donations"><i class="fa fa-user-md"></i> <span>Donations</span></a>
+                            <a href="donations"><i class="fa fa-dollar"></i> <span>Donations</span></a>
                         </li>
                         <li>
-                            <a href="members"><i class="fa fa-user"></i> <span>Members</span></a>
+                            <a href="members"><i class="fa fa-users"></i> <span>Members</span></a>
                         </li>
                         <li>
-                            <a href="vendors"><i class="fa fa-user"></i> <span>Vendors</span></a>
+                            <a href="vendors"><i class="fa fa-users"></i> <span>Vendors</span></a>
                         </li>
                         <li>
-                            <a href="visitors"><i class="fa fa-user"></i> <span>Visitors</span></a>
+                            <a href="visitors"><i class="fa fa-users"></i> <span>Visitors</span></a>
                         </li>
                         <li class="submenu">
                             <a href="#"><i class="fa fa-cog"></i> <span> Settings </span> <span class="menu-arrow"></span></a>
@@ -116,7 +116,7 @@
 
                         </li>
                         <li class="submenu">
-                            <a href="#"><i class="fa fa-cog"></i> <span> Reporting </span> <span class="menu-arrow"></span></a>
+                            <a href="#"><i class="fa fa-file"></i> <span> Reporting </span> <span class="menu-arrow"></span></a>
                             <ul style="display: none;">
                                 <li><a href="donationreport">Donation Report</a></li>
                                 <li><a href="expensereport">Expense Report</a></li>
@@ -138,10 +138,10 @@
                             <a href="administrators"><i class="fa fa-laptop"></i> <span>Manage Access</span></a>
                         </li>
                         <li>
-                            <a href="permissions"><i class="fa fa-laptop"></i> <span>Permission</span></a>
+                            <a href="permissions"><i class="fa fa-chain"></i> <span>Permission</span></a>
                         </li>
                         <li>
-                            <a href="sendmail"><i class="fa fa-laptop"></i> <span>Send Mail</span></a>
+                            <a href="sendmail"><i class="fa fa-envelope"></i> <span>Send Mail</span></a>
                         </li>
                     </ul>
                 </div>
@@ -179,6 +179,23 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+
+    <!-- jQuery (required for Select2) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // Initialize Select2 for the multi-select dropdown
+            $('.select2').select2({
+                placeholder: "Select Recipients",
+                allowClear: true  // Optional: Adds a clear button to deselect options
+            });
+        });
+    </script>
 
 </body>
 </html>
