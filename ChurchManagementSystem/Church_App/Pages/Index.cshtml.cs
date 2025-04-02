@@ -9,24 +9,31 @@ namespace Church_App.Pages
     public class IndexModel : PageModel
     {
         private readonly AuthService _authService;
+        private readonly IChurchSettingService _churchsettingservice;
         private readonly IChurchSettingService _churchSettingService;
         private readonly ILogger<IndexModel> _logger;
 
         [BindProperty]
         public LoginviewModel LoginData { get; set; } = new();
 
+        public string Logopath { get; set; } = "";
         public string ErrorMessage { get; set; }
 
-        public IndexModel(AuthService authService, ILogger<IndexModel> logger, IChurchSettingService churchSettingService)
+        public IndexModel(AuthService authService, ILogger<IndexModel> logger, IChurchSettingService churchSettingService, IChurchSettingService churchsettingservice)
         {
             _logger = logger;
             _authService = authService;
             _churchSettingService = churchSettingService;
+            _churchsettingservice = churchsettingservice;
         }
 
         public void OnGet()
         {
-
+            var churchSetting = _churchSettingService.GetAllAsync().Result.FirstOrDefault();
+            if (churchSetting != null)
+            {
+                Logopath = churchSetting.Logo;
+            }
         }
         public async Task<IActionResult> OnPostAsync()
         {

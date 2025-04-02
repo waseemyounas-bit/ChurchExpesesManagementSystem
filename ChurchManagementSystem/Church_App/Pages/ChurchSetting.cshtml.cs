@@ -32,6 +32,7 @@ namespace Church_App.Pages
                 return Page();
 
             // Handle image upload
+         
             if (LogoFile != null && LogoFile.Length > 0)
             {
                 var uploads = Path.Combine(_environment.WebRootPath, "uploads");
