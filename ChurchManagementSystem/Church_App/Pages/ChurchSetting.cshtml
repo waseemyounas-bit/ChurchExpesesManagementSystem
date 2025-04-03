@@ -12,6 +12,10 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="row">
+                @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                {
+                    <div class="alert alert-danger">@Model.ErrorMessage</div>
+                }
                 <div class="col-md-6 mb-3">
                     <label asp-for="ChurchSetting.Name" class="form-label"></label>
                     <input asp-for="ChurchSetting.Name" class="form-control" />
@@ -54,15 +58,15 @@
             </div>
 
             <div class="row">
-                <div class="col-md-6 mb-4">
+                <div class="col-md-12 mb-4">
                     <label class="form-label">Profile Picture (300x300 px, max 1MB)</label>
                     <input asp-for="LogoFile" type="file" class="form-control" accept="image/*" id="logoInput" />
                     <span asp-validation-for="LogoFile" class="text-danger"></span>
                     <small class="text-muted">Recommended: 300x300px, max 1MB.</small>
                 </div>
 
-                <div class="col-md-6 mb-4 d-flex align-items-end">
-                    <img id="previewImage" src="assets/img/default-user.png" class="img-thumbnail" width="150">
+                <div class="col-md-12 mb-4 d-flex align-items-end">
+                    <img id="previewImage" src="~/assets/img/placeholder-thumb.jpg" class="img-thumbnail" width="150">
                 </div>
             </div>
 

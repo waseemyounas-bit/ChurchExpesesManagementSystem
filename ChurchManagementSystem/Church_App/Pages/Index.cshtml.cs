@@ -56,8 +56,8 @@ namespace Church_App.Pages
                     var settings = await _churchSettingService.GetAllAsync();
                     if (settings.Any())
                     {
-                        HttpContext.Session.SetString("ChurchName", settings.First().Name);
-                        HttpContext.Session.SetString("ChurchLogo", settings.First().Logo);
+                        HttpContext.Session.SetString("ChurchName", settings.FirstOrDefault().Name);
+                        HttpContext.Session.SetString("ChurchLogo", settings.FirstOrDefault().Logo);
                         return RedirectToPage("/ManagementSystem/Dashboard");
                     }
                     else

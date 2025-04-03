@@ -22,6 +22,7 @@ namespace Church_App.Pages
 
         [BindProperty]
         public IFormFile? LogoFile { get; set; }
+        public string ErrorMessage { get; set; } = "";
 
 
         public void OnGet() { }
@@ -47,7 +48,11 @@ namespace Church_App.Pages
 
                 ChurchSetting.Logo = "/uploads/" + fileName;
             }
-
+            else
+            {
+                ErrorMessage = "Please upload a logo.";
+                return Page();
+            }
             await _churchSettingService.CreateAsync(ChurchSetting);
             HttpContext.Session.SetString("ChurchName", ChurchSetting.Name);
             HttpContext.Session.SetString("ChurchLogo", ChurchSetting.Logo);
