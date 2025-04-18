@@ -20,6 +20,9 @@ namespace Church_App.Pages.ManagementSystem
         [BindProperty]
         public DepositTB Deposit { get; set; }
 
+        [BindProperty]
+        public List<string> Checks { get; set; }
+
         public List<string> DistinctBanks { get; set; } = new();
         public List<BankAccount> Banks { get; set; } = new List<BankAccount>();
         public List<DepositTB> Deposits { get; set; }
@@ -41,7 +44,15 @@ namespace Church_App.Pages.ManagementSystem
                  OnGet();
                 return Page();
             }
-
+            if (Checks.Count()>0)
+            {
+                foreach (var item in Checks)
+                {
+                    Deposit.Check += "," + item;
+                }
+            }
+          
+          
             await _depositService.CreateAsync(Deposit);
             return RedirectToPage();
         }
