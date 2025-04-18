@@ -24,5 +24,8 @@ namespace Entities
 
         [StringLength(500, ErrorMessage = "Description must not exceed 500 characters.")]
         public string Description { get; set; }
+
+        public Guid? VendorId { get; set; } 
+        public Vendor? Vendor { get; set; } // Navigation property
     }
 }

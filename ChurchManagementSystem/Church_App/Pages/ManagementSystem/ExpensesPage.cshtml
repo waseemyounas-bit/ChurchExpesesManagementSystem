@@ -29,6 +29,7 @@
                                 <th>Category</th>
                                 <th>Amount</th>
                                 <th>Date</th>
+                                <th>Vendor</th>
                                 <th>Description</th>
                                 <th class="text-right">Action</th>
                             </tr>
@@ -40,6 +41,20 @@
                                     <td>@expense.Category</td>
                                     <td>@expense.Amount.ToString("C")</td>
                                     <td>@expense.Date.ToShortDateString()</td>
+                                    <td>
+                                        @{
+                                            if (expense.VendorId != null)
+                                            {
+                                                var vendor = Model.Vendorlist.FirstOrDefault(v => v.Id == expense.VendorId);
+                                                @vendor?.Name
+                                            }
+                                            else
+                                            {
+                                                @Html.Raw("<span class='text-muted'>N/A</span>");
+                                            }
+                                           
+                                        }
+                                    </td>
                                     <td>@expense.Description</td>
                                     <td class="text-right">
                                         <div class="dropdown dropdown-action">
@@ -95,6 +110,18 @@
                         <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="addIsPayVendor" onchange="toggleVendorDropdown('add')" />
+                            <label class="form-check-label" for="addIsPayVendor">Is To Pay Vendor</label>
+                        </div>
+
+                        <div class="form-group" id="addVendorGroup" style="display: none;">
+                            <label>Vendor</label>
+                            <select asp-for="Expense.VendorId" class="form-control" asp-items="Model.VendorsOptions">
+                                <option value="">-- Select Vendor --</option>
+                            </select>
+                        </div>
+
                         <div class="form-group">
                             <label>Category</label>
                             <select asp-for="Expense.Category" class="form-control" asp-items="Model.ExpenseTypeOptions">
@@ -138,6 +165,18 @@
                     </div>
                     <div class="modal-body">
                         <input type="hidden" asp-for="Expense.Id" id="editExpenseId" />
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="editIsPayVendor" onchange="toggleVendorDropdown('edit')" />
+                            <label class="form-check-label" for="editIsPayVendor">Is To Pay Vendor</label>
+                        </div>
+
+                        <div class="form-group" id="editVendorGroup" style="display: none;">
+                            <label>Vendor</label>
+                            <select asp-for="Expense.VendorId" class="form-control" asp-items="Model.VendorsOptions">
+                                <option value="">-- Select Vendor --</option>
+                            </select>
+                        </div>
+
                         <div class="form-group">
                             <label>Category</label>
                             <select asp-for="Expense.Category" class="form-control" id="editExpenseCategory" asp-items="Model.ExpenseTypeOptions">
@@ -183,6 +222,20 @@
     }
 
     document.getElementById("editExpenseDescription").value = expense.description;
+    // Handle Is To Pay Vendor and VendorId
+    const isPayCheckbox = document.getElementById("editIsPayVendor");
+    const vendorGroup = document.getElementById("editVendorGroup");
+    const vendorDropdown = vendorGroup.querySelector("select");
+
+    if (expense.vendorId) {
+        isPayCheckbox.checked = true;
+        vendorGroup.style.display = "block";
+        vendorDropdown.value = expense.vendorId;
+    } else {
+        isPayCheckbox.checked = false;
+        vendorGroup.style.display = "none";
+        vendorDropdown.value = "";
+    }
 
     const modal = new bootstrap.Modal(document.getElementById('editExpenseModal'));
     modal.show();
@@ -195,4 +248,20 @@
     }
 
 
+</script>
+
+
+<script>
+    function toggleVendorDropdown(mode) {
+        const isChecked = document.getElementById(mode + "IsPayVendor").checked;
+        const vendorGroup = document.getElementById(mode + "VendorGroup");
+        if (isChecked) {
+            vendorGroup.style.display = 'block';
+        } else {
+            vendorGroup.style.display = 'none';
+            // Optionally clear the selected value
+            const dropdown = vendorGroup.querySelector("select");
+            if (dropdown) dropdown.value = "";
+        }
+    }
 </script>
