@@ -1,5 +1,5 @@
-﻿@page "/memberdonations"
-@model Church_App.Pages.ManagementSystem.DonationsModel
+﻿@page "/visitordonations"
+@model Church_App.Pages.ManagementSystem.DonationsVisitorsModel
 @{
     ViewData["Title"] = "Donations";
     Layout = "~/Pages/Shared/_HomeLayout.cshtml";
@@ -9,7 +9,7 @@
     <div class="content">
         <div class="row">
             <div class="col-sm-4 col-5">
-                <h4 class="page-title">Member Donations</h4>
+                <h4 class="page-title">Visitor Donations</h4>
             </div>
             <div class="col-sm-8 col-7 text-right m-b-30">
                 <button class="btn btn-primary btn-rounded float-right" data-bs-toggle="modal" data-bs-target="#addDonationModal">
@@ -101,7 +101,7 @@
                         <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
-                      @*   <div class="form-group">
+                       @*  <div class="form-group">
                             <label>Donor Type</label><br />
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" id="donorTypeToggle" onchange="toggleDonorType()" />
@@ -111,7 +111,7 @@
                             </div>
                         </div> *@
 
-                        <div class="form-group" id="memberDropdown">
+@*                         <div class="form-group" id="memberDropdown">
                             <label asp-for="Donation.MemberId"></label>
                             <select asp-for="Donation.MemberId" class="form-control">
                                 <option>-- Select Donor --</option>
@@ -121,9 +121,9 @@
                                 }
                             </select>
                            
-                        </div>
+                        </div> *@
 
-                      @*   <div class="form-group d-none" id="visitorDropdown">
+                        <div class="form-group" id="visitorDropdown">
                             <label asp-for="Donation.VisitorId"></label>
                             <select asp-for="Donation.VisitorId" class="form-control">
                                 <option>-- Select Donor --</option>
@@ -133,7 +133,7 @@
                                 }
                             </select>
                            
-                        </div> *@
+                        </div>
 
                         <div class="form-group">
                             <label asp-for="Donation.Type"></label>

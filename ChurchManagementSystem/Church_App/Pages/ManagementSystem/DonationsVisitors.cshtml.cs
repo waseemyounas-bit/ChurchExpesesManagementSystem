@@ -6,7 +6,7 @@ using Services;
 namespace Church_App.Pages.ManagementSystem
 {
 
-    public class DonationsModel : PageModel
+    public class DonationsVisitorsModel : PageModel
     {
         private readonly IMemberService _memberService;
         private readonly IDonationTypeService _donationTypeService;
@@ -24,7 +24,7 @@ namespace Church_App.Pages.ManagementSystem
         // For delete handler
         [BindProperty]
         public Guid DonationId { get; set; }
-        public DonationsModel(IDonationTypeService donationTypeService, IMemberService memberService, IDonationService donationService, IVisitorService visitorService)
+        public DonationsVisitorsModel(IDonationTypeService donationTypeService, IMemberService memberService, IDonationService donationService, IVisitorService visitorService)
         {
             this._donationTypeService = donationTypeService;
             this._memberService = memberService;
@@ -37,7 +37,7 @@ namespace Church_App.Pages.ManagementSystem
             Visitors = _visitorService.GetAllVisitors();
             DonationTypes = _donationTypeService.GetAllDonationType();
             var donations =  _donationService.GetAllDonations();
-            DonationList = donations.Where(x=>x.MemberId!=null).ToList();
+            DonationList = donations.Where(x=>x.MemberId==null).ToList();
         }
 
     
