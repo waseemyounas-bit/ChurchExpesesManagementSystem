@@ -27,7 +27,8 @@
                                 <th>Donor</th>
                                 <th>Donor Type</th>
                                 <th>Type</th>
-                                <th>Date</th>
+                                <th>Due Date</th>
+                                <th>Added Date</th>
                                 <th>Amount</th>
                                 <th class="text-right">Action</th>
                             </tr>
@@ -45,6 +46,7 @@
                                     @(donation.Member != null ? "Member" : "Visitor")
                                 </td>
                                 <td>@donation.Type</td>
+                                <td>@donation.DueDate.ToString("d")</td>
                                 <td>@donation.Date.ToString("d")</td>
                                 <td>@donation.Amount</td>
                                 <td class="text-right">
@@ -150,6 +152,11 @@
                             <label asp-for="Donation.Amount"></label>
                             <input asp-for="Donation.Amount" class="form-control" />
                             <span asp-validation-for="Donation.Amount" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Donation.DueDate"></label>
+                            <input asp-for="Donation.DueDate" type="date" class="form-control" />
+                            <span asp-validation-for="Donation.DueDate" class="text-danger"></span>
                         </div>
                       
                     </div>

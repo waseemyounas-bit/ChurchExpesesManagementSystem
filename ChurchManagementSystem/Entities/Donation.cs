@@ -25,7 +25,7 @@ namespace Entities
         [StringLength(100, ErrorMessage = "Donation type cannot exceed 100 characters.")]
         public string Type { get; set; }
 
-
+        public DateTime DueDate { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
 
         public Member? Member { get; set; }

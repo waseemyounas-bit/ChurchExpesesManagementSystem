@@ -4,6 +4,7 @@ using DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20250419035602_duedate")]
+    partial class duedate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -746,13 +749,6 @@ namespace DataAccess.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "12345678-90ab-cdef-ghij-klmnopqrstuv",
-                            RoleId = "a1b2c3d4-e5f6-4g7h-8i9j-k0l1m2n3o4p5"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -794,25 +790,6 @@ namespace DataAccess.Migrations
                     b.HasIndex("RoleId");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "12345678-90ab-cdef-ghij-klmnopqrstuv",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "9486ddaa-d1a3-4ff8-9bd8-8d68220808b0",
-                            Email = "admin@newlightmbc.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@NEWLIGHTMBC.COM",
-                            NormalizedUserName = "ADMIN@NEWLIGHTMBC.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAENa00lSoW9gjBwsGT9SRfzh9pAep3UZ46rGhnodMlTXv1Ql7XjU8fVwFf1DCF/qAvw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "1/1/2025 12:00:00 AM",
-                            TwoFactorEnabled = false,
-                            UserName = "admin@newlightmbc.com",
-                            RoleId = "a1b2c3d4-e5f6-4g7h-8i9j-k0l1m2n3o4p5"
-                        });
                 });
 
             modelBuilder.Entity("Entities.Attendance", b =>

@@ -6,7 +6,7 @@
     <RazorPage_SelectedScaffolderCategoryPath>root/Common/RazorPage</RazorPage_SelectedScaffolderCategoryPath>
     <Controller_SelectedScaffolderID>ApiControllerEmptyScaffolder</Controller_SelectedScaffolderID>
     <Controller_SelectedScaffolderCategoryPath>root/Common/Api</Controller_SelectedScaffolderCategoryPath>
-    <NameOfLastUsedPublishProfile>D:\Development\Freelancing\ChurchExpensesManagementSystem\ChurchManagementSystem\Church_App\Properties\PublishProfiles\FolderProfile.pubxml</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>D:\Development\Freelancing\ChurchExpensesManagementSystem\ChurchManagementSystem\Church_App\Properties\PublishProfiles\prince49441-001-site1 - Web Deploy.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <ItemGroup>
     <Content Update="wwwroot\dataset\DepositDS.xsd">
