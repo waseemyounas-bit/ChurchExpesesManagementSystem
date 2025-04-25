@@ -1,0 +1,140 @@
+﻿@page "/vendor-paid-expenses"
+@using System.Text.Json
+
+@model Church_App.Pages.ManagementSystem.VendorPaidExpansesModel
+@{
+    ViewData["Title"] = "Vendor Paid Expenses";
+    Layout = "~/Pages/Shared/_HomeLayout.cshtml";
+}
+
+
+<div class="page-wrapper">
+    <div class="content">
+        <div class="row">
+            <div class="col-sm-4 col-5">
+                <h4 class="page-title">Vendor Paid Expenses</h4>
+            </div>
+            <div class="col-sm-8 col-7 text-right m-b-30">
+                <button class="btn btn-primary btn-rounded float-right" data-bs-toggle="modal" data-bs-target="#addVendorPaidExpenseModal">
+                    <i class="fa fa-plus"></i> Add Vendor Paid Expense
+                </button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-striped custom-table datatable">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Vendor</th>
+                                <th>Description</th>
+                                <th class="text-right">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var expense in Model.ExpenseList.Where(e => e.VendorId != null))
+                            {
+                                <tr>
+                                    <td>@expense.Amount.ToString("C")</td>
+                                    <td>@expense.Category</td>
+                                    <td>@expense.Date.ToShortDateString()</td>
+                                    <td>
+                                        @{
+                                            var vendor = Model.Vendorlist.FirstOrDefault(v => v.Id == expense.VendorId);
+                                            @vendor?.Name
+                                        }
+                                    </td>
+                                    <td>@expense.Description</td>
+                                    <td class="text-right">
+                                        <div class="dropdown dropdown-action">
+                                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown">
+                                                <i class="fa fa-ellipsis-v"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a class="dropdown-item" href="#" onclick='editExpense(@Html.Raw(Json.Serialize(expense)))'>
+                                                    <i class="fa fa-pencil"></i> Edit
+                                                </a>
+                                                <a class="dropdown-item text-danger" href="#" onclick="confirmDelete('@expense.Id')">
+                                                    <i class="fa fa-trash"></i> Delete
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Vendor Paid Expense Modal -->
+    <div id="addVendorPaidExpenseModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <form method="post" asp-page-handler="AddVendorPaidExpense">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Add Vendor Paid Expense</h4>
+                        <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Vendor</label>
+                            <select asp-for="Expense.VendorId" class="form-control" asp-items="Model.VendorsOptions">
+                                <option value="">-- Select Vendor --</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Expense.Amount"></label>
+                            <input asp-for="Expense.Amount" class="form-control" />
+                            <span asp-validation-for="Expense.Amount" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Expense.Date"></label>
+                            <input asp-for="Expense.Date" class="form-control" type="date" />
+                            <span asp-validation-for="Expense.Date" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Expense.Description"></label>
+                            <textarea asp-for="Expense.Description" class="form-control"></textarea>
+                            <span asp-validation-for="Expense.Description" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function editExpense(expense) {
+        debugger;
+        document.getElementById("editExpenseId").value = expense.id;
+        document.getElementById("editExpenseCategory").value = expense.category;
+        document.getElementById("editExpenseAmount").value = expense.amount;
+
+        if (expense.date) {
+            document.getElementById("editExpenseDate").value = expense.date.split('T')[0];
+        }
+
+        document.getElementById("editExpenseDescription").value = expense.description;
+        const modal = new bootstrap.Modal(document.getElementById('editExpenseModal'));
+        modal.show();
+    }
+
+    function confirmDelete(id) {
+        debugger;
+        document.getElementById("deleteExpenseId").value = id;
+        new bootstrap.Modal(document.getElementById('delete_expense')).show();
+    }
+</script>

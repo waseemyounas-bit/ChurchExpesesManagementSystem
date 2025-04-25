@@ -56,20 +56,6 @@
                     <span asp-validation-for="ChurchSetting.PhoneNumber" class="text-danger"></span>
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col-md-12 mb-4">
-                    <label class="form-label">Profile Picture (300x300 px, max 1MB)</label>
-                    <input asp-for="LogoFile" type="file" class="form-control" accept="image/*" id="logoInput" />
-                    <span asp-validation-for="LogoFile" class="text-danger"></span>
-                    <small class="text-muted">Recommended: 300x300px, max 1MB.</small>
-                </div>
-
-                <div class="col-md-12 mb-4 d-flex align-items-end">
-                    <img id="previewImage" src="~/assets/img/placeholder-thumb.jpg" class="img-thumbnail" width="150">
-                </div>
-            </div>
-
             <div class="text-center mt-3">
                 <button type="submit" class="btn btn-primary">Save</button>
                 <a href="/Logout" class="btn btn-link">Logout</a>
@@ -81,7 +67,7 @@
 
 
 <!-- Image Preview Script -->
-<script>
+@* <script>
     document.querySelector('input[name="LogoFile"]').addEventListener('change', function(event) {
         const reader = new FileReader();
         reader.onload = function() {
@@ -124,4 +110,4 @@
         reader.readAsDataURL(file);
     });
 </script>
-
+ *@

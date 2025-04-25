@@ -56,11 +56,11 @@
 <body>
     <div class="main-wrapper">
         <div class="header">
-            <div class="header-left">
+           @*  <div class="header-left">
                 <a href="/dashboard" class="logo">
                     <img src="@(Context.Session.GetString("ChurchLogo") ?? "/assets/img/default-user.png")" width="35" height="35" alt=""> <span>@(Context.Session.GetString("ChurchName") ?? "Church")</span>
                 </a>
-            </div>
+            </div> *@
             <a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
             <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
             <ul class="nav user-menu float-right">
@@ -81,6 +81,7 @@
             <div class="dropdown mobile-user-menu float-right">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                 <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="/setting/update">Church Setting</a>
                     <a class="dropdown-item" href="/pprofile">My Profile</a>
                     <a class="dropdown-item" href="/Logout">Logout</a>
                 </div>
