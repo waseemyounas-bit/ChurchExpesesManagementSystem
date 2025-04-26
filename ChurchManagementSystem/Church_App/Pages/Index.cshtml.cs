@@ -17,6 +17,7 @@ namespace Church_App.Pages
         public LoginviewModel LoginData { get; set; } = new();
 
         public string Logopath { get; set; } = "";
+        public string ChurchName { get; set; } = "";
         public string ErrorMessage { get; set; }
 
         public IndexModel(AuthService authService, ILogger<IndexModel> logger, IChurchSettingService churchSettingService, IChurchSettingService churchsettingservice)
@@ -33,6 +34,7 @@ namespace Church_App.Pages
             if (churchSetting != null)
             {
                 Logopath = churchSetting.Logo;
+                ChurchName = churchSetting.Name;
             }
         }
         public async Task<IActionResult> OnPostAsync()
