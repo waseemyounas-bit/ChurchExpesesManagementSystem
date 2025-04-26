@@ -34,23 +34,19 @@ namespace Church_App.Pages.ManagementSystem
         public bool IsToPayVendor { get; set; } // you'll need to bind this manually from form
         public async Task OnGetAsync()
         {
-            Expense.Date = DateTime.Now;
-            ExpenseList = await _expenseService.GetAllAsync();
+            ExpenseList = (await _expenseService.GetAllAsync()).Where(e => e.VendorId == null).ToList();
             var expenseTypes = await _expenseTypeService.GetAllAsync();
             ExpenseTypeOptions = new SelectList(expenseTypes, "Name", "Name");
-            var vendors = await _vendorService.GetAllVendorsAsync();
-            Vendorlist = vendors;
-            VendorsOptions = new SelectList(vendors, "Id", "Name");
         }
 
-        public async Task<IActionResult> OnPostAddExpenseAsync()
+        public async Task<IActionResult> OnPostAddNonVendorPaidExpenseAsync()
         {
             if (!ModelState.IsValid)
             {
                 await OnGetAsync();
                 return Page();
             }
-           
+
             Expense.Id = Guid.NewGuid();
             await _expenseService.AddAsync(Expense);
             return RedirectToPage();

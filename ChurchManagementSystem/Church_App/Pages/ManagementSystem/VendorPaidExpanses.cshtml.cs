@@ -28,9 +28,12 @@ namespace Church_App.Pages.ManagementSystem
         [BindProperty]
         public Expense Expense { get; set; } = new Expense();
 
+        [BindProperty]
+        public Guid deleteExpenseId { get; set; }
+
         public async Task OnGetAsync()
         {
-            ExpenseList = await _expenseService.GetAllAsync();
+            ExpenseList = (await _expenseService.GetAllAsync()).Where(e => e.VendorId != null).ToList();
             var expenseTypes = await _expenseTypeService.GetAllAsync();
             ExpenseTypeOptions = new SelectList(expenseTypes, "Name", "Name");
             var vendors = await _vendorService.GetAllVendorsAsync();
@@ -65,9 +68,9 @@ namespace Church_App.Pages.ManagementSystem
 
         public async Task<IActionResult> OnPostDeleteExpenseAsync()
         {
-            if (Expense.Id != Guid.Empty)
+            if (deleteExpenseId != Guid.Empty)
             {
-                await _expenseService.DeleteAsync(Expense.Id);
+                await _expenseService.DeleteAsync(deleteExpenseId);
             }
 
             return RedirectToPage();

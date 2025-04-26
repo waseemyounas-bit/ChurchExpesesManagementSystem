@@ -6,16 +6,15 @@
     Layout = "~/Pages/Shared/_HomeLayout.cshtml";
 }
 
-
 <div class="page-wrapper">
     <div class="content">
         <div class="row">
             <div class="col-sm-4 col-5">
-                <h4 class="page-title">Expenses</h4>
+                <h4 class="page-title">Non Vendor Paid Expenses</h4>
             </div>
             <div class="col-sm-8 col-7 text-right m-b-30">
-                <button class="btn btn-primary btn-rounded float-right" data-bs-toggle="modal" data-bs-target="#addExpenseModal">
-                    <i class="fa fa-plus"></i> Add Expense
+                <button class="btn btn-primary btn-rounded float-right" data-bs-toggle="modal" data-bs-target="#addNonVendorPaidExpenseModal">
+                    <i class="fa fa-plus"></i> Add Non Vendor Paid Expense
                 </button>
             </div>
         </div>
@@ -29,7 +28,6 @@
                                 <th>Category</th>
                                 <th>Amount</th>
                                 <th>Date</th>
-                                <th>Vendor</th>
                                 <th>Description</th>
                                 <th class="text-right">Action</th>
                             </tr>
@@ -41,20 +39,6 @@
                                     <td>@expense.Category</td>
                                     <td>@expense.Amount.ToString("C")</td>
                                     <td>@expense.Date.ToShortDateString()</td>
-                                    <td>
-                                        @{
-                                            if (expense.VendorId != null)
-                                            {
-                                                var vendor = Model.Vendorlist.FirstOrDefault(v => v.Id == expense.VendorId);
-                                                @vendor?.Name
-                                            }
-                                            else
-                                            {
-                                                @Html.Raw("<span class='text-muted'>N/A</span>");
-                                            }
-                                           
-                                        }
-                                    </td>
                                     <td>@expense.Description</td>
                                     <td class="text-right">
                                         <div class="dropdown dropdown-action">
@@ -65,7 +49,6 @@
                                                 <a class="dropdown-item" href="#" onclick='editExpense(@Html.Raw(Json.Serialize(expense)))'>
                                                     <i class="fa fa-pencil"></i> Edit
                                                 </a>
-
                                                 <a class="dropdown-item text-danger" href="#" onclick="confirmDelete('@expense.Id')">
                                                     <i class="fa fa-trash"></i> Delete
                                                 </a>
@@ -81,47 +64,16 @@
         </div>
     </div>
 
-    <!-- Delete Modal -->
-    <div id="delete_expense" class="modal fade delete-modal" role="dialog">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <form method="post" asp-page-handler="DeleteExpense">
-                    <div class="modal-body text-center">
-                        <img src="/assets/img/sent.png" alt="" width="50" height="46">
-                        <h3>Are you sure you want to delete this expense?</h3>
-                        <input type="hidden" name="ExpenseId" id="deleteExpenseId" />
-                        <div class="m-t-20">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Add Expense Modal -->
-    <div id="addExpenseModal" class="modal fade" role="dialog">
+    <!-- Add Non Vendor Paid Expense Modal -->
+    <div id="addNonVendorPaidExpenseModal" class="modal fade" role="dialog">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
-                <form method="post" asp-page-handler="AddExpense">
+                <form method="post" asp-page-handler="AddNonVendorPaidExpense">
                     <div class="modal-header">
-                        <h4 class="modal-title">Add Expense</h4>
+                        <h4 class="modal-title">Add Non Vendor Paid Expense</h4>
                         <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
-                        <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" id="addIsPayVendor" onchange="toggleVendorDropdown('add')" />
-                            <label class="form-check-label" for="addIsPayVendor">Is To Pay Vendor</label>
-                        </div>
-
-                        <div class="form-group" id="addVendorGroup" style="display: none;">
-                            <label>Vendor</label>
-                            <select asp-for="Expense.VendorId" class="form-control" asp-items="Model.VendorsOptions">
-                                <option value="">-- Select Vendor --</option>
-                            </select>
-                        </div>
-
                         <div class="form-group">
                             <label>Category</label>
                             <select asp-for="Expense.Category" class="form-control" asp-items="Model.ExpenseTypeOptions">
@@ -153,7 +105,6 @@
             </div>
         </div>
     </div>
-
     <!-- Edit Expense Modal -->
     <div id="editExpenseModal" class="modal fade" role="dialog">
         <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -165,23 +116,11 @@
                     </div>
                     <div class="modal-body">
                         <input type="hidden" asp-for="Expense.Id" id="editExpenseId" />
-                        <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" id="editIsPayVendor" onchange="toggleVendorDropdown('edit')" />
-                            <label class="form-check-label" for="editIsPayVendor">Is To Pay Vendor</label>
-                        </div>
-
-                        <div class="form-group" id="editVendorGroup" style="display: none;">
-                            <label>Vendor</label>
-                            <select asp-for="Expense.VendorId" class="form-control" asp-items="Model.VendorsOptions">
-                                <option value="">-- Select Vendor --</option>
-                            </select>
-                        </div>
-
                         <div class="form-group">
                             <label>Category</label>
                             <select asp-for="Expense.Category" class="form-control" id="editExpenseCategory" asp-items="Model.ExpenseTypeOptions">
-                                <option value="" >-- Select Category --</option>
-                            </select>                            
+                                <option value="">-- Select Category --</option>
+                            </select>
                             <span asp-validation-for="Expense.Category" class="text-danger"></span>
                         </div>
                         <div class="form-group">
@@ -208,60 +147,47 @@
             </div>
         </div>
     </div>
+
+    <!-- Delete Modal -->
+    <div id="delete_expense" class="modal fade delete-modal" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form method="post" asp-page-handler="DeleteExpense">
+                    <div class="modal-body text-center">
+                        <img src="/assets/img/sent.png" alt="" width="50" height="46">
+                        <h3>Are you sure you want to delete this expense?</h3>
+                        <input type="hidden" name="ExpenseId" id="deleteExpenseId" />
+                        <div class="m-t-20">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <script>
     function editExpense(expense) {
         debugger;
         document.getElementById("editExpenseId").value = expense.id;
-    document.getElementById("editExpenseCategory").value = expense.category;
-    document.getElementById("editExpenseAmount").value = expense.amount;
+        document.getElementById("editExpenseCategory").value = expense.category;
+        document.getElementById("editExpenseAmount").value = expense.amount;
 
-    if (expense.date) {
-        document.getElementById("editExpenseDate").value = expense.date.split('T')[0];
-    }
+        if (expense.date) {
+            document.getElementById("editExpenseDate").value = expense.date.split('T')[0];
+        }
 
-    document.getElementById("editExpenseDescription").value = expense.description;
-    // Handle Is To Pay Vendor and VendorId
-    const isPayCheckbox = document.getElementById("editIsPayVendor");
-    const vendorGroup = document.getElementById("editVendorGroup");
-    const vendorDropdown = vendorGroup.querySelector("select");
-
-    if (expense.vendorId) {
-        isPayCheckbox.checked = true;
-        vendorGroup.style.display = "block";
-        vendorDropdown.value = expense.vendorId;
-    } else {
-        isPayCheckbox.checked = false;
-        vendorGroup.style.display = "none";
-        vendorDropdown.value = "";
-    }
-
-    const modal = new bootstrap.Modal(document.getElementById('editExpenseModal'));
-    modal.show();
+        document.getElementById("editExpenseDescription").value = expense.description;
+        const modal = new bootstrap.Modal(document.getElementById('editExpenseModal'));
+        modal.show();
     }
 
     function confirmDelete(id) {
         debugger;
         document.getElementById("deleteExpenseId").value = id;
         new bootstrap.Modal(document.getElementById('delete_expense')).show();
-    }
-
-
-</script>
-
-
-<script>
-    function toggleVendorDropdown(mode) {
-        const isChecked = document.getElementById(mode + "IsPayVendor").checked;
-        const vendorGroup = document.getElementById(mode + "VendorGroup");
-        if (isChecked) {
-            vendorGroup.style.display = 'block';
-        } else {
-            vendorGroup.style.display = 'none';
-            // Optionally clear the selected value
-            const dropdown = vendorGroup.querySelector("select");
-            if (dropdown) dropdown.value = "";
-        }
     }
 </script>
