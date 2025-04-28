@@ -102,7 +102,7 @@
                     <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body row">
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-3">
                         <label>Bank Name</label>
                         <select asp-for="Deposit.Bank" class="form-control" id="addBank" onchange="filterAccounts('add')">
                             <option value="">Select Bank</option>
@@ -113,12 +113,12 @@
                         </select>
                     </div>
 
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-3">
                         <label>Date</label>
                         <input type="date" asp-for="Deposit.Date" class="form-control" />
                     </div>
 
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-3">
                         <label>Account Number</label>
                         <select asp-for="Deposit.AccountNumber" class="form-control" id="addAccount">
                             <option value="">Select Account</option>
@@ -129,11 +129,11 @@
                         </select>
                     </div>
 
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-3">
                         <label>Cash</label>
                         <input asp-for="Deposit.Cash" class="form-control" id="addCash" oninput="calculateTotal('add')" />
                     </div>
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-3">
                         <label>Check Numbers</label>
                         <div id="addChecksContainer">
                             <div class="input-group mb-2">
@@ -144,18 +144,18 @@
                         </div>
                     </div>
 
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-3">
                         <label>Cheque Amount</label>
                         <input asp-for="Deposit.Cheque" class="form-control" id="addCheque" oninput="calculateTotal('add')" />
                     </div>
 
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-3">
                         <label>Total</label>
                         <input asp-for="Deposit.Total" class="form-control" id="addTotal" readonly />
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" type="submit">Save</button>
+                    <button class="btn btn-primary" type="submit">Add</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 </div>
             </form>
@@ -174,7 +174,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body row">
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-3">
                         <label>Bank Name</label>
                         <select asp-for="Deposit.Bank" class="form-control" id="editBank" onchange="filterAccounts('edit')">
                             <option value="">Select Bank</option>
@@ -185,12 +185,12 @@
                         </select>
                     </div>
 
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-3">
                         <label>Date</label>
                         <input type="date" asp-for="Deposit.Date" class="form-control" id="editDate" />
                     </div>
 
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-3">
                         <label>Account Number</label>
                         <select asp-for="Deposit.AccountNumber" class="form-control" id="editAccount">
                             <option value="">Select Account</option>
@@ -201,21 +201,21 @@
                         </select>
                     </div>
 
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-3">
                         <label>Cash</label>
                         <input asp-for="Deposit.Cash" class="form-control" id="editCash" oninput="calculateTotal('edit')" />
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-3">
                         <label>Check Number</label>
                         <input asp-for="Deposit.Check" id="editchecknumber" class="form-control" />
                         <span asp-validation-for="Deposit.Check"  class="text-danger"></span>
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-3">
                         <label>Cheque Amount</label>
                         <input asp-for="Deposit.Cheque" class="form-control" id="editCheque" oninput="calculateTotal('edit')" />
                     </div>
 
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-3">
                         <label>Total</label>
                         <input asp-for="Deposit.Total" class="form-control" id="editTotal" readonly />
                     </div>
