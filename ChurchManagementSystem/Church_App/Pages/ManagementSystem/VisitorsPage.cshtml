@@ -107,45 +107,73 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-12 text-center">
-                            <label class="form-label">Visitor's Picture</label>
-                            <input asp-for="VisitorImage" type="file" class="form-control-file" accept="image/*" />
-                            <img id="previewVisitorImage" src="/assets/img/default-user.png" class="img-thumbnail mt-2" width="150">
-                        </div>
-                    </div>
+                        <div class="col-md-4 text-center">
+                            
 
-                    <div class="row">
+                            <!-- Visitor Picture Upload -->
+                            <div class="position-relative d-inline-block" style="cursor: pointer;">
+                                <img id="previewVisitorImage" src="/assets/img/default-user.png"
+                                     class="rounded-circle border border-2"
+                                     style="width: 120px; height: 120px; object-fit: cover;"
+                                     onclick="document.getElementById('visitorFileInput').click()" />
+
+                                <input asp-for="VisitorImage" type="file" accept="image/*"
+                                       id="visitorFileInput" class="d-none" onchange="previewVisitorSelectedImage(event)" />
+                            </div>
+
+                            <!-- (Optional) Validation Message -->
+                            @* <div class="mt-2">
+            <span asp-validation-for="VisitorImage" class="text-danger"></span>
+        </div> *@
+                        </div>
                         <div class="col-md-4 form-group">
                             <label asp-for="Visitor.FName"></label>
                             <input asp-for="Visitor.FName" class="form-control" />
                             <span asp-validation-for="Visitor.FName" class="text-danger"></span>
                         </div>
-                        <div class="col-md-6 form-group">
+                        <div class="col-md-4 form-group">
                             <label asp-for="Visitor.LName"></label>
                             <input asp-for="Visitor.LName" class="form-control" />
                             <span asp-validation-for="Visitor.LName" class="text-danger"></span>
                         </div>
-                        <div class="col-md-6 form-group">
+                    </div>
+
+                    <!-- JavaScript -->
+                    <script>
+                        function previewVisitorSelectedImage(event) {
+                            const input = event.target;
+                            const preview = document.getElementById('previewVisitorImage');
+
+                            if (input.files && input.files[0]) {
+                                const reader = new FileReader();
+                                reader.onload = function(e) {
+                                    preview.src = e.target.result;
+                                }
+                                reader.readAsDataURL(input.files[0]);
+                            }
+                        }
+                    </script>
+
+
+                    <div class="row">
+                        
+                        <div class="col-md-3 form-group">
                             <label asp-for="Visitor.Email"></label>
                             <input asp-for="Visitor.Email" class="form-control" />
                             <span asp-validation-for="Visitor.Email" class="text-danger"></span>
                         </div>
-                        <div class="col-md-6 form-group">
+                        <div class="col-md-3 form-group">
                             <label asp-for="Visitor.Phone"></label>
                             <input asp-for="Visitor.Phone" class="form-control" />
                             <span asp-validation-for="Visitor.Phone" class="text-danger"></span>
                         </div>
-                        <div class="col-md-6 form-group">
+                        <div class="col-md-3 form-group">
                             <label asp-for="Visitor.VisitDate"></label>
                             <input asp-for="Visitor.VisitDate" type="date" class="form-control" />
                             <span asp-validation-for="Visitor.VisitDate" class="text-danger"></span>
                         </div>
-                        <div class="col-md-6 form-group">
-                            <label asp-for="Visitor.Address"></label>
-                            <input asp-for="Visitor.Address" class="form-control" />
-                            <span asp-validation-for="Visitor.Address" class="text-danger"></span>
-                        </div>
-                        <div class="col-md-4 form-group">
+                       
+                        <div class="col-md-3 form-group">
                             <label asp-for="Visitor.City"></label>
                             <input asp-for="Visitor.City" class="form-control" />
                             <span asp-validation-for="Visitor.City" class="text-danger"></span>
@@ -160,15 +188,20 @@
                             <input asp-for="Visitor.Zipcode" class="form-control" />
                             <span asp-validation-for="Visitor.Zipcode" class="text-danger"></span>
                         </div>
-                        <div class="col-md-12 form-group">
+                        <div class="col-md-4 form-group">
                             <label asp-for="Visitor.HomeChurch"></label>
                             <input asp-for="Visitor.HomeChurch" class="form-control" />
                             <span asp-validation-for="Visitor.HomeChurch" class="text-danger"></span>
                         </div>
+                        <div class="col-md-8 form-group">
+                            <label asp-for="Visitor.Address"></label>
+                            <input asp-for="Visitor.Address" class="form-control" />
+                            <span asp-validation-for="Visitor.Address" class="text-danger"></span>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Save Visitor</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 </div>
             </form>
@@ -183,42 +216,68 @@
             <form id="editVisitorForm" method="post" asp-page-handler="EditVisitor" enctype="multipart/form-data">
                 <div class="modal-header">
                     <h4 class="modal-title">Edit Church Visitor</h4>
-                    <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
                     <input type="hidden" asp-for="Visitor.Id" form="editVisitorForm" />
                     <div class="row">
-                        <div class="col-md-12 text-center">
-                            <label class="form-label">Visitor's Picture</label>
-                            <input asp-for="VisitorImage" type="file" class="form-control-file" accept="image/*" />
-                            <img id="editPreviewVisitorImage" src="/assets/img/default-user.png" class="img-thumbnail mt-2" width="150" />
+                        <div class="col-md-4 text-center">
+                            <label class="form-label mb-2">Visitor's Picture</label>
+
+                            <!-- Edit Visitor Picture Upload -->
+                            <div class="position-relative d-inline-block" style="cursor: pointer;">
+                                <img id="editPreviewVisitorImage" src="/assets/img/default-user.png"
+                                     class="rounded-circle border border-2"
+                                     style="width: 150px; height: 150px; object-fit: cover;"
+                                     onclick="document.getElementById('editVisitorFileInput').click()" />
+
+                                <input asp-for="VisitorImage" type="file" accept="image/*"
+                                       id="editVisitorFileInput" class="d-none" onchange="editPreviewVisitorSelectedImage(event)" />
+                            </div>
+
+                        
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 form-group">
+                        <div class="col-md-4 form-group">
                             <label asp-for="Visitor.FName"></label>
                             <input asp-for="Visitor.FName" class="form-control" />
                         </div>
-                        <div class="col-md-6 form-group">
+                        <div class="col-md-4 form-group">
                             <label asp-for="Visitor.LName"></label>
                             <input asp-for="Visitor.LName" class="form-control" />
                         </div>
-                        <div class="col-md-6 form-group">
+                    </div>
+
+                    <!-- JavaScript -->
+                    <script>
+                        function editPreviewVisitorSelectedImage(event) {
+                            const input = event.target;
+                            const preview = document.getElementById('editPreviewVisitorImage');
+
+                            if (input.files && input.files[0]) {
+                                const reader = new FileReader();
+                                reader.onload = function(e) {
+                                    preview.src = e.target.result;
+                                }
+                                reader.readAsDataURL(input.files[0]);
+                            }
+                        }
+                    </script>
+
+                    <div class="row">
+                     
+                        <div class="col-md-4 form-group">
                             <label asp-for="Visitor.Email"></label>
                             <input asp-for="Visitor.Email" class="form-control" />
                         </div>
-                        <div class="col-md-6 form-group">
+                        <div class="col-md-4 form-group">
                             <label asp-for="Visitor.Phone"></label>
                             <input asp-for="Visitor.Phone" class="form-control" />
                         </div>
-                        <div class="col-md-6 form-group">
+                        <div class="col-md-4 form-group">
                             <label asp-for="Visitor.VisitDate"></label>
                             <input asp-for="Visitor.VisitDate" type="date" class="form-control" />
                         </div>
-                        <div class="col-md-6 form-group">
-                            <label asp-for="Visitor.Address"></label>
-                            <input asp-for="Visitor.Address" class="form-control" />
-                        </div>
+                      
                         <div class="col-md-4 form-group">
                             <label asp-for="Visitor.City"></label>
                             <input asp-for="Visitor.City" class="form-control" />
@@ -231,22 +290,26 @@
                             <label asp-for="Visitor.Zipcode"></label>
                             <input asp-for="Visitor.Zipcode" class="form-control" />
                         </div>
-                        <div class="col-md-12 form-group">
+                        <div class="col-md-4 form-group">
                             <label asp-for="Visitor.HomeChurch"></label>
                             <input asp-for="Visitor.HomeChurch" class="form-control" />
+                        </div>
+                        <div class="col-md-8 form-group">
+                            <label asp-for="Visitor.Address"></label>
+                            <input asp-for="Visitor.Address" class="form-control" />
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Update Visitor</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 <!-- Image Preview Script -->
-<script>
+@* <script>
     document.querySelector('input[name="VisitorImage"]').addEventListener('change', function(event) {
         const reader = new FileReader();
         reader.onload = function() {
@@ -254,7 +317,7 @@
         };
         reader.readAsDataURL(event.target.files[0]);
     });
-</script>
+</script> *@
 <script>
     function confirmDelete(visitorId) {
         document.getElementById("deleteVisitorId").value = visitorId;
