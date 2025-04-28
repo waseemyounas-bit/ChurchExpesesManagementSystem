@@ -102,31 +102,27 @@
 
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-md-6 form-group">
+                            <div class="col-md-4 form-group">
                                 <label asp-for="Vendor.Name"></label>
                                 <input asp-for="Vendor.Name" class="form-control" />
                                 <span asp-validation-for="Vendor.Name" class="text-danger"></span>
                             </div>
 
-                            <div class="col-md-6 form-group">
+                            <div class="col-md-4 form-group">
                                 <label asp-for="Vendor.Contact"></label>
                                 <input asp-for="Vendor.Contact" class="form-control" />
                                 <span asp-validation-for="Vendor.Contact" class="text-danger"></span>
                             </div>
 
-                            <div class="col-md-12 form-group">
-                                <label asp-for="Vendor.Address"></label>
-                                <input asp-for="Vendor.Address" class="form-control" />
-                                <span asp-validation-for="Vendor.Address" class="text-danger"></span>
-                            </div>
+                       
 
-                            <div class="col-md-6 form-group">
+                            <div class="col-md-4 form-group">
                                 <label asp-for="Vendor.AccountNumber"></label>
                                 <input asp-for="Vendor.AccountNumber" class="form-control" />
                                 <span asp-validation-for="Vendor.AccountNumber" class="text-danger"></span>
                             </div>
 
-                            <div class="col-md-6 form-group">
+                            <div class="col-md-4 form-group">
                                 <label asp-for="Vendor.Email"></label>
                                 <input asp-for="Vendor.Email" class="form-control" />
                                 <span asp-validation-for="Vendor.Email" class="text-danger"></span>
@@ -148,6 +144,11 @@
                                 <label asp-for="Vendor.Zip"></label>
                                 <input asp-for="Vendor.Zip" class="form-control" />
                                 <span asp-validation-for="Vendor.Zip" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-8 form-group">
+                                <label asp-for="Vendor.Address"></label>
+                                <input asp-for="Vendor.Address" class="form-control" />
+                                <span asp-validation-for="Vendor.Address" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
@@ -176,50 +177,59 @@
                         <input type="hidden" asp-for="Vendor.Id" id="editVendorId" />
 
                         <div class="row">
-                            <div class="col-md-6 form-group">
+                            <div class="col-md-4 form-group">
                                 <label>Name</label>
                                 <input asp-for="Vendor.Name" class="form-control" id="editVendorName" />
+                                <span asp-validation-for="Vendor.Name" class="text-danger"></span>
                             </div>
 
-                            <div class="col-md-6 form-group">
+                            <div class="col-md-4 form-group">
                                 <label>Contact</label>
                                 <input asp-for="Vendor.Contact" class="form-control" id="editContact" />
+                                <span asp-validation-for="Vendor.Contact" class="text-danger"></span>
                             </div>
 
-                            <div class="col-md-12 form-group">
-                                <label>Address</label>
-                                <input asp-for="Vendor.Address" class="form-control" id="editAddress" />
-                            </div>
+                           
 
-                            <div class="col-md-6 form-group">
+                            <div class="col-md-4 form-group">
                                 <label>Account Number</label>
                                 <input asp-for="Vendor.AccountNumber" class="form-control" id="editAccountNumber" />
+                                <span asp-validation-for="Vendor.AccountNumber" class="text-danger"></span>
                             </div>
 
-                            <div class="col-md-6 form-group">
+                            <div class="col-md-4 form-group">
                                 <label>Email</label>
                                 <input asp-for="Vendor.Email" class="form-control" id="editEmail" />
+                                <span asp-validation-for="Vendor.Email" class="text-danger"></span>
                             </div>
 
                             <div class="col-md-4 form-group">
                                 <label>City</label>
                                 <input asp-for="Vendor.City" class="form-control" id="editCity" />
+                                <span asp-validation-for="Vendor.City" class="text-danger"></span>
                             </div>
 
                             <div class="col-md-4 form-group">
                                 <label>State</label>
                                 <input asp-for="Vendor.State" class="form-control" id="editState" />
+                                <span asp-validation-for="Vendor.State" class="text-danger"></span>
                             </div>
 
                             <div class="col-md-4 form-group">
                                 <label>Zip</label>
                                 <input asp-for="Vendor.Zip" class="form-control" id="editZip" />
+                                <span asp-validation-for="Vendor.Zip" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-8 form-group">
+                                <label>Address</label>
+                                <input asp-for="Vendor.Address" class="form-control" id="editAddress" />
+                                <span asp-validation-for="Vendor.Address" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
 
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Update Vendor</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     </div>
                 </form>
