@@ -7,7 +7,12 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword />
-    <History>True|2025-04-19T04:02:17.4686214Z||;</History>
+    <History>True|2025-04-19T22:14:29.4152894Z||;True|2025-04-19T14:44:31.3028451+03:00||;True|2025-04-19T14:43:00.4560580+03:00||;True|2025-04-19T07:02:17.4686214+03:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DefaultConnection">
+      <Value>Data Source=SQL1003.site4now.net%3bInitial Catalog=db_ab7a41_churchdb%3bUser Id=db_ab7a41_churchdb_admin%3bPassword=admin!123</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
 </Project>

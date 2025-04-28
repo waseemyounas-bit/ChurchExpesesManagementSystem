@@ -19,7 +19,7 @@ namespace Services
             var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var roles = roleManager.Roles.ToList();
 
-            string adminEmail = "admin@example.com";
+            string adminEmail = "admin@newlightmbc.com";
             string adminPassword = "Admin@123";
             string adminRoleName = "Admin";
 
