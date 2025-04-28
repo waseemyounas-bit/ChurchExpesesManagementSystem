@@ -83,7 +83,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Vendor</label>
                                     <select asp-for="Expense.VendorId" class="form-control" asp-items="Model.VendorsOptions">
@@ -92,7 +92,7 @@
                                     <input value="Vendor Paid" asp-for="Expense.Category" hidden />
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label asp-for="Expense.Amount"></label>
                                     <input asp-for="Expense.Amount" class="form-control" />
@@ -100,7 +100,7 @@
                                 </div>
 
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label asp-for="Expense.Date"></label>
                                     <input asp-for="Expense.Date" class="form-control" type="date" />
@@ -139,7 +139,7 @@
                         <input type="hidden" asp-for="Expense.Id" id="editExpenseId" />
                         <input type="hidden" asp-for="Expense.Category" value="Vendor Paid" />
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Vendor</label>
                                     <select asp-for="Expense.VendorId" id="editvendorid" class="form-control" asp-items="Model.VendorsOptions">
@@ -147,14 +147,14 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label asp-for="Expense.Amount"></label>
                                     <input asp-for="Expense.Amount" class="form-control" id="editExpenseAmount" />
                                     <span asp-validation-for="Expense.Amount" class="text-danger"></span>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label asp-for="Expense.Date"></label>
                                     <input asp-for="Expense.Date" class="form-control" type="date" id="editExpenseDate" />
