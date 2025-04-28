@@ -32,27 +32,7 @@ namespace Church_App.Pages
             if (!ModelState.IsValid)
                 return Page();
 
-            // Handle image upload
-         
-            if (LogoFile != null && LogoFile.Length > 0)
-            {
-                var uploads = Path.Combine(_environment.WebRootPath, "uploads");
-                Directory.CreateDirectory(uploads);
-                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(LogoFile.FileName);
-                var filePath = Path.Combine(uploads, fileName);
-
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await LogoFile.CopyToAsync(stream);
-                }
-
-                ChurchSetting.Logo = "/uploads/" + fileName;
-            }
-            else
-            {
-                ErrorMessage = "Please upload a logo.";
-                return Page();
-            }
+           
             await _churchSettingService.CreateAsync(ChurchSetting);
             HttpContext.Session.SetString("ChurchName", ChurchSetting.Name);
             HttpContext.Session.SetString("ChurchLogo", ChurchSetting.Logo);

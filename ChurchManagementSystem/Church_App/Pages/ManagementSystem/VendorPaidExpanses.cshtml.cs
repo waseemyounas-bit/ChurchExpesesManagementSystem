@@ -6,13 +6,13 @@ using Services;
 
 namespace Church_App.Pages.ManagementSystem
 {
-    public class ExpensesPageModel : PageModel
+    public class VendorPaidExpansesModel : PageModel
     {
         private readonly IExpenseService _expenseService;
         private readonly IExpenseTypeService _expenseTypeService;
         private readonly IVendorService _vendorService;
 
-        public ExpensesPageModel(IExpenseService expenseService, IExpenseTypeService expenseTypeService, IVendorService vendorService)
+        public VendorPaidExpansesModel(IExpenseService expenseService, IExpenseTypeService expenseTypeService, IVendorService vendorService)
         {
             _expenseService = expenseService;
             _expenseTypeService = expenseTypeService;
@@ -29,24 +29,26 @@ namespace Church_App.Pages.ManagementSystem
         public Expense Expense { get; set; } = new Expense();
 
         [BindProperty]
-        public Guid ExpenseId { get; set; }
+        public Guid deleteExpenseId { get; set; }
 
-        public bool IsToPayVendor { get; set; } // you'll need to bind this manually from form
         public async Task OnGetAsync()
         {
-            ExpenseList = (await _expenseService.GetAllAsync()).Where(e => e.VendorId == null).ToList();
+            ExpenseList = (await _expenseService.GetAllAsync()).Where(e => e.VendorId != null).ToList();
             var expenseTypes = await _expenseTypeService.GetAllAsync();
             ExpenseTypeOptions = new SelectList(expenseTypes, "Name", "Name");
+            var vendors = await _vendorService.GetAllVendorsAsync();
+            Vendorlist = vendors;
+            VendorsOptions = new SelectList(vendors, "Id", "Name");
         }
 
-        public async Task<IActionResult> OnPostAddNonVendorPaidExpenseAsync()
+        public async Task<IActionResult> OnPostAddVendorPaidExpenseAsync()
         {
             if (!ModelState.IsValid)
             {
                 await OnGetAsync();
                 return Page();
             }
-
+            Expense.Category="Vendor Paid";
             Expense.Id = Guid.NewGuid();
             await _expenseService.AddAsync(Expense);
             return RedirectToPage();
@@ -66,9 +68,9 @@ namespace Church_App.Pages.ManagementSystem
 
         public async Task<IActionResult> OnPostDeleteExpenseAsync()
         {
-            if (ExpenseId != Guid.Empty)
+            if (deleteExpenseId != Guid.Empty)
             {
-                await _expenseService.DeleteAsync(ExpenseId);
+                await _expenseService.DeleteAsync(deleteExpenseId);
             }
 
             return RedirectToPage();

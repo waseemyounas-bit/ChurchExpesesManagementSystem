@@ -100,69 +100,56 @@
                 <form method="post" asp-page-handler="AddDonation">
                     <div class="modal-header">
                         <h4 class="modal-title">Add Donation</h4>
-                        <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
-                       @*  <div class="form-group">
-                            <label>Donor Type</label><br />
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="donorTypeToggle" onchange="toggleDonorType()" />
-                                <label class="form-check-label" for="donorTypeToggle">Visitor</label>
-                                <span asp-validation-summary="ModelOnly" class="text-danger"></span>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group" id="visitorDropdown">
+                                    <label asp-for="Donation.VisitorId"></label>
+                                    <select asp-for="Donation.VisitorId" class="form-control">
+                                        <option>-- Select Donor --</option>
+                                        @foreach (var visitor in Model.Visitors)
+                                        {
+                                            <option value="@visitor.Id">@visitor.FName @visitor.LName</option>
+                                        }
+                                    </select>
 
+                                </div>
                             </div>
-                        </div> *@
-
-@*                         <div class="form-group" id="memberDropdown">
-                            <label asp-for="Donation.MemberId"></label>
-                            <select asp-for="Donation.MemberId" class="form-control">
-                                <option>-- Select Donor --</option>
-                                @foreach (var member in Model.Donors)
-                                {
-                                    <option value="@member.Id">@member.FName @member.LName</option>
-                                }
-                            </select>
-                           
-                        </div> *@
-
-                        <div class="form-group" id="visitorDropdown">
-                            <label asp-for="Donation.VisitorId"></label>
-                            <select asp-for="Donation.VisitorId" class="form-control">
-                                <option>-- Select Donor --</option>
-                                @foreach (var visitor in Model.Visitors)
-                                {
-                                    <option value="@visitor.Id">@visitor.FName @visitor.LName</option>
-                                }
-                            </select>
-                           
-                        </div>
-
-                        <div class="form-group">
-                            <label asp-for="Donation.Type"></label>
-                            <select asp-for="Donation.Type" class="form-control">
-                                <option>-- Select Type --</option>
-                                @foreach (var type in Model.DonationTypes)
-                                {
-                                    <option value="@type.Name">@type.Name</option>
-                                }
-                            </select>
-                            <span asp-validation-for="Donation.Type" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="Donation.Amount"></label>
-                            <input asp-for="Donation.Amount" class="form-control" />
-                            <span asp-validation-for="Donation.Amount" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="Donation.DueDate"></label>
-                            <input asp-for="Donation.DueDate" type="date" class="form-control" />
-                            <span asp-validation-for="Donation.DueDate" class="text-danger"></span>
+                               <div class="col-md-3">
+                                <div class="form-group">
+                                    <label asp-for="Donation.Type"></label>
+                                    <select asp-for="Donation.Type" class="form-control">
+                                        <option>-- Select Type --</option>
+                                        @foreach (var type in Model.DonationTypes)
+                                        {
+                                            <option value="@type.Name">@type.Name</option>
+                                        }
+                                    </select>
+                                    <span asp-validation-for="Donation.Type" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label asp-for="Donation.Amount"></label>
+                                    <input asp-for="Donation.Amount" class="form-control" />
+                                    <span asp-validation-for="Donation.Amount" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label asp-for="Donation.DueDate"></label>
+                                    <input asp-for="Donation.DueDate" type="date" class="form-control" />
+                                    <span asp-validation-for="Donation.DueDate" class="text-danger"></span>
+                                </div>
+                            </div>
                         </div>
                       
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Save</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Add</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     </div>
                 </form>
             </div>
@@ -181,40 +168,49 @@
                     <div class="modal-body">
                         <input type="hidden" asp-for="Donation.Id" id="editDonationId" />
 
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group" id="editVisitorDropdown">
+                                    <label asp-for="Donation.VisitorId"></label>
+                                    <select asp-for="Donation.VisitorId" class="form-control" id="editDonationVisitor">
+                                        <option>-- Select Donor --</option>
+                                        @foreach (var visitor in Model.Visitors)
+                                        {
+                                            <option value="@visitor.Id">@visitor.FName @visitor.LName</option>
+                                        }
+                                    </select>
 
-                        <div class="form-group" id="editVisitorDropdown">
-                            <label asp-for="Donation.VisitorId"></label>
-                            <select asp-for="Donation.VisitorId" class="form-control" id="editDonationVisitor">
-                                <option>-- Select Donor --</option>
-                                @foreach (var visitor in Model.Visitors)
-                                {
-                                    <option value="@visitor.Id">@visitor.FName @visitor.LName</option>
-                                }
-                            </select>
-                           
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label asp-for="Donation.Type"></label>
+                                    <select asp-for="Donation.Type" class="form-control" id="editDonationType">
+                                        <option>-- Select Type --</option>
+                                        @foreach (var type in Model.DonationTypes)
+                                        {
+                                            <option value="@type.Name">@type.Name</option>
+                                        }
+                                    </select>
+                                    <span asp-validation-for="Donation.Type" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label asp-for="Donation.Amount"></label>
+                                    <input asp-for="Donation.Amount" class="form-control" id="editDonationAmount" />
+                                    <span asp-validation-for="Donation.Amount" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label asp-for="Donation.DueDate"></label>
+                                    <input asp-for="Donation.DueDate" type="date" id="editDonationDate" class="form-control" />
+                                    <span asp-validation-for="Donation.DueDate" class="text-danger"></span>
+                                </div>
+                            </div>
                         </div>
-
-                        <div class="form-group">
-                            <label asp-for="Donation.Type"></label>
-                            <select asp-for="Donation.Type" class="form-control" id="editDonationType">
-                                <option>-- Select Type --</option>
-                                @foreach (var type in Model.DonationTypes)
-                                {
-                                    <option value="@type.Name">@type.Name</option>
-                                }
-                            </select>
-                            <span asp-validation-for="Donation.Type" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="Donation.Amount"></label>
-                            <input asp-for="Donation.Amount" class="form-control" id="editDonationAmount" />
-                            <span asp-validation-for="Donation.Amount" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="Donation.DueDate"></label>
-                            <input asp-for="Donation.DueDate" type="date" id="editDonationDate" class="form-control" />
-                            <span asp-validation-for="Donation.DueDate" class="text-danger"></span>
-                        </div>
+                       
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Save Changes</button>

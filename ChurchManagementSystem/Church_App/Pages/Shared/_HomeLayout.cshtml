@@ -35,6 +35,11 @@
     <link rel="stylesheet" type="text/css" href="~/assets/css/select2.min.css">
     <link rel="stylesheet" type="text/css" href="~/assets/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" type="text/css" href="~/assets/css/style.css">
+    <style>
+        #lable{
+            color: black;
+        }
+    </style>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- DataTables Buttons Bootstrap 4 support -->
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap4.min.css" />
@@ -56,11 +61,11 @@
 <body>
     <div class="main-wrapper">
         <div class="header">
-            <div class="header-left">
+           @*  <div class="header-left">
                 <a href="/dashboard" class="logo">
                     <img src="@(Context.Session.GetString("ChurchLogo") ?? "/assets/img/default-user.png")" width="35" height="35" alt=""> <span>@(Context.Session.GetString("ChurchName") ?? "Church")</span>
                 </a>
-            </div>
+            </div> *@
             <a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
             <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
             <ul class="nav user-menu float-right">
@@ -73,6 +78,7 @@
                         <span>@(Context.Session.GetString("UserName") ?? "Admin")</span>
                     </a>
                     <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/setting/update">Church Setting</a>
                         <a class="dropdown-item" href="/profile">My Profile</a>
                         <a class="dropdown-item" href="/Logout">Logout</a>
                     </div>
@@ -81,6 +87,7 @@
             <div class="dropdown mobile-user-menu float-right">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                 <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="/setting/update">Church Setting</a>
                     <a class="dropdown-item" href="/pprofile">My Profile</a>
                     <a class="dropdown-item" href="/Logout">Logout</a>
                 </div>
@@ -100,6 +107,9 @@
                         </li>
                         <li>
                             <a href="visitordonations"><i class="fa fa-dollar"></i> <span>Visitor Donations</span></a>
+                        </li>
+                        <li>
+                            <a href="vendor-paid-expenses"><i class="fa fa-dollar"></i> <span>Paid To vendor</span></a>
                         </li>
                         <li>
                             <a href="members"><i class="fa fa-users"></i> <span>Members</span></a>
