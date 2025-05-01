@@ -1,4 +1,6 @@
-﻿using Entities.DTO;
+﻿using BoldReports.Processing.ObjectModels;
+using DataAccess.Data;
+using Entities.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -12,6 +14,7 @@ namespace Church_App.Pages
         private readonly IChurchSettingService _churchsettingservice;
         private readonly IChurchSettingService _churchSettingService;
         private readonly ILogger<IndexModel> _logger;
+        private readonly DataContext _context;
 
         [BindProperty]
         public LoginviewModel LoginData { get; set; } = new();
@@ -20,12 +23,13 @@ namespace Church_App.Pages
         public string ChurchName { get; set; } = "";
         public string ErrorMessage { get; set; }
 
-        public IndexModel(AuthService authService, ILogger<IndexModel> logger, IChurchSettingService churchSettingService, IChurchSettingService churchsettingservice)
+        public IndexModel(AuthService authService, ILogger<IndexModel> logger, IChurchSettingService churchSettingService, IChurchSettingService churchsettingservice, DataContext dataContext)
         {
             _logger = logger;
             _authService = authService;
             _churchSettingService = churchSettingService;
             _churchsettingservice = churchsettingservice;
+            _context = dataContext;
         }
 
         public void OnGet()
@@ -75,6 +79,25 @@ namespace Church_App.Pages
             return Page();
 
         }
+
+        public async Task<IActionResult> OnPostQrLoginAsync([FromBody] string email)
+        {
+            if (string.IsNullOrEmpty(email))
+                return new JsonResult(new { success = false, message = "No email provided." });
+            var vendoruser = _context.Vendors.Where(x => x.Email == email).FirstOrDefault();
+           var visitoruser  = _context.Visitors.Where(x => x.Email == email).FirstOrDefault();
+            if (vendoruser!=null)
+            {
+                // Optionally: Auto-login or just return user data
+                HttpContext.Session.SetString("UserEmail", vendoruser.Email);
+                HttpContext.Session.SetString("UserName", vendoruser.Name);
+                HttpContext.Session.SetString("RoleId", "Vendor");
+                return RedirectToPage("/ManagementSystem/Dashboard");
+            }
+          
+            return new JsonResult(new { success = false, message = "User not found." });
+        }
+
 
     }
 }

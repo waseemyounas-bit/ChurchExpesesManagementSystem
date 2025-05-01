@@ -36,6 +36,7 @@
                                 <th>City</th>
                                 <th>State</th>
                                 <th>AccountNumber</th>
+                                <th>QR</th>
                                 <th class="text-right">Action</th>
                             </tr>
                         </thead>
@@ -49,6 +50,9 @@
                                     <td>@v.City</td>
                                     <td>@v.State</td>
                                     <td>@v.AccountNumber</td>
+                                    <td>
+                                        <canvas id="qrcode-@v.Id" width="60" height="60"></canvas>
+                                    </td>
                                     <td class="text-right">
                                         <div class="dropdown dropdown-action">
                                             <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown">
@@ -286,5 +290,21 @@
             var modal = new bootstrap.Modal(document.getElementById('delete_vendor'));
             modal.show();
         }
+
+
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const vendors = @Html.Raw(Json.Serialize(Model.VendorList));
+
+            vendors.forEach(v => {
+                const qr = new QRious({
+                    element: document.getElementById(`qrcode-${v.id}`),
+                    value: v.email,
+                    size: 60
+                });
+            });
+        });
+    </script>
+
 

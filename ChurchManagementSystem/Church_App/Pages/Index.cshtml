@@ -55,6 +55,15 @@
                         @*     Don’t have an account? <a href="register.html">Register Now</a> *@
                         @* </div> *@
                     </form>
+                    <div class="form-group text-center">
+                        <button type="button" class="btn btn-outline-secondary" onclick="startQrScan()" title="Scan QR to Login">
+                            <i class="fa fa-qrcode fa-lg"></i>
+                        </button>
+                    </div>
+
+
+                    <div id="qr-reader" style="width: 300px; margin: 0 auto; display: none;"></div>
+
                 </div>
             </div>
         </div>
@@ -67,5 +76,50 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <script>
+        function startQrScan() {
+            document.getElementById("qr-reader").style.display = "block";
+
+            const html5QrCode = new Html5Qrcode("qr-reader");
+
+            html5QrCode.start(
+                { facingMode: "environment" },
+                {
+                    fps: 10,
+                    qrbox: { width: 250, height: 250 }
+                },
+                      (decodedText, decodedResult) => {
+            fetch("/Index?handler=QrLogin", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
+                },
+                body: JSON.stringify(decodedText)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Welcome " + data.userName + "! Logging you in...");
+                    window.location.href = "/ManagementSystem/Dashboard"; // Redirect if needed
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(err => console.error("Error:", err));
+
+            html5QrCode.stop().then(() => {
+                document.getElementById("qr-reader").style.display = "none";
+            });
+        },
+                (errorMessage) => {
+                    // Ignore scanning errors
+                }
+            ).catch(err => {
+                console.error("Failed to start QR scanner.", err);
+            });
+        }
+    </script>
 
 </body>

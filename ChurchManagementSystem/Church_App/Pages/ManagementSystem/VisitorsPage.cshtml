@@ -35,6 +35,7 @@
                                 <th>State</th>
                                 <th>Zip</th>
                                 <th>Home Church</th>
+                                <th>QRCode</th>
                                 <th class="text-right">Action</th>
                             </tr>
                         </thead>
@@ -52,6 +53,9 @@
                                     <td>@v.State</td>
                                     <td>@v.Zipcode</td>
                                     <td>@v.HomeChurch</td>
+                                    <td>
+                                        <canvas id="qrcode-@v.Id" width="60" height="60"></canvas>
+                                    </td>
                                     <td class="text-right">
                                         <div class="dropdown dropdown-action">
                                             <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown">
@@ -373,4 +377,19 @@
         const modal = new bootstrap.Modal(document.getElementById('editVisitorModal'));
         modal.show();
     }
+</script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const vendors = @Html.Raw(Json.Serialize(Model.VisitorsList));
+
+        vendors.forEach(v => {
+            const qr = new QRious({
+                element: document.getElementById(`qrcode-${v.id}`),
+                value: v.email,
+                size: 60
+            });
+        });
+    });
 </script>
