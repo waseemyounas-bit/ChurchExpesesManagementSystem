@@ -58,7 +58,7 @@ namespace Church_App.Pages
                     HttpContext.Session.SetString("UserEmail", user.Email);
                     HttpContext.Session.SetString("UserName", user.FullName);
                     HttpContext.Session.SetString("RoleId", user.RoleId);          // 👈 Add this
-                    //HttpContext.Session.SetString("RoleName", user.Role?.Name);    // 👈 Optional: friendly display name
+                    HttpContext.Session.SetString("RoleName", "Admin");    // 👈 Optional: friendly display name
                     var settings = await _churchSettingService.GetAllAsync();
                     if (settings.Any())
                     {
@@ -84,19 +84,26 @@ namespace Church_App.Pages
         {
             if (string.IsNullOrEmpty(email))
                 return new JsonResult(new { success = false, message = "No email provided." });
-            var vendoruser = _context.Vendors.Where(x => x.Email == email).FirstOrDefault();
-           var visitoruser  = _context.Visitors.Where(x => x.Email == email).FirstOrDefault();
-            if (vendoruser!=null)
-            {
-                // Optionally: Auto-login or just return user data
-                HttpContext.Session.SetString("UserEmail", vendoruser.Email);
-                HttpContext.Session.SetString("UserName", vendoruser.Name);
-                HttpContext.Session.SetString("RoleId", "Vendor");
-                return RedirectToPage("/ManagementSystem/Dashboard");
-            }
+
           
+            var vendoruser = _context.Members.Where(x => x.Email == email).FirstOrDefault();
+            var visitoruser = _context.Visitors.Where(x => x.Email == email).FirstOrDefault();
+
+            if (vendoruser != null)
+            {
+                var rolid = _context.Roles.Where(x => x.Name == "Member").Select(x=>x.Id).FirstOrDefault();
+                HttpContext.Session.SetString("UserEmail", vendoruser.Email);
+                HttpContext.Session.SetString("UserName", vendoruser.FName);
+                HttpContext.Session.SetString("RoleId", rolid.ToString());
+                HttpContext.Session.SetString("RoleName", "Member");
+
+                // Return redirect URL in the JSON response
+                return new JsonResult(new { success = true, redirectUrl = "/memberdonations", userName= vendoruser.Email });
+            }
+
             return new JsonResult(new { success = false, message = "User not found." });
         }
+
 
 
     }

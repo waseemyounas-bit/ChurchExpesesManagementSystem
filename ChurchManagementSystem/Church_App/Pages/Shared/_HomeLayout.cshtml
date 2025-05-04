@@ -58,6 +58,9 @@
     <!-- Report Viewer component script -->
     <script src="https://cdn.boldreports.com/8.1.1/scripts/v2.0/bold.report-viewer.min.js"></script>
 </head>
+    @{
+                var rolname = Context.Session.GetString("RoleName");
+        }
 <body>
     <div class="main-wrapper">
         <div class="header">
@@ -78,8 +81,11 @@
                         <span>@(Context.Session.GetString("UserName") ?? "Admin")</span>
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/setting/update">Church Setting</a>
-                        <a class="dropdown-item" href="/profile">My Profile</a>
+                        @if (rolname == "Admin")
+                        {
+                            <a class="dropdown-item" href="/setting/update">Church Setting</a>
+                            <a class="dropdown-item" href="/pprofile">My Profile</a>
+                        }
                         <a class="dropdown-item" href="/Logout">Logout</a>
                     </div>
                 </li>
@@ -87,82 +93,91 @@
             <div class="dropdown mobile-user-menu float-right">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="/setting/update">Church Setting</a>
-                    <a class="dropdown-item" href="/pprofile">My Profile</a>
+                    @if (rolname=="Admin")
+                    {
+                        <a class="dropdown-item" href="/setting/update">Church Setting</a>
+                        <a class="dropdown-item" href="/pprofile">My Profile</a>
+                    }
+                   
                     <a class="dropdown-item" href="/Logout">Logout</a>
                 </div>
             </div>
         </div>
-        <div class="sidebar" id="sidebar">
-            <div class="sidebar-inner slimscroll">
-                <div id="sidebar-menu" class="sidebar-menu">
-                    <ul>
-                        <li class="menu-title">Main</li>
+    
+        @if (rolname=="Admin")
+        {
+            <div class="sidebar" id="sidebar">
+                <div class="sidebar-inner slimscroll">
+                    <div id="sidebar-menu" class="sidebar-menu">
+                        <ul>
+                            <li class="menu-title">Main</li>
 
-                        <li class="active">
-                            <a href="dashboard"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
-                        </li>
-                        <li>
-                            <a href="memberdonations"><i class="fa fa-dollar"></i> <span>Member Donations</span></a>
-                        </li>
-                        <li>
-                            <a href="visitordonations"><i class="fa fa-dollar"></i> <span>Visitor Donations</span></a>
-                        </li>
-                        
-                        <li>
-                            <a href="members"><i class="fa fa-users"></i> <span>Members</span></a>
-                        </li>
-                        <li>
-                            <a href="vendors"><i class="fa fa-users"></i> <span>Vendors</span></a>
-                        </li>
-                        <li>
-                            <a href="visitors"><i class="fa fa-users"></i> <span>Visitors</span></a>
-                        </li>
-                        <li class="submenu">
-                            <a href="#"><i class="fa fa-cog"></i> <span> Settings </span> <span class="menu-arrow"></span></a>
-                            <ul style="display: none;">
-                                <li><a href="groups">Groups</a></li>
-                                <li><a href="donation-types">Donation-Types</a></li>
-                                <li><a href="expense-types">Expense-Types</a></li>
-                                <li><a href="Roles">Roles</a></li>
-                            </ul>
+                            <li class="active">
+                                <a href="dashboard"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+                            </li>
+                            <li>
+                                <a href="memberdonations"><i class="fa fa-dollar"></i> <span>Member Donations</span></a>
+                            </li>
+                            <li>
+                                <a href="visitordonations"><i class="fa fa-dollar"></i> <span>Visitor Donations</span></a>
+                            </li>
 
-                        </li>
-                        <li class="submenu">
-                            <a href="#"><i class="fa fa-file"></i> <span> Reporting </span> <span class="menu-arrow"></span></a>
-                            <ul style="display: none;">
-                                <li><a href="donationreport">Donation Report</a></li>
-                                <li><a href="expensereport">Expense Report</a></li>
-                                <li><a href="depositreport">Deposit Report</a></li>
+                            <li>
+                                <a href="members"><i class="fa fa-users"></i> <span>Members</span></a>
+                            </li>
+                            <li>
+                                <a href="vendors"><i class="fa fa-users"></i> <span>Vendors</span></a>
+                            </li>
+                            <li>
+                                <a href="visitors"><i class="fa fa-users"></i> <span>Visitors</span></a>
+                            </li>
+                            <li class="submenu">
+                                <a href="#"><i class="fa fa-cog"></i> <span> Settings </span> <span class="menu-arrow"></span></a>
+                                <ul style="display: none;">
+                                    <li><a href="groups">Groups</a></li>
+                                    <li><a href="donation-types">Donation-Types</a></li>
+                                    <li><a href="expense-types">Expense-Types</a></li>
+                                    <li><a href="Roles">Roles</a></li>
+                                </ul>
 
-                            </ul>
+                            </li>
+                            <li class="submenu">
+                                <a href="#"><i class="fa fa-file"></i> <span> Reporting </span> <span class="menu-arrow"></span></a>
+                                <ul style="display: none;">
+                                    <li><a href="donationreport">Donation Report</a></li>
+                                    <li><a href="expensereport">Expense Report</a></li>
+                                    <li><a href="depositreport">Deposit Report</a></li>
 
-                        </li>
-                        <li class="submenu">
-                            <a href="#"><i class="fa fa-money"></i> <span> Account </span> <span class="menu-arrow"></span></a>
-                            <ul style="display: none;">
-                                <li><a href="banks">Banks</a></li>
-                                <li><a href="deposits">Deposits</a></li>
-                                <li><a href="expenses">Expenses</a></li>
-                                <li>
-                                    <a href="vendor-paid-expenses">Add Bill Expenses</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="menu-title">System Administrator</li>
-                        <li>
-                            <a href="administrators"><i class="fa fa-laptop"></i> <span>Manage Access</span></a>
-                        </li>
-                        <li>
-                            <a href="permissions"><i class="fa fa-chain"></i> <span>Permission</span></a>
-                        </li>
-                        <li>
-                            <a href="sendmail"><i class="fa fa-envelope"></i> <span>Send Mail</span></a>
-                        </li>
-                    </ul>
+                                </ul>
+
+                            </li>
+                            <li class="submenu">
+                                <a href="#"><i class="fa fa-money"></i> <span> Account </span> <span class="menu-arrow"></span></a>
+                                <ul style="display: none;">
+                                    <li><a href="banks">Banks</a></li>
+                                    <li><a href="deposits">Deposits</a></li>
+                                    <li><a href="expenses">Expenses</a></li>
+                                    <li>
+                                        <a href="vendor-paid-expenses">Add Bill Expenses</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="menu-title">System Administrator</li>
+                            <li>
+                                <a href="administrators"><i class="fa fa-laptop"></i> <span>Manage Access</span></a>
+                            </li>
+                            <li>
+                                <a href="permissions"><i class="fa fa-chain"></i> <span>Permission</span></a>
+                            </li>
+                            <li>
+                                <a href="sendmail"><i class="fa fa-envelope"></i> <span>Send Mail</span></a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
+        }
+       
         @RenderBody()
     </div>
     <!-- Bold Reports<sup>®</sup> script manager -->

@@ -1,8 +1,11 @@
 ﻿@page "/memberdonations"
+@using Microsoft.AspNetCore.Http
 @model Church_App.Pages.ManagementSystem.DonationsModel
 @{
     ViewData["Title"] = "Donations";
     Layout = "~/Pages/Shared/_HomeLayout.cshtml";
+   
+   
 }
 
 <div class="page-wrapper">
@@ -12,9 +15,13 @@
                 <h4 class="page-title">Member Donations</h4>
             </div>
             <div class="col-sm-8 col-7 text-right m-b-30">
-                <button class="btn btn-primary btn-rounded float-right" data-bs-toggle="modal" data-bs-target="#addDonationModal">
-                    <i class="fa fa-plus"></i> Add Donation
-                </button>
+              @if (Model.RoleName=="Admin")
+                {
+                    <button class="btn btn-primary btn-rounded float-right" data-bs-toggle="modal" data-bs-target="#addDonationModal">
+                        <i class="fa fa-plus"></i> Add Donation
+                    </button>
+                }
+               
             </div>
         </div>
 
@@ -30,7 +37,10 @@
                                 <th>Due Date</th>
                                 <th>Added Date</th>
                                 <th>Amount</th>
+                                 @if (Model.RoleName=="Admin")
+                {
                                 <th class="text-right">Action</th>
+                }
                             </tr>
                         </thead>
                         <tbody>
@@ -49,23 +59,26 @@
                                 <td>@donation.DueDate.ToString("d")</td>
                                 <td>@donation.Date.ToString("d")</td>
                                 <td>@donation.Amount</td>
-                                <td class="text-right">
-                                    <div class="dropdown dropdown-action">
-                                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown">
-                                            <i class="fa fa-ellipsis-v"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="#" onclick='editDonation(@Html.Raw(Json.Serialize(donation)))'>
-                                                <i class="fa fa-pencil"></i> Edit
-                                            </a>
-
-                                                <a class="dropdown-item text-danger" href="#" onclick="confirmDelete('@donation.Id')">
-                                                    <i class="fa fa-trash"></i> Delete
+                                    @if (Model.RoleName == "Admin")
+                                    {
+                                        <td class="text-right">
+                                            <div class="dropdown dropdown-action">
+                                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown">
+                                                    <i class="fa fa-ellipsis-v"></i>
                                                 </a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item" href="#" onclick='editDonation(@Html.Raw(Json.Serialize(donation)))'>
+                                                        <i class="fa fa-pencil"></i> Edit
+                                                    </a>
+
+                                                    <a class="dropdown-item text-danger" href="#" onclick="confirmDelete('@donation.Id')">
+                                                        <i class="fa fa-trash"></i> Delete
+                                                    </a>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                            </tr>
+                                        </td>
+                                    }
+                                </tr>
                                                         }
                         </tbody>
                     </table>

@@ -78,7 +78,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
     <script src="https://unpkg.com/html5-qrcode"></script>
     <script>
-        function startQrScan() {
+            function startQrScan() {
             document.getElementById("qr-reader").style.display = "block";
 
             const html5QrCode = new Html5Qrcode("qr-reader");
@@ -89,30 +89,36 @@
                     fps: 10,
                     qrbox: { width: 250, height: 250 }
                 },
-                      (decodedText, decodedResult) => {
-            fetch("/Index?handler=QrLogin", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
-                },
-                body: JSON.stringify(decodedText)
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    alert("Welcome " + data.userName + "! Logging you in...");
-                    window.location.href = "/ManagementSystem/Dashboard"; // Redirect if needed
-                } else {
-                    alert(data.message);
-                }
-            })
-            .catch(err => console.error("Error:", err));
+                (decodedText, decodedResult) => {
+                    fetch("/Index?handler=QrLogin", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val()
+                        },
+                        body: JSON.stringify(decodedText)
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.success) {
+                            debugger;
+                            alert("Welcome " + data.userName + "! Logging you in...");
 
-            html5QrCode.stop().then(() => {
-                document.getElementById("qr-reader").style.display = "none";
-            });
-        },
+                            // Handle redirection explicitly
+                            if (data.redirectUrl) {
+                                console.log("Redirecting to:", data.redirectUrl);
+                                window.location.href = data.redirectUrl;
+                            }
+                        } else {
+                            alert(data.message);
+                        }
+                    })
+                    .catch(err => console.error("Error:", err));
+
+                    html5QrCode.stop().then(() => {
+                        document.getElementById("qr-reader").style.display = "none";
+                    });
+                },
                 (errorMessage) => {
                     // Ignore scanning errors
                 }
@@ -120,6 +126,7 @@
                 console.error("Failed to start QR scanner.", err);
             });
         }
+
     </script>
 
 </body>

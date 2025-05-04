@@ -33,6 +33,7 @@
                                 <th>Birth Date</th>
                                 <th>Member Since</th>
                                 <th>Active</th>
+                                <th>QR</th>
                                 <th class="text-right">Action</th>
                             </tr>
                         </thead>
@@ -52,6 +53,9 @@
                                         <span class="badge @(m.IsActive ? "badge-success" : "badge-danger")">
                                             @(m.IsActive ? "Yes" : "No")
                                         </span>
+                                    </td>
+                                    <td>
+                                        <canvas id="qrcode-@m.Id" width="60" height="60"></canvas>
                                     </td>
                                     <td class="text-right">
                                         <div class="dropdown dropdown-action">
@@ -558,3 +562,17 @@
 
 @{
 }
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const vendors = @Html.Raw(Json.Serialize(Model.MembersList));
+
+        vendors.forEach(m => {
+            const qr = new QRious({
+                element: document.getElementById(`qrcode-${m.id}`),
+                value: m.email,
+                size: 60
+            });
+        });
+    });
+</script>
