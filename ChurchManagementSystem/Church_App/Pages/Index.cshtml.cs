@@ -86,22 +86,33 @@ namespace Church_App.Pages
                 return new JsonResult(new { success = false, message = "No email provided." });
 
           
-            var vendoruser = _context.Members.Where(x => x.Email == email).FirstOrDefault();
-            var visitoruser = _context.Visitors.Where(x => x.Email == email).FirstOrDefault();
+            var member = _context.Members.Where(x => x.Email+"@member" == email).FirstOrDefault();
+            var visitoruser = _context.Visitors.Where(x => x.Email+"@visitor" == email).FirstOrDefault();
 
-            if (vendoruser != null)
+            if (member != null)
             {
                 var rolid = _context.Roles.Where(x => x.Name == "Member").Select(x=>x.Id).FirstOrDefault();
-                HttpContext.Session.SetString("UserEmail", vendoruser.Email);
-                HttpContext.Session.SetString("UserName", vendoruser.FName);
+                HttpContext.Session.SetString("UserEmail", member.Email);
+                HttpContext.Session.SetString("UserName", member.FName);
                 HttpContext.Session.SetString("RoleId", rolid.ToString());
                 HttpContext.Session.SetString("RoleName", "Member");
 
                 // Return redirect URL in the JSON response
-                return new JsonResult(new { success = true, redirectUrl = "/memberdonations", userName= vendoruser.Email });
+                return new JsonResult(new { success = true, redirectUrl = "/memberdonations", userName= member.Email });
+            }
+            else
+            {
+                var rolid = _context.Roles.Where(x => x.Name == "Visitor").Select(x => x.Id).FirstOrDefault();
+                HttpContext.Session.SetString("UserEmail", visitoruser.Email);
+                HttpContext.Session.SetString("UserName", visitoruser.FName);
+                HttpContext.Session.SetString("RoleId", rolid.ToString());
+                HttpContext.Session.SetString("RoleName", "Visitor");
+
+                // Return redirect URL in the JSON response
+                return new JsonResult(new { success = true, redirectUrl = "/visitordonations", userName = visitoruser.Email });
             }
 
-            return new JsonResult(new { success = false, message = "User not found." });
+                return new JsonResult(new { success = false, message = "User not found." });
         }
 
 

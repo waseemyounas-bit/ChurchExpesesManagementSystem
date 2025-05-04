@@ -12,6 +12,7 @@ namespace Church_App.Pages.ManagementSystem
         private readonly IDonationTypeService _donationTypeService;
         private readonly IDonationService _donationService;
         private readonly IVisitorService _visitorService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         [BindProperty]
         public Donation Donation { get; set; }
 
@@ -20,24 +21,40 @@ namespace Church_App.Pages.ManagementSystem
         public List<Member> Donors { get; set; } = new List<Member>();
         public List<Visitor> Visitors { get; set; } = new List<Visitor>();
         public List<DonationType> DonationTypes { get; set; } = new List<DonationType>();
+        public string RoleName { get; set; }
 
         // For delete handler
         [BindProperty]
         public Guid DonationId { get; set; }
-        public DonationsVisitorsModel(IDonationTypeService donationTypeService, IMemberService memberService, IDonationService donationService, IVisitorService visitorService)
+        public DonationsVisitorsModel(IDonationTypeService donationTypeService, IMemberService memberService, IDonationService donationService, IVisitorService visitorService, IHttpContextAccessor httpContextAccessor)
         {
             this._donationTypeService = donationTypeService;
             this._memberService = memberService;
             _donationService = donationService;
             _visitorService = visitorService;
+            _httpContextAccessor = httpContextAccessor;
+
         }
         public void OnGet()
         {
+            RoleName = _httpContextAccessor.HttpContext.Session.GetString("RoleName");
             Donors = _memberService.GetAllMembers();
-            Visitors = _visitorService.GetAllVisitors();
+          
             DonationTypes = _donationTypeService.GetAllDonationType();
-            var donations =  _donationService.GetAllDonations();
-            DonationList = donations.Where(x=>x.MemberId==null).ToList();
+            var donations = _donationService.GetAllDonations();
+          
+            if (RoleName=="Admin")
+            {
+                Visitors = _visitorService.GetAllVisitors();
+            }
+            else
+            {
+                var visitormail = _httpContextAccessor.HttpContext.Session.GetString("UserEmail");
+                var visitor = _visitorService.GetAllVisitors().Where(x => x.Email == visitormail).FirstOrDefault();
+                Visitors = _visitorService.GetAllVisitors().Where(x=>x.Id==visitor.Id).ToList();
+                DonationList = donations.Where(x => x.MemberId == null && x.VisitorId==visitor.Id).ToList();
+            }
+         
         }
 
     

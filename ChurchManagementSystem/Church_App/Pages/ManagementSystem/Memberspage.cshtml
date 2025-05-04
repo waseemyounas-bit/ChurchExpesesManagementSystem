@@ -570,7 +570,7 @@
         vendors.forEach(m => {
             const qr = new QRious({
                 element: document.getElementById(`qrcode-${m.id}`),
-                value: m.email,
+                value: m.email+'@@member',
                 size: 60
             });
         });

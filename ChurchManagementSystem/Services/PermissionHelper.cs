@@ -49,7 +49,7 @@ namespace Services
 
             // Check if role is Admin
             var role = await _context.Roles.FirstOrDefaultAsync(r => r.Id == roleId);
-            if (role != null && (role.Name == "Admin" || role.Name== "Member"))
+            if (role != null && (role.Name == "Admin" || role.Name== "Member" || role.Name=="Visitor"))
             {
                 return true; // Admins have access to all routes
             }
