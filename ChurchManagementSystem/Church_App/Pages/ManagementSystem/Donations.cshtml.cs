@@ -39,7 +39,7 @@ namespace Church_App.Pages.ManagementSystem
             RoleName = _httpContextAccessor.HttpContext.Session.GetString("RoleName");
             Visitors = _visitorService.GetAllVisitors();
             DonationTypes = _donationTypeService.GetAllDonationType();
-            if (RoleName!="Admin")
+            if (RoleName=="Admin")
             {
                 Donors = _memberService.GetAllMembers();
                 var donations = _donationService.GetAllDonations();
