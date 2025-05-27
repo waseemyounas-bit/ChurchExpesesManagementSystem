@@ -14,7 +14,7 @@
             </div>
             <div class="col-sm-8 col-7 text-right m-b-30">
                 <button class="btn btn-primary btn-rounded float-right" data-bs-toggle="modal" data-bs-target="#addGroupModal">
-                    <i class="fa fa-plus"></i> Add Group
+                    <i class="fa fa-plus"></i> Add
                 </button>
             </div>
         </div>
@@ -92,21 +92,21 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label asp-for="Group.Name"></label>
-                                <input asp-for="Group.Name" class="form-control" />
+                        <div class="col-md-6 d-flex align-items-center">
+
+                            <label asp-for="Group.Name" class="me-2 mb-0 w-50"></label>
+                            <input asp-for="Group.Name" class="form-control w-100" />
                                 <span asp-validation-for="Group.Name" class="text-danger"></span>
-                            </div>
+                           
                         </div>
 
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label asp-for="Group.Description"></label>
-                                <textarea asp-for="Group.Description" class="form-control" rows="4"></textarea>
+                       
+                            <div class="col-md-6 d-flex align-items-center">
+                            <label asp-for="Group.Description" class="me-2 mb-0 w-50"></label>
+                            <textarea asp-for="Group.Description" class="form-control w-100" rows="4"></textarea>
                                 <span asp-validation-for="Group.Description" class="text-danger"></span>
                             </div>
-                        </div>
+                        
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -129,19 +129,19 @@
                 </div>
                 <div class="modal-body">
                     <input type="hidden" asp-for="Group.Id" id="editGroupId" />
-                    <div class="form-group">
-                        <label asp-for="Group.Name"></label>
-                        <input asp-for="Group.Name" class="form-control" id="editGroupName" />
+                    <div class="col-md-6 d-flex align-items-center">
+                        <label asp-for="Group.Name" class="me-2 mb-0 w-50"></label>
+                        <input asp-for="Group.Name" class="form-control w-100" id="editGroupName" />
                         <span asp-validation-for="Group.Name" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="Group.Description"></label>
-                        <textarea asp-for="Group.Description" class="form-control" rows="4" id="editGroupDescription"></textarea>
+                    <div class="col-md-6 d-flex align-items-center">
+                        <label asp-for="Group.Description" class="me-2 mb-0 w-50"></label>
+                        <textarea asp-for="Group.Description" class="form-control w-100" rows="4" id="editGroupDescription"></textarea>
                         <span asp-validation-for="Group.Description" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="submit" class="btn btn-primary">Edit</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 </div>
             </form>

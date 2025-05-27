@@ -69,10 +69,10 @@
 
                     <div class="modal-body">
 
-                        <div class="form-group">
+                        <div class="col-md-12 d-flex align-items-center">
                             <input hidden="hidden" id="RoleId" value="@Model.InputRole.Id" name="RoleId" class="form-control" />
-                            <label asp-for="InputRole.Name"></label>
-                            <input asp-for="InputRole.Name" class="form-control" />
+                            <label asp-for="InputRole.Name" class="me-2 mb-0 w-50"></label>
+                            <input asp-for="InputRole.Name" class="form-control w-100" />
                             <span asp-validation-for="InputRole.Name" class="text-danger"></span>
                         </div>
                     </div>
@@ -96,14 +96,14 @@
                     </div>
                     <div class="modal-body">
                         <input type="hidden" asp-for="InputRole.Id" id="editRoleId" />
-                        <div class="form-group">
-                            <label asp-for="InputRole.Name"></label>
-                            <input asp-for="InputRole.Name" class="form-control" id="editRoleName" />
+                        <div class="col-md-12 d-flex align-items-center">
+                            <label asp-for="InputRole.Name" class="me-2 mb-0 w-50"></label>
+                            <input asp-for="InputRole.Name" class="form-control w-100" id="editRoleName" />
                             <span asp-validation-for="InputRole.Name" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Update</button>
+                        <button type="submit" class="btn btn-primary">Edit</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     </div>
                 </form>

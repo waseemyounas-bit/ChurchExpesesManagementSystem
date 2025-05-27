@@ -46,6 +46,7 @@ namespace Church_App.Pages.ManagementSystem
             if (RoleName=="Admin")
             {
                 Visitors = _visitorService.GetAllVisitors();
+                DonationList = donations.Where(x => x.MemberId == null).ToList();
             }
             else
             {
