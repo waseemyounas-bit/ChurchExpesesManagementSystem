@@ -72,53 +72,41 @@
         </div>
     </div>
 
-    <!-- Add Vendor Paid Expense Modal -->
     <div id="addVendorPaidExpenseModal" class="modal fade" role="dialog">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <form method="post" asp-page-handler="AddVendorPaidExpense">
                     <div class="modal-header">
-                        <h4 class="modal-title">Add Vendor Paid Expense</h4>
+                        <h4 class="modal-title">Add Vendor Expense</h4>
                         <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Vendor</label>
-                                    <select asp-for="Expense.VendorId" class="form-control" asp-items="Model.VendorsOptions">
+                        <div class="container-fluid px-3">
+                            <div class="row gx-3 gy-3">
+                                <div class="col-md-4 d-flex align-items-center">
+                                    <label class="me-2 mb-0 w-50">Vendor</label>
+                                    <select asp-for="Expense.VendorId" class="form-control w-100" asp-items="Model.VendorsOptions">
                                         <option value="">-- Select Vendor --</option>
                                     </select>
                                     <input value="Vendor Paid" asp-for="Expense.Category" hidden />
                                 </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label asp-for="Expense.Amount"></label>
-                                    <input asp-for="Expense.Amount" class="form-control" />
-                                    <span asp-validation-for="Expense.Amount" class="text-danger"></span>
+                                <div class="col-md-4 d-flex align-items-center">
+                                    <label asp-for="Expense.Amount" class="me-2 mb-0 w-50">Amount</label>
+                                    <input asp-for="Expense.Amount" class="form-control w-100" />
                                 </div>
-
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label asp-for="Expense.Date"></label>
-                                    <input asp-for="Expense.Date" class="form-control" type="date" />
-                                    <span asp-validation-for="Expense.Date" class="text-danger"></span>
+                                <div class="col-md-4 d-flex align-items-center">
+                                    <label asp-for="Expense.Date" class="me-2 mb-0 w-50">Date</label>
+                                    <input asp-for="Expense.Date" type="date" class="form-control w-100" />
                                 </div>
-
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label asp-for="Expense.Description"></label>
-                                    <textarea asp-for="Expense.Description" class="form-control"></textarea>
-                                    <span asp-validation-for="Expense.Description" class="text-danger"></span>
+                                <div class="col-md-12 d-flex align-items-center">
+                                    <label asp-for="Expense.Description" class="me-2 mb-0 w-25">Description</label>
+                                    <textarea asp-for="Expense.Description" class="form-control w-100"></textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Add</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     </div>
                 </form>
@@ -126,53 +114,43 @@
         </div>
     </div>
 
-    <!-- Edit Vendor Paid Expense Modal -->
     <div id="editExpenseModal" class="modal fade" role="dialog">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <form method="post" asp-page-handler="EditVendorPaidExpense">
                     <div class="modal-header">
-                        <h4 class="modal-title">Edit Vendor Paid Expense</h4>
+                        <h4 class="modal-title">Edit Vendor Expense</h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
                         <input type="hidden" asp-for="Expense.Id" id="editExpenseId" />
                         <input type="hidden" asp-for="Expense.Category" value="Vendor Paid" />
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Vendor</label>
-                                    <select asp-for="Expense.VendorId" id="editvendorid" class="form-control" asp-items="Model.VendorsOptions">
+                        <div class="container-fluid px-3">
+                            <div class="row gx-3 gy-3">
+                                <div class="col-md-4 d-flex align-items-center">
+                                    <label class="me-2 mb-0 w-50">Vendor</label>
+                                    <select asp-for="Expense.VendorId" class="form-control w-100" id="editvendorid" asp-items="Model.VendorsOptions">
                                         <option value="">-- Select Vendor --</option>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label asp-for="Expense.Amount"></label>
-                                    <input asp-for="Expense.Amount" class="form-control" id="editExpenseAmount" />
-                                    <span asp-validation-for="Expense.Amount" class="text-danger"></span>
+                                <div class="col-md-4 d-flex align-items-center">
+                                    <label asp-for="Expense.Amount" class="me-2 mb-0 w-50">Amount</label>
+                                    <input asp-for="Expense.Amount" class="form-control w-100" id="editExpenseAmount" />
                                 </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label asp-for="Expense.Date"></label>
-                                    <input asp-for="Expense.Date" class="form-control" type="date" id="editExpenseDate" />
-                                    <span asp-validation-for="Expense.Date" class="text-danger"></span>
+                                <div class="col-md-4 d-flex align-items-center">
+                                    <label asp-for="Expense.Date" class="me-2 mb-0 w-50">Date</label>
+                                    <input asp-for="Expense.Date" type="date" class="form-control w-100" id="editExpenseDate" />
                                 </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label asp-for="Expense.Description"></label>
-                                    <textarea asp-for="Expense.Description" class="form-control" id="editExpenseDescription"></textarea>
-                                    <span asp-validation-for="Expense.Description" class="text-danger"></span>
+                                <div class="col-md-12 d-flex align-items-center">
+                                    <label asp-for="Expense.Description" class="me-2 mb-0 w-25">Description</label>
+                                    <textarea asp-for="Expense.Description" class="form-control w-100" id="editExpenseDescription"></textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Update</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Edit</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Exit</button>
                     </div>
                 </form>
             </div>
