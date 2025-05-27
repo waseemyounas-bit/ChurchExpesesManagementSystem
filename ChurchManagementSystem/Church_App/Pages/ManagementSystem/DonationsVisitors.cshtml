@@ -41,7 +41,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var donation in Model.DonationList)
+                            @if (Model.DonationList!=null)
+                            {
+                            foreach (var donation in Model.DonationList)
                             {
                                 <tr>
                                     <td>
@@ -76,6 +78,10 @@
                                         </td>
                                     }
                                 </tr>
+                            }
+                            }
+                            else{
+                                <p>No result found.</p>
                             }
                         </tbody>
                     </table>
