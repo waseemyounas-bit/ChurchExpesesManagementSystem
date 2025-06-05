@@ -15,7 +15,6 @@ builder.Services.AddRazorPages().AddMvcOptions(options =>
     options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor(
         _ => "This field is required.");
 });
-
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()

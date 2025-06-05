@@ -117,33 +117,53 @@
                     </div>
                     <div class="modal-body">
                         <div class="row g-2">
-                            <div class="col-md-3 d-flex align-items-center">
-                                <label asp-for="Donation.MemberId" class="me-2 mb-0 w-50">Donor</label>
-                                <select asp-for="Donation.MemberId" class="form-control w-100">
-                                    <option>-- Select --</option>
-                                    @foreach (var member in Model.Donors)
-                                    {
-                                        <option value="@member.Id">@member.FName @member.LName</option>
-                                    }
-                                </select>
+                            <!-- Donor Field with Validation -->
+                            <div class="col-md-3">
+                                <input type="hidden" asp-for="Donation.IsMemberDonation" value="true" />
+                                <div class="d-flex align-items-center">
+                                    <label asp-for="Donation.MemberId" class="me-2 mb-0 w-50">Donor</label>
+                                    <select asp-for="Donation.MemberId" class="form-control w-100">
+                                        <option value="">-- Select --</option>
+                                        @foreach (var member in Model.Donors)
+                                        {
+                                            <option value="@member.Id">@member.FName @member.LName</option>
+                                        }
+                                    </select>
+                                </div>
+                                <span asp-validation-for="Donation.MemberId" class="text-danger small"></span>
                             </div>
-                            <div class="col-md-3 d-flex align-items-center">
-                                <label asp-for="Donation.Type" class="me-2 mb-0 w-50">Type</label>
-                                <select asp-for="Donation.Type" class="form-control w-100">
-                                    <option>-- Select --</option>
-                                    @foreach (var type in Model.DonationTypes)
-                                    {
-                                        <option value="@type.Name">@type.Name</option>
-                                    }
-                                </select>
+
+                            <!-- Type Field with Validation -->
+                            <div class="col-md-3">
+                                <div class="d-flex align-items-center">
+                                    <label asp-for="Donation.Type" class="me-2 mb-0 w-50">Type</label>
+                                    <select asp-for="Donation.Type" class="form-control w-100">
+                                        <option value="">-- Select --</option>
+                                        @foreach (var type in Model.DonationTypes)
+                                        {
+                                            <option value="@type.Name">@type.Name</option>
+                                        }
+                                    </select>
+                                </div>
+                                <span asp-validation-for="Donation.Type" class="text-danger small"></span>
                             </div>
-                            <div class="col-md-3 d-flex align-items-center">
-                                <label asp-for="Donation.Amount" class="me-2 mb-0 w-50">Amount</label>
-                                <input asp-for="Donation.Amount" class="form-control w-100" />
+
+                            <!-- Amount Field with Validation -->
+                            <div class="col-md-3">
+                                <div class="d-flex align-items-center">
+                                    <label asp-for="Donation.Amount" class="me-2 mb-0 w-50">Amount</label>
+                                    <input asp-for="Donation.Amount" class="form-control w-100" />
+                                </div>
+                                <span asp-validation-for="Donation.Amount" class="text-danger small"></span>
                             </div>
-                            <div class="col-md-3 d-flex align-items-center">
-                                <label asp-for="Donation.DueDate" class="me-2 mb-0 w-50">Due Date</label>
-                                <input asp-for="Donation.DueDate" type="date" class="form-control w-100" />
+
+                            <!-- Due Date Field with Validation -->
+                            <div class="col-md-3">
+                                <div class="d-flex align-items-center">
+                                    <label asp-for="Donation.DueDate" class="me-2 mb-0 w-50">Due Date</label>
+                                    <input asp-for="Donation.DueDate" type="date" class="form-control w-100" />
+                                </div>
+                                <span asp-validation-for="Donation.DueDate" class="text-danger small"></span>
                             </div>
                         </div>
                     </div>
