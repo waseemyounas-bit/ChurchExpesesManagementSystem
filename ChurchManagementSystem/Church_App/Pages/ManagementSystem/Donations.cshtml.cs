@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Services;
+using System.ComponentModel.DataAnnotations;
 
 namespace Church_App.Pages.ManagementSystem
 {
@@ -22,6 +23,8 @@ namespace Church_App.Pages.ManagementSystem
         public List<Visitor> Visitors { get; set; } = new List<Visitor>();
         public List<DonationType> DonationTypes { get; set; } = new List<DonationType>();
 
+        [Required(ErrorMessage = "Select Member")]
+        public Guid MemberId { get; set; }
         // For delete handler
         [BindProperty]
         public Guid DonationId { get; set; }
@@ -70,7 +73,7 @@ namespace Church_App.Pages.ManagementSystem
             //     OnGet();
             //    return Page();
             //}
-
+            Donation.MemberId = MemberId;
             Donation.Id = Guid.NewGuid();
             await _donationService.AddDonationAsync(Donation);
             return RedirectToPage();

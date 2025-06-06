@@ -105,7 +105,7 @@
 </div>
 
 <!-- Add Member Modal -->
-<div id="addMemberModal" class="modal fade" role="dialog">
+<div id="addMemberModal" class="modal fade" role="dialog" style="width:80%">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <form method="post" asp-page-handler="AddMember" enctype="multipart/form-data">
@@ -123,7 +123,7 @@
                     <!-- Form Fields with 4 columns per row, spaced -->
                     <div class="row">
                         <div class="col-md-3 mb-3 d-flex align-items-center">
-                            <label class="me-2 mb-0 w-50">Upload Profile Picture</label>
+                            <label class="me-2 mb-0 w-50"></label>
                             <!-- Profile Image Upload -->
                             <div class="form-group text-center mb-4">
                                 <img id="previewImage" src="assets/img/default-user.png"
@@ -137,91 +137,144 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-3 m-3">
+                            <div class="d-flex align-items-center">
+                                <label asp-for="Member.FName" class="me-2 mb-0 w-50">First</label>
+                                <input asp-for="Member.FName" class="form-control w-100" />
 
-                        <div class="col-md-3 mb-3 d-flex align-items-center">
-                            <label asp-for="Member.FName" class="me-2 mb-0 w-50">First</label>
-                            <input asp-for="Member.FName" class="form-control w-100" />
+                            </div>
+                            <span asp-validation-for="Member.FName" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-3 m-3">
+                            <div class="d-flex align-items-center">
+                                <label asp-for="Member.LName" class="me-2 mb-0 w-50">Last Name</label>
+                                <input asp-for="Member.LName" class="form-control w-100" />
+                               
+                                </div>
+                            <span asp-validation-for="Member.LName" class="text-danger small"></span>
                         </div>
 
-                        <div class="col-md-3 mb-3 d-flex align-items-center">
-                            <label asp-for="Member.LName" class="me-2 mb-0 w-50">Last</label>
-                            <input asp-for="Member.LName" class="form-control w-100" />
+
+                        <div class="col-md-3 m-3">
+                            <div class="d-flex align-items-center">
+                                <label asp-for="Member.Email" class="me-2 mb-0 w-50">Email</label>
+                                <input asp-for="Member.Email" class="form-control w-100" />
+
+                            </div>
+                            <span asp-validation-for="Member.Email" class="text-danger small"></span>
                         </div>
 
-                        <div class="col-md-3 mb-3 d-flex align-items-center">
-                            <label asp-for="Member.Email" class="me-2 mb-0 w-50">Email</label>
-                            <input asp-for="Member.Email" class="form-control w-100" />
+
+                        <div class="col-md-3 m-3">
+                            <div class="d-flex align-items-center">
+                                <label asp-for="Member.Phone" class="me-2 mb-0 w-50">Phone</label>
+                                <input asp-for="Member.Phone" class="form-control w-100" />
+
+                            </div>
+                            <span asp-validation-for="Member.Phone" class="text-danger small"></span>
                         </div>
 
-                        <div class="col-md-3 mb-3 d-flex align-items-center">
-                            <label asp-for="Member.Phone" class="me-2 mb-0 w-50">Phone</label>
-                            <input asp-for="Member.Phone" class="form-control w-100" oninput="applyPhoneMask(this)" />
+                        <div class="col-md-3 m-3">
+                            <div class="d-flex align-items-center">
+                                <label asp-for="Member.Birthday" class="me-2 mb-0 w-50">Birthday</label>
+                                <input asp-for="Member.Birthday" class="form-control w-100" />
+
+                            </div>
+                            <span asp-validation-for="Member.Birthday" class="text-danger small"></span>
                         </div>
 
-                        <div class="col-md-3 mb-3 d-flex align-items-center">
-                            <label asp-for="Member.Birthday" class="me-2 mb-0 w-50">DOB</label>
-                            <input asp-for="Member.Birthday" type="date" class="form-control w-100" />
+                        <div class="col-md-3 m-3">
+                            <div class="d-flex align-items-center">
+                                <label asp-for="Member.BaptismalDate" class="me-2 mb-0 w-50">BaptismalDate</label>
+                                <input type="date" asp-for="Member.BaptismalDate" class="form-control w-100" />
+
+                            </div>
+                            <span asp-validation-for="Member.BaptismalDate" class="text-danger small"></span>
                         </div>
 
-                        <div class="col-md-3 mb-3 d-flex align-items-center">
-                            <label asp-for="Member.BaptismalDate" class="me-2 mb-0 w-50">Baptism</label>
-                            <input asp-for="Member.BaptismalDate" type="date" class="form-control w-100" />
+                        <div class="col-md-3 m-3">
+                            <div class="d-flex align-items-center">
+                                <label asp-for="Member.Sex" class="me-2 mb-0 w-50">Sex</label>
+                                <select asp-for="Member.Sex" class="form-control w-100" asp-items="Html.GetEnumSelectList<SexType>()">
+                                    <option value="">-- Select --</option>
+                                </select>
+
+                            </div>
+                            <span asp-validation-for="Member.Sex" class="text-danger small"></span>
                         </div>
 
-                        <div class="col-md-3 mb-3 d-flex align-items-center">
-                            <label asp-for="Member.Sex" class="me-2 mb-0 w-50">Sex</label>
-                            <select asp-for="Member.Sex" class="form-control w-100" asp-items="Html.GetEnumSelectList<SexType>()">
-                                <option value="">-- Select --</option>
-                            </select>
+                        <div class="col-md-3 m-3">
+                            <div class="d-flex align-items-center">
+                                <label asp-for="Member.Age" class="me-2 mb-0 w-50">Age</label>
+                                <input asp-for="Member.Age" class="form-control w-100" type="number" min="0" />
+
+                            </div>
+                            <span asp-validation-for="Member.Age" class="text-danger small"></span>
                         </div>
 
-                        <div class="col-md-3 mb-3 d-flex align-items-center">
-                            <label asp-for="Member.Age" class="me-2 mb-0 w-50">Age</label>
-                            <input asp-for="Member.Age" class="form-control w-100" type="number" min="0" />
+
+                        <div class="col-md-3 m-3">
+                            <div class="d-flex align-items-center">
+                                <label asp-for="Member.City" class="me-2 mb-0 w-50">City</label>
+                                <input asp-for="Member.City" class="form-control w-100" />
+
+                            </div>
+                            <span asp-validation-for="Member.City" class="text-danger small"></span>
                         </div>
 
-                        <div class="col-md-3 mb-3 d-flex align-items-center">
-                            <label asp-for="Member.City" class="me-2 mb-0 w-50">City</label>
-                            <input asp-for="Member.City" class="form-control w-100" />
+                        <div class="col-md-3 m-3">
+                            <div class="d-flex align-items-center">
+                                <label asp-for="Member.State" class="me-2 mb-0 w-50">State</label>
+                                <input asp-for="Member.State" class="form-control w-100" />
+
+                            </div>
+                            <span asp-validation-for="Member.State" class="text-danger small"></span>
                         </div>
 
-                        <div class="col-md-3 mb-3 d-flex align-items-center">
-                            <label asp-for="Member.State" class="me-2 mb-0 w-50">State</label>
-                            <input asp-for="Member.State" class="form-control w-100" />
+                        <div class="col-md-3 m-3">
+                            <div class="d-flex align-items-center">
+                                <label asp-for="Member.Zipcode" class="me-2 mb-0 w-50">Zip</label>
+                                <input asp-for="Member.Zipcode" class="form-control w-100" />
+                            </div>
+                            <span asp-validation-for="Member.Zipcode" class="text-danger small"></span>
                         </div>
 
-                        <div class="col-md-3 mb-3 d-flex align-items-center">
-                            <label asp-for="Member.Zipcode" class="me-2 mb-0 w-50">Zip</label>
-                            <input asp-for="Member.Zipcode" class="form-control w-100" />
-                        </div>
 
-                        <div class="col-md-3 mb-3 d-flex align-items-center">
-                            <label asp-for="Member.PriorMembership" class="me-2 mb-0 w-50">Prior</label>
-                            <select asp-for="Member.PriorMembership" class="form-control w-100">
-                                <option value="">-- Select --</option>
-                                <option value="true">Yes</option>
-                                <option value="false">No</option>
-                            </select>
+                        <div class="col-md-3 m-3">
+                            <div class="d-flex align-items-center">
+                                <label asp-for="Member.PriorMembership" class="me-2 mb-0 w-50">Prior</label>
+                                <select asp-for="Member.PriorMembership" class="form-control w-100">
+                                    <option value="">-- Select --</option>
+                                    <option value="true">Yes</option>
+                                    <option value="false">No</option>
+                                </select>
+                            </div>
+                            <span asp-validation-for="Member.PriorMembership" class="text-danger small"></span>
                         </div>
-
-                        <div class="col-md-3 mb-3 d-flex align-items-center">
-                            <label asp-for="Member.IsActive" class="me-2 mb-0 w-50">Active</label>
-                            <select asp-for="Member.IsActive" class="form-control w-100">
-                                <option value="true">Yes</option>
-                                <option value="false">No</option>
-                            </select>
+                        <div class="col-md-3 m-3">
+                            <div class="d-flex align-items-center">
+                                <label asp-for="Member.IsActive" class="me-2 mb-0 w-50">Active</label>
+                                <select asp-for="Member.IsActive" class="form-control w-100">
+                                    <option value="true">Yes</option>
+                                    <option value="false">No</option>
+                                </select>
+                            </div>
+                            <span asp-validation-for="Member.IsActive" class="text-danger small"></span>
                         </div>
-
-                        <div class="col-md-3 mb-3 d-flex align-items-center">
-                            <label asp-for="Member.Address" class="me-2 mb-0 w-50">Address</label>
-                            <input asp-for="Member.Address" class="form-control w-100" />
+                        <div class="col-md-3 m-3">
+                            <div class="d-flex align-items-center">
+                                <label asp-for="Member.Address" class="me-2 mb-0 w-50">Address</label>
+                                <input asp-for="Member.Address" class="form-control w-100" />
+                            </div>
+                            <span asp-validation-for="Member.Address" class="text-danger small"></span>
                         </div>
+                   
                     </div>
 
                     <!-- Address full width row with margin top & bottom -->
                     @* <div class="row mt-4 mb-3">
                         <div class="col-12 d-flex align-items-center">
-                            <label asp-for="Member.Address" class="me-2 mb-0 w-25">Address</label>
+                            <label asp-for="Member.Address" class="me-2 mb-0 w-36">Address</label>
                             <input asp-for="Member.Address" class="form-control w-80" />
                         </div>
                     </div> *@
@@ -270,13 +323,13 @@
         </div> *@
                         </div>
 
-                        <div class="col-md-3 mb-3 d-flex align-items-center">
-                            <label asp-for="Member.FName" class="me-2 mb-0 w-25"></label>
+                        <div class="col-md-4 mb-3 d-flex align-items-center">
+                            <label asp-for="Member.FName" class="me-2 mb-0 w-36"></label>
                             <input asp-for="Member.FName" class="form-control w-100" />
                             <span asp-validation-for="Member.FName" class="text-danger"></span>
                         </div>
-                        <div class="col-md-3 mb-3 d-flex align-items-center">
-                            <label asp-for="Member.LName" class="me-2 mb-0 w-25"></label>
+                        <div class="col-md-4 mb-3 d-flex align-items-center">
+                            <label asp-for="Member.LName" class="me-2 mb-0 w-36"></label>
                             <input asp-for="Member.LName" class="form-control w-100" />
                             <span asp-validation-for="Member.LName" class="text-danger"></span>
                         </div>
@@ -303,7 +356,7 @@
                     <div class="row">
                       
                         <div class="col-md-4 mb-3 d-flex align-items-center">
-                            <label asp-for="Member.Email" class="me-2 mb-0 w-25"></label>
+                            <label asp-for="Member.Email" class="me-2 mb-0 w-36"></label>
                             <input asp-for="Member.Email" class="form-control w-100" />
                             <span asp-validation-for="Member.Email" class="text-danger"></span>
                         </div>
@@ -314,7 +367,7 @@
                         </div> *@
 
                         <div class="col-md-4 mb-3 d-flex align-items-center">
-                            <label asp-for="Member.Phone" class="me-2 mb-0 w-25"></label>
+                            <label asp-for="Member.Phone" class="me-2 mb-0 w-36"></label>
                             <input asp-for="Member.Phone" class="form-control w-100" oninput="applyPhoneMask(this)" />
                             <span asp-validation-for="Member.Phone" class="text-danger"></span>
                         </div>
@@ -322,49 +375,49 @@
                        
 
                         <div class="col-md-4 mb-3 d-flex align-items-center">
-                            <label asp-for="Member.Birthday" class="me-2 mb-0 w-25"></label>
+                            <label asp-for="Member.Birthday" class="me-2 mb-0 w-36"></label>
                             <input asp-for="Member.Birthday" type="date" class="form-control w-100" id="editBirthday" />
                             <span asp-validation-for="Member.Birthday" class="text-danger"></span>
                         </div>
                         <div class="col-md-4 mb-3 d-flex align-items-center">
-                            <label asp-for="Member.BaptismalDate" class="me-2 mb-0 w-25"></label>
+                            <label asp-for="Member.BaptismalDate" class="me-2 mb-0 w-36"></label>
                             <input asp-for="Member.BaptismalDate" type="date" class="form-control w-100" />
                             <span asp-validation-for="Member.BaptismalDate" class="text-danger"></span>
                         </div>
                         <div class="col-md-4 mb-3 d-flex align-items-center">
-                            <label asp-for="Member.Sex" class="me-2 mb-0 w-25"></label>
+                            <label asp-for="Member.Sex" class="me-2 mb-0 w-36"></label>
                             <select asp-for="Member.Sex" class="form-control w-100" asp-items="Html.GetEnumSelectList<SexType>()">
                                 <option value="">-- Select --</option>
                             </select>
                             <span asp-validation-for="Member.Sex" class="text-danger"></span>
                         </div>
                         <div class="col-md-4 mb-3 d-flex align-items-center">
-                            <label asp-for="Member.Age" class="me-2 mb-0 w-25"></label>
+                            <label asp-for="Member.Age" class="me-2 mb-0 w-36"></label>
                             <input asp-for="Member.Age" class="form-control w-100" type="number" min="0" id="editAge" />
                             <span asp-validation-for="Member.Age" class="text-danger"></span>
                         </div>
-                        <div class="col-md-12 mb-3 d-flex align-items-center">
-                            <label asp-for="Member.Address" class="me-2 mb-0 w-25"></label>
+                        <div class="col-md-4 mb-3 d-flex align-items-center">
+                            <label asp-for="Member.Address" class="me-2 mb-0 w-36 " ></label>
                             <input asp-for="Member.Address" class="form-control w-100" />
                             <span asp-validation-for="Member.Address" class="text-danger"></span>
                         </div>
                         <div class="col-md-4 mb-3 d-flex align-items-center">
-                            <label asp-for="Member.City" class="me-2 mb-0 w-25"></label>
+                            <label asp-for="Member.City" class="me-2 mb-0 w-36"></label>
                             <input asp-for="Member.City" class="form-control w-100" />
                             <span asp-validation-for="Member.City" class="text-danger"></span>
                         </div>
                         <div class="col-md-4 mb-3 d-flex align-items-center">
-                            <label asp-for="Member.State" class="me-2 mb-0 w-25"></label>
+                            <label asp-for="Member.State" class="me-2 mb-0 w-36"></label>
                             <input asp-for="Member.State" class="form-control w-100" />
                             <span asp-validation-for="Member.State" class="text-danger"></span>
                         </div>
                         <div class="col-md-4 mb-3 d-flex align-items-center">
-                            <label asp-for="Member.Zipcode" class="me-2 mb-0 w-25"></label>
+                            <label asp-for="Member.Zipcode" class="me-2 mb-0 w-36"></label>
                             <input asp-for="Member.Zipcode" class="form-control w-100" />
                             <span asp-validation-for="Member.Zipcode" class="text-danger"></span>
                         </div>
                         <div class="col-md-4 mb-3 d-flex align-items-center">
-                            <label asp-for="Member.PriorMembership" class="me-2 mb-0 w-25"></label>
+                            <label asp-for="Member.PriorMembership" class="me-2 mb-0 w-36"></label>
                             <select asp-for="Member.PriorMembership" class="form-control w-100">
                                 <option value="">-- Select --</option>
                                 <option value="true">Yes</option>
@@ -373,7 +426,7 @@
                             <span asp-validation-for="Member.PriorMembership" class="text-danger"></span>
                         </div>
                         <div class="col-md-4 mb-3 d-flex align-items-center">
-                            <label asp-for="Member.IsActive" class="me-2 mb-0 w-25">Active</label>
+                            <label asp-for="Member.IsActive" class="me-2 mb-0 w-36">Active</label>
                             <select asp-for="Member.IsActive" class="form-control w-100">
                                 <option value="true">Yes</option>
                                 <option value="false">No</option>

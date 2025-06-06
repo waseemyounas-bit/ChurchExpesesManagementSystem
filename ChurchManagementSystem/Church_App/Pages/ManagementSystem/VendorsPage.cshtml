@@ -224,7 +224,7 @@
                            
  *@
                             <div class="col-md-4 mb-3 d-flex align-items-center">
-                                <label class="me-2 mb-0 w-25">Account Number</label>
+                                <label asp-for="Vendor.AccountNumber" class="me-2 mb-0 w-25"></label>
                                 <input asp-for="Vendor.AccountNumber" class="form-control w-100" id="editAccountNumber" />
                                 <span asp-validation-for="Vendor.AccountNumber" class="text-danger"></span>
                             </div>

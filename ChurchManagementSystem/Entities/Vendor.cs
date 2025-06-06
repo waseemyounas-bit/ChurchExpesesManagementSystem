@@ -23,8 +23,10 @@ namespace Entities
         [StringLength(200, ErrorMessage = "Address cannot exceed 200 characters")]
         public string Address { get; set; }
 
+
         [Required(ErrorMessage = "Account number is required")]
         [StringLength(50, ErrorMessage = "Account number cannot exceed 50 characters")]
+        [Display(Name = "Account#")]
         public string AccountNumber { get; set; }
 
         [Required(ErrorMessage = "Email is required")]

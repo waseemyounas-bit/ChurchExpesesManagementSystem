@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Services;
+using System.ComponentModel.DataAnnotations;
 
 namespace Church_App.Pages.ManagementSystem
 {
@@ -23,6 +24,8 @@ namespace Church_App.Pages.ManagementSystem
         public List<DonationType> DonationTypes { get; set; } = new List<DonationType>();
         public string RoleName { get; set; }
 
+        [Required(ErrorMessage = "Select Visitor")]
+        public Guid VisitorId { get; set; }
         // For delete handler
         [BindProperty]
         public Guid DonationId { get; set; }
@@ -46,7 +49,8 @@ namespace Church_App.Pages.ManagementSystem
             if (RoleName=="Admin")
             {
                 Visitors = _visitorService.GetAllVisitors();
-                DonationList = donations.Where(x => x.MemberId == null).ToList();
+                DonationList = donations.Where(x => x.MemberId == null && x.VisitorId!=null).ToList();
+              
             }
             else
             {
@@ -67,10 +71,10 @@ namespace Church_App.Pages.ManagementSystem
             //if (!ModelState.IsValid)
             //{
             //    TempData["FormError"] = "Please fill in all required fields.";
-            //     OnGet();
+            //    OnGet();
             //    return Page();
             //}
-
+            Donation.VisitorId= VisitorId;
             Donation.Id = Guid.NewGuid();
             await _donationService.AddDonationAsync(Donation);
             return RedirectToPage();
@@ -85,7 +89,7 @@ namespace Church_App.Pages.ManagementSystem
             //    OnGet();
             //    return Page();
             //}
-
+            Donation.VisitorId = VisitorId;
             await _donationService.UpdateDonationAsync(Donation);
             return RedirectToPage();
         }
