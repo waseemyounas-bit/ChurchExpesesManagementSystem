@@ -24,6 +24,7 @@ namespace Church_App.Pages.ManagementSystem
         public List<DonationType> DonationTypes { get; set; } = new List<DonationType>();
         public string RoleName { get; set; }
 
+        [BindProperty]
         [Required(ErrorMessage = "Select Visitor")]
         public Guid VisitorId { get; set; }
         // For delete handler

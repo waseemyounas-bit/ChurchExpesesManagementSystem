@@ -119,9 +119,11 @@
                         <div class="row g-2">
                             <!-- Donor Field with Validation -->
                             <div class="col-md-3 ">
+                                <input asp-for="Donation.MemberId" type="hidden" id="donationMemberId" class="form-control" />
+
                                 <input type="hidden" asp-for="Donation.IsMemberDonation" value="true" />
                                 <div class="d-flex align-items-center">
-                                    <label asp-for="Donation.MemberId" class="me-2 mb-0 w-50">Donor</label>
+                                    <label asp-for="MemberId" class="me-2 mb-0 w-50">Donor</label>
                                     <select asp-for="MemberId" class="form-control w-100">
                                         <option value="">-- Select --</option>
                                         @foreach (var member in Model.Donors)
@@ -147,6 +149,16 @@
                                 </div>
                                 <span asp-validation-for="Donation.Type" class="text-danger small"></span>
                             </div>
+                            <script>
+                                document.addEventListener("DOMContentLoaded", function () {
+                                    const donorSelect = document.querySelector('[name="MemberId"]');
+                                    const hiddenMemberIdInput = document.getElementById("donationMemberId");
+
+                                    donorSelect.addEventListener("change", function () {
+                                        hiddenMemberIdInput.value = this.value;
+                                    });
+                                });
+                            </script>
 
                             <!-- Amount Field with Validation -->
                             <div class="col-md-3">

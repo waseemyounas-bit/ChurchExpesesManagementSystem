@@ -23,6 +23,7 @@ namespace Church_App.Pages.ManagementSystem
         public List<Visitor> Visitors { get; set; } = new List<Visitor>();
         public List<DonationType> DonationTypes { get; set; } = new List<DonationType>();
 
+        [BindProperty]
         [Required(ErrorMessage = "Select Member")]
         public Guid MemberId { get; set; }
         // For delete handler
@@ -88,7 +89,7 @@ namespace Church_App.Pages.ManagementSystem
             //    OnGet();
             //    return Page();
             //}
-
+            Donation.MemberId = MemberId;
             await _donationService.UpdateDonationAsync(Donation);
             return RedirectToPage();
         }
