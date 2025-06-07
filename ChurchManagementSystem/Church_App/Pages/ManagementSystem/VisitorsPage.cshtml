@@ -130,14 +130,18 @@
             <span asp-validation-for="VisitorImage" class="text-danger"></span>
         </div> *@
                         </div>
-                        <div class="col-md-4 mb-3 d-flex align-items-center">
+                        <div class="col-md-4">
+                            <div class="d-flex align-items-center">
                             <label asp-for="Visitor.FName" class="me-2 mb-0 w-25"></label>
                             <input asp-for="Visitor.FName" class="form-control w-100" />
+                            </div>
                             <span asp-validation-for="Visitor.FName" class="text-danger"></span>
                         </div>
-                        <div class="col-md-4 mb-3 d-flex align-items-center">
+                        <div class="col-md-4">
+                            <div class="d-flex align-items-center">
                             <label asp-for="Visitor.LName" class="me-2 mb-0 w-25"></label>
                             <input asp-for="Visitor.LName" class="form-control w-100" />
+                            </div>
                             <span asp-validation-for="Visitor.LName" class="text-danger"></span>
                         </div>
                     </div>
@@ -160,15 +164,19 @@
 
 
                     <div class="row">
-                        
-                        <div class="col-md-4 mb-3 d-flex align-items-center">
+
+                        <div class="col-md-4 mb-3">
+                            <div class="d-flex align-items-center">
                             <label asp-for="Visitor.Email" class="me-2 mb-0 w-25"></label>
                             <input asp-for="Visitor.Email" class="form-control w-100" />
+                            </div>
                             <span asp-validation-for="Visitor.Email" class="text-danger"></span>
                         </div>
-                        <div class="col-md-4 mb-3 d-flex align-items-center">
+                        <div class="col-md-4  mb-3">
+                            <div class="d-flex align-items-center">
                             <label asp-for="Visitor.Phone" class="me-2 mb-0 w-25"></label>
                             <input asp-for="Visitor.Phone" class="form-control w-100" id="visitorPhone" placeholder="+1 (123) 456 - 7890" oninput="applyPhoneMask(this)" />
+                            </div>
                             <span asp-validation-for="Visitor.Phone" class="text-danger"></span>
                         </div>
 
@@ -194,35 +202,47 @@
 
 
 
-                        <div class="col-md-4 mb-3 d-flex align-items-center">
+                        <div class="col-md-4  mb-3">
+                            <div class="d-flex align-items-center">
                             <label asp-for="Visitor.VisitDate" class="me-2 mb-0 w-25"></label>
                             <input asp-for="Visitor.VisitDate" type="date" class="form-control w-100" />
+                            </div>
                             <span asp-validation-for="Visitor.VisitDate" class="text-danger"></span>
                         </div>
-                       
-                        <div class="col-md-4 mb-3 d-flex align-items-center">
+
+                        <div class="col-md-4  mb-3">
+                            <div class="d-flex align-items-center">
                             <label asp-for="Visitor.City" class="me-2 mb-0 w-25"></label>
                             <input asp-for="Visitor.City" class="form-control w-100" />
+                            </div>
                             <span asp-validation-for="Visitor.City" class="text-danger"></span>
                         </div>
-                        <div class="col-md-4 mb-3 d-flex align-items-center">
+                        <div class="col-md-4  mb-3">
+                            <div class="d-flex align-items-center">
                             <label asp-for="Visitor.State" class="me-2 mb-0 w-25"></label>
                             <input asp-for="Visitor.State" class="form-control w-100" />
+                            </div>
                             <span asp-validation-for="Visitor.State" class="text-danger"></span>
                         </div>
-                        <div class="col-md-4 mb-3 d-flex align-items-center">
+                        <div class="col-md-4  mb-3">
+                            <div class="d-flex align-items-center">
                             <label asp-for="Visitor.Zipcode" class="me-2 mb-0 w-25"></label>
                             <input asp-for="Visitor.Zipcode" class="form-control w-100" />
+                            </div>
                             <span asp-validation-for="Visitor.Zipcode" class="text-danger"></span>
                         </div>
-                        <div class="col-md-4 mb-3 d-flex align-items-center">
+                        <div class="col-md-4  mb-3">
+                            <div class="d-flex align-items-center">
                             <label asp-for="Visitor.HomeChurch" class="me-2 mb-0 w-25"></label>
                             <input asp-for="Visitor.HomeChurch" class="form-control w-100" />
+                            </div>
                             <span asp-validation-for="Visitor.HomeChurch" class="text-danger"></span>
                         </div>
-                        <div class="col-md-4 mb-3 d-flex align-items-center">
+                        <div class="col-md-4  mb-3">
+                            <div class="d-flex align-items-center">
                             <label asp-for="Visitor.Address" class="me-2 mb-0 w-25"></label>
                             <input asp-for="Visitor.Address" class="form-control w-100" />
+                            </div>
                             <span asp-validation-for="Visitor.Address" class="text-danger"></span>
                         </div>
                     </div>
@@ -264,13 +284,17 @@
 
                         
                         </div>
-                        <div class="col-md-4 mb-3 d-flex align-items-center">
+                        <div class="col-md-4">
+                            <div class="d-flex align-items-center">
                             <label asp-for="Visitor.FName" class="me-2 mb-0 w-25"></label>
                             <input asp-for="Visitor.FName" class="form-control w-100" />
+                            </dvi>
                         </div>
-                        <div class="col-md-4 mb-3 d-flex align-items-center">
+                            <div class="col-md-4">
+                                <div class="d-flex align-items-center">
                             <label asp-for="Visitor.LName" class="me-2 mb-0 w-25"></label>
                             <input asp-for="Visitor.LName" class="form-control w-100" />
+                            </div>
                         </div>
                     </div>
 
@@ -291,45 +315,61 @@
                     </script>
 
                     <div class="row">
-                     
-                        <div class="col-md-4 mb-3 d-flex align-items-center">
+
+                            <div class="col-md-4">
+                                <div class="d-flex align-items-center">
                             <label asp-for="Visitor.Email" class="me-2 mb-0 w-25" > </label>
                             <input asp-for="Visitor.Email" class="form-control w-100" />
+                            </div>
                         </div>
                     @*     <div class="col-md-4 mb-3 d-flex align-items-center">
                             <label asp-for="Visitor.Phone" class="me-2 mb-0 w-25" > </label>
                             <input asp-for="Visitor.Phone" class="form-control" />
                         </div> *@
-                        <div class="col-md-4 mb-3 d-flex align-items-center">
+                            < <div class="col-md-4">
+                                <div class="d-flex align-items-center">
                             <label asp-for="Visitor.Phone" class="me-2 mb-0 w-25" > </label>
                             <input asp-for="Visitor.Phone" class="form-control w-100" oninput="applyPhoneMask(this)" />
+                            </div>
                             <span asp-validation-for="Visitor.Phone" class="text-danger"></span>
                         </div>
 
-                        <div class="col-md-4 mb-3 d-flex align-items-center">
+                            <div class="col-md-4">
+                                <div class="d-flex align-items-center">
                             <label asp-for="Visitor.VisitDate" class="me-2 mb-0 w-25" > </label>
                             <input asp-for="Visitor.VisitDate" type="date" class="form-control w-100" />
+                            </div>
                         </div>
-                      
-                        <div class="col-md-4 mb-3 d-flex align-items-center">
+
+                            <div class="col-md-4">
+                                <div class="d-flex align-items-center">
                             <label asp-for="Visitor.City" class="me-2 mb-0 w-25" > </label>
                             <input asp-for="Visitor.City" class="form-control w-100" />
+                            </div>
                         </div>
-                        <div class="col-md-4 mb-3 d-flex align-items-center">
+                            <div class="col-md-4">
+                                <div class="d-flex align-items-center">
                             <label asp-for="Visitor.State" class="me-2 mb-0 w-25" > </label>
                             <input asp-for="Visitor.State" class="form-control w-100" />
+                            </div>
                         </div>
-                        <div class="col-md-4 mb-3 d-flex align-items-center">
+                            <div class="col-md-4">
+                                <div class="d-flex align-items-center">
                             <label asp-for="Visitor.Zipcode" class="me-2 mb-0 w-25" > </label>
                             <input asp-for="Visitor.Zipcode" class="form-control w-100" />
+                            </div>
                         </div>
-                        <div class="col-md-4 mb-3 d-flex align-items-center">
+                            <div class="col-md-4">
+                                <div class="d-flex align-items-center">
                             <label asp-for="Visitor.HomeChurch" class="me-2 mb-0 w-25" > </label>
                             <input asp-for="Visitor.HomeChurch" class="form-control w-100" />
+                            </div>
                         </div>
-                        <div class="col-md-4 mb-3 d-flex align-items-center">
+                            <div class="col-md-4">
+                                <div class="d-flex align-items-center">
                             <label asp-for="Visitor.Address" class="me-2 mb-0 w-25"></label>
                             <input asp-for="Visitor.Address" class="form-control w-100" />
+                            </div>
                         </div>
                     </div>
                 </div>
