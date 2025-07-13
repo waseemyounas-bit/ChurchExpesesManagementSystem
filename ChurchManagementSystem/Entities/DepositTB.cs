@@ -17,20 +17,21 @@ namespace Entities
         [Required(ErrorMessage = "Account Number is required")]
         public string AccountNumber { get; set; }
 
-        [Range(0, double.MaxValue, ErrorMessage = "Cheque must be a non-negative number")]
+        [Range(0, double.MaxValue, ErrorMessage = "Cheque amount must be a non-negative number")]
+        [Required(ErrorMessage ="Please enter cheque amount.")]
         public double Cheque { get; set; }
 
         [Range(0, double.MaxValue, ErrorMessage = "Cash must be a non-negative number")]
         public double Cash { get; set; }
 
-       
-        public string? Check { get; set; }
+        [StringLength(5, MinimumLength = 5, ErrorMessage = "Check must be exactly 5 characters")]
+        public string Check { get; set; }
 
-        [StringLength(5, MinimumLength = 5, ErrorMessage = "Check2 must be exactly 5 characters")]
-        public string? Check2 { get; set; }
+        //[StringLength(5, MinimumLength = 5, ErrorMessage = "Check2 must be exactly 5 characters")]
+        //public string? Check2 { get; set; }
 
-        [StringLength(5, MinimumLength = 5, ErrorMessage = "Check3 must be exactly 5 characters")]
-        public string? Check3 { get; set; }
+        //[StringLength(5, MinimumLength = 5, ErrorMessage = "Check3 must be exactly 5 characters")]
+        //public string? Check3 { get; set; }
         public double Total { get; set; }
         public DateTime Date { get; set; }
     }

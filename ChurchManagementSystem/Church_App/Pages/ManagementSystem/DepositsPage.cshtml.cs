@@ -44,6 +44,7 @@ namespace Church_App.Pages.ManagementSystem
                  OnGet();
                 return Page();
             }
+            
             if (Checks.Count()>0)
             {
                 foreach (var item in Checks)

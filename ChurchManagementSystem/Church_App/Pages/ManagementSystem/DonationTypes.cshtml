@@ -81,7 +81,7 @@
 
 <!-- Add Donation Type Modal -->
 <div id="addDonationTypeModal" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <form method="post" asp-page-handler="AddDonationType">
                 <div class="modal-header">
@@ -89,12 +89,12 @@
                     <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <div class="col-md-6 d-flex align-items-center">
+                    <div class="col-md-12 d-flex align-items-center mb-3">
                         <label asp-for="DonationType.Name" class="me-2 mb-0 w-50"></label>
                         <input asp-for="DonationType.Name" class="form-control w-100" />
                         <span asp-validation-for="DonationType.Name" class="text-danger"></span>
                     </div>
-                    <div class="col-md-6 d-flex align-items-center">
+                    <div class="col-md-12 d-flex align-items-center">
                         <label asp-for="DonationType.Description" class="me-2 mb-0 w-50"></label>
                         <textarea asp-for="DonationType.Description" class="form-control w-100" rows="4"></textarea>
                         <span asp-validation-for="DonationType.Description" class="text-danger"></span>
@@ -111,7 +111,7 @@
 
 <!-- Edit Donation Type Modal -->
 <div id="editDonationTypeModal" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <form method="post" asp-page-handler="EditDonationType">
                 <div class="modal-header">
@@ -120,12 +120,12 @@
                 </div>
                 <div class="modal-body">
                     <input type="hidden" asp-for="DonationType.Id" id="editDonationTypeId" />
-                    <div class="col-md-6 d-flex align-items-center">
+                    <div class="col-md-12 d-flex align-items-center mb-3">
                         <label asp-for="DonationType.Name" class="me-2 mb-0 w-50"></label>
                         <input asp-for="DonationType.Name" class="form-control w-100" id="editDonationTypeName" />
                         <span asp-validation-for="DonationType.Name" class="text-danger"></span>
                     </div>
-                    <div class="col-md-6 d-flex align-items-center">
+                    <div class="col-md-12 d-flex align-items-center">
                         <label asp-for="DonationType.Description" class="me-2 mb-0 w-50"></label>
                         <textarea asp-for="DonationType.Description" class="form-control w-100" rows="4" id="editDonationTypeDescription"></textarea>
                         <span asp-validation-for="DonationType.Description" class="text-danger"></span>

@@ -26,7 +26,7 @@ namespace Church_App.Pages.ManagementSystem
 
         public List<Vendor> Vendorlist { get; set; }
         [BindProperty]
-        public Expense Expense { get; set; } = new Expense();
+        public ExpenseViewModel Expense { get; set; } 
 
         [BindProperty]
         public Guid deleteExpenseId { get; set; }
@@ -49,8 +49,17 @@ namespace Church_App.Pages.ManagementSystem
                 return Page();
             }
             Expense.Category="Vendor Paid";
-            Expense.Id = Guid.NewGuid();
-            await _expenseService.AddAsync(Expense);
+            var expense = new Expense
+            {
+                Id = Guid.NewGuid(),
+                Category = Expense.Category,
+                Amount = Expense.Amount,
+                Date = Expense.Date,
+                Description = Expense.Description,
+                VendorId = Expense.VendorId
+            };
+
+            await _expenseService.AddAsync(expense);
             return RedirectToPage();
         }
 
@@ -61,8 +70,16 @@ namespace Church_App.Pages.ManagementSystem
                 await OnGetAsync();
                 return Page();
             }
-
-            await _expenseService.UpdateAsync(Expense);
+            var expense = new Expense
+            {
+                Id = Expense.Id,
+                Category = Expense.Category,
+                Amount = Expense.Amount,
+                Date = Expense.Date,
+                Description = Expense.Description,
+                VendorId = Expense.VendorId
+            };
+            await _expenseService.UpdateAsync(expense);
             return RedirectToPage();
         }
 

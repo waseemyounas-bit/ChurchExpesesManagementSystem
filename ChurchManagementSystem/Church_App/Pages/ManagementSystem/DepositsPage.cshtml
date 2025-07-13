@@ -44,8 +44,8 @@
                                     <td>@item.Date.ToString("d")</td>
                                     <td>@item.Cash.ToString("00.00")</td>
                                     <td>@item.Check</td>
-                                    <td>@item.Cheque.ToString("00.00")</td>
-                                    <td>@item.Total.ToString("00.00")</td>
+                                    <td>$@item.Cheque.ToString("00.00")</td>
+                                    <td>$@item.Total.ToString("00.00")</td>
                                     <td class="text-right">
                                         <div class="dropdown dropdown-action">
                                             <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown">
@@ -92,6 +92,135 @@
     </div>
 </div>
 
+@* <!-- Add Deposit Modal --> *@
+@* <div id="addDepositModal" class="modal fade" role="dialog"> *@
+@*     <div class="modal-dialog modal-dialog-centered modal-lg"> *@
+@*         <div class="modal-content"> *@
+@*             <form method="post" asp-page-handler="Add"> *@
+@*                 <div class="modal-header"> *@
+@*                     <h4 class="modal-title">Add Deposit</h4> *@
+@*                     <button type="button" class="close" data-bs-dismiss="modal">&times;</button> *@
+@*                 </div> *@
+@*                 <div class="modal-body row g-2"> *@
+@*                     <div class="col-md-4 d-flex align-items-center"> *@
+@*                         <label class="me-2 mb-0 w-50">Bank</label> *@
+@*                         <select asp-for="Deposit.Bank" class="form-control w-100" id="addBank" onchange="filterAccounts('add')"> *@
+@*                             <option value="">Select</option> *@
+@*                             @foreach (var bank in Model.DistinctBanks) *@
+@*                             { *@
+@*                                 <option value="@bank">@bank</option> *@
+@*                             } *@
+@*                         </select> *@
+@*                     </div> *@
+@*                     <div class="col-md-4 d-flex align-items-center"> *@
+@*                         <label class="me-2 mb-0 w-50">Date</label> *@
+@*                         <input type="date" asp-for="Deposit.Date" class="form-control w-100" /> *@
+@*                     </div> *@
+@*                     <div class="col-md-4 d-flex align-items-center"> *@
+@*                         <label class="me-2 mb-0 w-50">Account #</label> *@
+@*                         <select asp-for="Deposit.AccountNumber" class="form-control w-100" id="addAccount"> *@
+@*                             <option value="">Select</option> *@
+@*                             @foreach (var acc in Model.Banks) *@
+@*                             { *@
+@*                                 <option value="@acc.AccountNumber" data-bank="@acc.BankName">@acc.AccountNumber</option> *@
+@*                             } *@
+@*                         </select> *@
+@*                     </div> *@
+@*                     <div class="col-md-4 d-flex align-items-center"> *@
+@*                         <label class="me-2 mb-0 w-50">Cash</label> *@
+@*                         <input asp-for="Deposit.Cash" class="form-control w-100" id="addCash" oninput="calculateTotal('add')" /> *@
+@*                     </div> *@
+@*                     <div class="col-md-4 d-flex align-items-center"> *@
+@*                         <label class="me-2 mb-0 w-50">Cheque #</label> *@
+@*                         <div class="w-100" id="addChecksContainer"> *@
+@*                             <div class="input-group"> *@
+@*                                 <input name="Checks[0]" class="form-control" placeholder="Check Number" /> *@
+@*                                 <button type="button" class="btn btn-outline-secondary" onclick="addCheckField('add')">+</button> *@
+@*                             </div> *@
+@*                         </div> *@
+@*                     </div> *@
+@*                     <div class="col-md-4 d-flex align-items-center"> *@
+@*                         <label class="me-2 mb-0 w-50">Cheque</label> *@
+@*                         <input asp-for="Deposit.Cheque" class="form-control w-100" id="addCheque" oninput="calculateTotal('add')" /> *@
+@*                     </div> *@
+@*                     <div class="col-md-4 d-flex align-items-center"> *@
+@*                         <label class="me-2 mb-0 w-50">Total</label> *@
+@*                         <input asp-for="Deposit.Total" class="form-control w-100" id="addTotal" readonly /> *@
+@*                     </div> *@
+@*                 </div> *@
+@*                 <div class="modal-footer"> *@
+@*                     <button class="btn btn-primary" type="submit">Save</button> *@
+@*                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button> *@
+@*                 </div> *@
+@*             </form> *@
+@*         </div> *@
+@*     </div> *@
+@* </div> *@
+
+@* <!-- Edit Deposit Modal --> *@
+@* <div id="editDepositModal" class="modal fade" role="dialog"> *@
+@*     <div class="modal-dialog modal-dialog-centered modal-lg"> *@
+@*         <div class="modal-content"> *@
+@*             <form method="post" asp-page-handler="Update"> *@
+@*                 <input type="hidden" asp-for="Deposit.Id" id="editId" /> *@
+@*                 <div class="modal-header"> *@
+@*                     <h4 class="modal-title">Edit Deposit</h4> *@
+@*                     <button type="button" class="close" data-dismiss="modal">&times;</button> *@
+@*                 </div> *@
+@*                 <div class="modal-body"> *@
+@*                     <div class="row g-2"> *@
+@*                         <div class="col-md-4 d-flex align-items-center"> *@
+@*                             <label class="me-2 mb-0 w-50">Bank</label> *@
+@*                             <select asp-for="Deposit.Bank" class="form-control w-100" id="editBank" onchange="filterAccounts('edit')"> *@
+@*                                 <option value="">Select</option> *@
+@*                                 @foreach (var bank in Model.DistinctBanks) *@
+@*                                 { *@
+@*                                     <option value="@bank">@bank</option> *@
+@*                                 } *@
+@*                             </select> *@
+@*                         </div> *@
+@*                         <div class="col-md-4 d-flex align-items-center"> *@
+@*                             <label class="me-2 mb-0 w-50">Date</label> *@
+@*                             <input type="date" asp-for="Deposit.Date" class="form-control w-100" id="editDate" /> *@
+@*                         </div> *@
+@*                         <div class="col-md-4 d-flex align-items-center"> *@
+@*                             <label class="me-2 mb-0 w-50">Account #</label> *@
+@*                             <select asp-for="Deposit.AccountNumber" class="form-control w-100" id="editAccount"> *@
+@*                                 <option value="">Select</option> *@
+@*                                 @foreach (var acc in Model.Banks) *@
+@*                                 { *@
+@*                                     <option value="@acc.AccountNumber" data-bank="@acc.BankName">@acc.AccountNumber</option> *@
+@*                                 } *@
+@*                             </select> *@
+@*                         </div> *@
+@*                         <div class="col-md-4 d-flex align-items-center"> *@
+@*                             <label class="me-2 mb-0 w-50">Cash</label> *@
+@*                             <input asp-for="Deposit.Cash" class="form-control w-100" id="editCash" oninput="calculateTotal('edit')" /> *@
+@*                         </div> *@
+@*                         <div class="col-md-4 d-flex align-items-center"> *@
+@*                             <label class="me-2 mb-0 w-50">Cheque #</label> *@
+@*                             <input asp-for="Deposit.Check" id="editchecknumber" class="form-control w-100" /> *@
+@*                         </div> *@
+@*                         <div class="col-md-4 d-flex align-items-center"> *@
+@*                             <label class="me-2 mb-0 w-50">Cheque</label> *@
+@*                             <input asp-for="Deposit.Cheque" class="form-control w-100" id="editCheque" oninput="calculateTotal('edit')" /> *@
+@*                         </div> *@
+@*                         <div class="col-md-4 d-flex align-items-center"> *@
+@*                             <label class="me-2 mb-0 w-50">Total</label> *@
+@*                             <input asp-for="Deposit.Total" class="form-control w-100" id="editTotal" readonly /> *@
+@*                         </div> *@
+@*                     </div> *@
+                    
+@*                 </div> *@
+@*                 <div class="modal-footer"> *@
+@*                     <button class="btn btn-warning" type="submit">Edit</button> *@
+@*                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Exit</button> *@
+@*                 </div> *@
+@*             </form> *@
+@*         </div> *@
+@*     </div> *@
+@* </div> *@
+
 <!-- Add Deposit Modal -->
 <div id="addDepositModal" class="modal fade" role="dialog">
     <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -101,51 +230,79 @@
                     <h4 class="modal-title">Add Deposit</h4>
                     <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
                 </div>
-                <div class="modal-body row g-2">
-                    <div class="col-md-4 d-flex align-items-center">
-                        <label class="me-2 mb-0 w-50">Bank</label>
-                        <select asp-for="Deposit.Bank" class="form-control w-100" id="addBank" onchange="filterAccounts('add')">
-                            <option value="">Select</option>
-                            @foreach (var bank in Model.DistinctBanks)
-                            {
-                                <option value="@bank">@bank</option>
-                            }
-                        </select>
-                    </div>
-                    <div class="col-md-4 d-flex align-items-center">
-                        <label class="me-2 mb-0 w-50">Date</label>
-                        <input type="date" asp-for="Deposit.Date" class="form-control w-100" />
-                    </div>
-                    <div class="col-md-4 d-flex align-items-center">
-                        <label class="me-2 mb-0 w-50">Account #</label>
-                        <select asp-for="Deposit.AccountNumber" class="form-control w-100" id="addAccount">
-                            <option value="">Select</option>
-                            @foreach (var acc in Model.Banks)
-                            {
-                                <option value="@acc.AccountNumber" data-bank="@acc.BankName">@acc.AccountNumber</option>
-                            }
-                        </select>
-                    </div>
-                    <div class="col-md-4 d-flex align-items-center">
-                        <label class="me-2 mb-0 w-50">Cash</label>
-                        <input asp-for="Deposit.Cash" class="form-control w-100" id="addCash" oninput="calculateTotal('add')" />
-                    </div>
-                    <div class="col-md-4 d-flex align-items-center">
-                        <label class="me-2 mb-0 w-50">Cheque #</label>
-                        <div class="w-100">
-                            <div class="input-group">
-                                <input name="Checks[0]" class="form-control" placeholder="Check Number" />
-                                <button type="button" class="btn btn-outline-secondary" onclick="addCheckField('add')">+</button>
+                <div class="modal-body">
+                    <div class="row g-2">
+                        <div class="col-md-4 mb-3">
+                            <div class="d-flex align-items-center">
+                                <label class="me-2 mb-0 w-50">Bank</label>
+                                <select asp-for="Deposit.Bank" class="form-control flex-grow-1" id="addBank" onchange="filterAccounts('add')">
+                                    <option value="">Select</option>
+                                    @foreach (var bank in Model.DistinctBanks)
+                                    {
+                                        <option value="@bank">@bank</option>
+                                    }
+                                </select>
                             </div>
+                            <span asp-validation-for="Deposit.Bank" class="text-danger small"></span>
                         </div>
-                    </div>
-                    <div class="col-md-4 d-flex align-items-center">
-                        <label class="me-2 mb-0 w-50">Cheque</label>
-                        <input asp-for="Deposit.Cheque" class="form-control w-100" id="addCheque" oninput="calculateTotal('add')" />
-                    </div>
-                    <div class="col-md-4 d-flex align-items-center">
-                        <label class="me-2 mb-0 w-50">Total</label>
-                        <input asp-for="Deposit.Total" class="form-control w-100" id="addTotal" readonly />
+                        <div class="col-md-4 mb-3">
+                            <div class="d-flex align-items-center">
+                                <label class="me-2 mb-0 w-50">Date</label>
+                                <input type="date" asp-for="Deposit.Date" class="form-control flex-grow-1" />
+                            </div>
+                            <span asp-validation-for="Deposit.Date" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="d-flex align-items-center">
+                                <label class="me-2 mb-0 w-50">Account #</label>
+                                <select asp-for="Deposit.AccountNumber" class="form-control flex-grow-1" id="addAccount">
+                                    <option value="">Select</option>
+                                    @foreach (var acc in Model.Banks)
+                                    {
+                                        <option value="@acc.AccountNumber" data-bank="@acc.BankName">@acc.AccountNumber</option>
+                                    }
+                                </select>
+                            </div>
+                            <span asp-validation-for="Deposit.AccountNumber" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="d-flex align-items-center">
+                                <label class="me-2 mb-0 w-50">Cash</label>
+                                <input asp-for="Deposit.Cash" class="form-control flex-grow-1" id="addCash" oninput="calculateTotal('add')" />
+                            </div>
+                            <span asp-validation-for="Deposit.Cash" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="d-flex align-items-center">
+                                <label class="me-2 mb-0 w-50">Cheque Amount</label>
+                                <input asp-for="Deposit.Cheque" class="form-control flex-grow-1" id="addCheque" oninput="calculateTotal('add')" />
+                            </div>
+                            <span asp-validation-for="Deposit.Cheque" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="d-flex align-items-center">
+                                <label class="me-2 mb-0 w-50">Cheque Number</label>
+                                <input asp-for="Deposit.Check" class="form-control flex-grow-1" />
+                            </div>
+                            <span asp-validation-for="Deposit.Check" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="d-flex align-items-center">
+                                <label class="me-2 mb-0 w-50">Add Cheque</label>
+                                <div class="flex-grow-1" id="addChecksContainer">
+                                    <!-- Check fields will be added here dynamically -->
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-sm btn-outline-primary mt-2" onclick="addCheckField('add')">Add Check</button>
+                            <span id="addChecksValidation" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="d-flex align-items-center">
+                                <label class="me-2 mb-0 w-50">Total</label>
+                                <input asp-for="Deposit.Total"  class="form-control flex-grow-1" id="addTotal" readonly />
+                            </div>
+                            <span asp-validation-for="Deposit.Total" class="text-danger small"></span>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -156,6 +313,94 @@
         </div>
     </div>
 </div>
+
+@* <!-- Add Deposit Modal --> *@
+@* <div id="addDepositModal" class="modal fade" role="dialog"> *@
+@*     <div class="modal-dialog modal-dialog-centered modal-lg"> *@
+@*         <div class="modal-content"> *@
+@*             <form method="post" asp-page-handler="Add"> *@
+@*                 <div class="modal-header"> *@
+@*                     <h4 class="modal-title">Add Deposit</h4> *@
+@*                     <button type="button" class="close" data-bs-dismiss="modal">&times;</button> *@
+@*                 </div> *@
+@*                 <div class="modal-body"> *@
+@*                     <div class="row g-2"> *@
+@*                         <div class="col-md-4 mb-3"> *@
+@*                             <div class="d-flex align-items-center"> *@
+@*                                 <label class="me-2 mb-0 w-50">Bank</label> *@
+@*                                 <select asp-for="Deposit.Bank" class="form-control flex-grow-1" id="addBank" onchange="filterAccounts('add')"> *@
+@*                                     <option value="">Select</option> *@
+@*                                     @foreach (var bank in Model.DistinctBanks) *@
+@*                                     { *@
+@*                                         <option value="@bank">@bank</option> *@
+@*                                     } *@
+@*                                 </select> *@
+@*                             </div> *@
+@*                             <span asp-validation-for="Deposit.Bank" class="text-danger small"></span> *@
+@*                         </div> *@
+@*                         <div class="col-md-4 mb-3"> *@
+@*                             <div class="d-flex align-items-center"> *@
+@*                                 <label class="me-2 mb-0 w-50">Date</label> *@
+@*                                 <input type="date" asp-for="Deposit.Date" class="form-control flex-grow-1" /> *@
+@*                             </div> *@
+@*                             <span asp-validation-for="Deposit.Date" class="text-danger small"></span> *@
+@*                         </div> *@
+@*                         <div class="col-md-4 mb-3"> *@
+@*                             <div class="d-flex align-items-center"> *@
+@*                                 <label class="me-2 mb-0 w-50">Account #</label> *@
+@*                                 <select asp-for="Deposit.AccountNumber" class="form-control flex-grow-1" id="addAccount"> *@
+@*                                     <option value="">Select</option> *@
+@*                                     @foreach (var acc in Model.Banks) *@
+@*                                     { *@
+@*                                         <option value="@acc.AccountNumber" data-bank="@acc.BankName">@acc.AccountNumber</option> *@
+@*                                     } *@
+@*                                 </select> *@
+@*                             </div> *@
+@*                             <span asp-validation-for="Deposit.AccountNumber" class="text-danger small"></span> *@
+@*                         </div> *@
+@*                         <div class="col-md-4 mb-3"> *@
+@*                             <div class="d-flex align-items-center"> *@
+@*                                 <label class="me-2 mb-0 w-50">Cash</label> *@
+@*                                 <input asp-for="Deposit.Cash" class="form-control flex-grow-1" id="addCash" oninput="calculateTotal('add')" /> *@
+@*                             </div> *@
+@*                             <span asp-validation-for="Deposit.Cash" class="text-danger small"></span> *@
+@*                         </div> *@
+@*                         <div class="col-md-4 mb-3"> *@
+@*                             <div class="d-flex align-items-center"> *@
+@*                                 <label class="me-2 mb-0 w-50">Cheque #</label> *@
+@*                                 <div class="flex-grow-1" id="addChecksContainer"> *@
+@*                                     <div class="input-group"> *@
+@*                                         <input name="Checks[0]" class="form-control" placeholder="Check Number" /> *@
+@*                                         <button type="button" class="btn btn-outline-secondary" onclick="addCheckField('add')">+</button> *@
+@*                                         <span asp-validation-for="Deposit.Check" class="text-danger small"></span> *@
+@*                                     </div> *@
+@*                                 </div> *@
+@*                             </div> *@
+@*                         </div> *@
+@*                         <div class="col-md-4 mb-3" > *@
+@*                             <div class="d-flex align-items-center" > *@
+@*                                 <label class="me-2 mb-0 w-50">Cheque</label> *@
+@*                                 <input asp-for="Deposit.Cheque" class="form-control flex-grow-1" id="addCheque" oninput="calculateTotal('add')" /> *@
+@*                             </div> *@
+@*                             <span asp-validation-for="Deposit.Cheque" class="text-danger small"></span> *@
+@*                         </div> *@
+@*                         <div class="col-md-4 mb-3"> *@
+@*                             <div class="d-flex align-items-center"> *@
+@*                                 <label class="me-2 mb-0 w-50">Total</label> *@
+@*                                 <input asp-for="Deposit.Total" class="form-control flex-grow-1" id="addTotal" readonly /> *@
+@*                             </div> *@
+@*                             <span asp-validation-for="Deposit.Total" class="text-danger small"></span> *@
+@*                         </div> *@
+@*                     </div> *@
+@*                 </div> *@
+@*                 <div class="modal-footer"> *@
+@*                     <button class="btn btn-primary" type="submit">Save</button> *@
+@*                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button> *@
+@*                 </div> *@
+@*             </form> *@
+@*         </div> *@
+@*     </div> *@
+@* </div> *@
 
 <!-- Edit Deposit Modal -->
 <div id="editDepositModal" class="modal fade" role="dialog">
@@ -169,48 +414,68 @@
                 </div>
                 <div class="modal-body">
                     <div class="row g-2">
-                        <div class="col-md-4 d-flex align-items-center">
-                            <label class="me-2 mb-0 w-50">Bank</label>
-                            <select asp-for="Deposit.Bank" class="form-control w-100" id="editBank" onchange="filterAccounts('edit')">
-                                <option value="">Select</option>
-                                @foreach (var bank in Model.DistinctBanks)
-                                {
-                                    <option value="@bank">@bank</option>
-                                }
-                            </select>
+                        <div class="col-md-4 mb-3">
+                            <div class="d-flex align-items-center">
+                                <label class="me-2 mb-0 w-50">Bank</label>
+                                <select asp-for="Deposit.Bank" class="form-control flex-grow-1" id="editBank" onchange="filterAccounts('edit')">
+                                    <option value="">Select</option>
+                                    @foreach (var bank in Model.DistinctBanks)
+                                    {
+                                        <option value="@bank">@bank</option>
+                                    }
+                                </select>
+                            </div>
+                            <span asp-validation-for="Deposit.Bank" class="text-danger small"></span>
                         </div>
-                        <div class="col-md-4 d-flex align-items-center">
-                            <label class="me-2 mb-0 w-50">Date</label>
-                            <input type="date" asp-for="Deposit.Date" class="form-control w-100" id="editDate" />
+                        <div class="col-md-4 mb-3">
+                            <div class="d-flex align-items-center">
+                                <label class="me-2 mb-0 w-50">Date</label>
+                                <input type="date" asp-for="Deposit.Date" class="form-control flex-grow-1" id="editDate" />
+                            </div>
+                            <span asp-validation-for="Deposit.Date" class="text-danger small"></span>
                         </div>
-                        <div class="col-md-4 d-flex align-items-center">
-                            <label class="me-2 mb-0 w-50">Account #</label>
-                            <select asp-for="Deposit.AccountNumber" class="form-control w-100" id="editAccount">
-                                <option value="">Select</option>
-                                @foreach (var acc in Model.Banks)
-                                {
-                                    <option value="@acc.AccountNumber" data-bank="@acc.BankName">@acc.AccountNumber</option>
-                                }
-                            </select>
+                        <div class="col-md-4 mb-3">
+                            <div class="d-flex align-items-center">
+                                <label class="me-2 mb-0 w-50">Account #</label>
+                                <select asp-for="Deposit.AccountNumber" class="form-control flex-grow-1" id="editAccount">
+                                    <option value="">Select</option>
+                                    @foreach (var acc in Model.Banks)
+                                    {
+                                        <option value="@acc.AccountNumber" data-bank="@acc.BankName">@acc.AccountNumber</option>
+                                    }
+                                </select>
+                            </div>
+                            <span asp-validation-for="Deposit.AccountNumber" class="text-danger small"></span>
                         </div>
-                        <div class="col-md-4 d-flex align-items-center">
-                            <label class="me-2 mb-0 w-50">Cash</label>
-                            <input asp-for="Deposit.Cash" class="form-control w-100" id="editCash" oninput="calculateTotal('edit')" />
+                        <div class="col-md-4 mb-3">
+                            <div class="d-flex align-items-center">
+                                <label class="me-2 mb-0 w-50">Cash</label>
+                                <input asp-for="Deposit.Cash" class="form-control flex-grow-1" id="editCash" oninput="calculateTotal('edit')" />
+                            </div>
+                            <span asp-validation-for="Deposit.Cash" class="text-danger small"></span>
                         </div>
-                        <div class="col-md-4 d-flex align-items-center">
-                            <label class="me-2 mb-0 w-50">Cheque #</label>
-                            <input asp-for="Deposit.Check" id="editchecknumber" class="form-control w-100" />
+                        <div class="col-md-4 mb-3">
+                            <div class="d-flex align-items-center">
+                                <label class="me-2 mb-0 w-50">Cheque #</label>
+                                <input asp-for="Deposit.Check" id="editchecknumber" class="form-control flex-grow-1" />
+                            </div>
+                            <span asp-validation-for="Deposit.Check" class="text-danger small"></span>
                         </div>
-                        <div class="col-md-4 d-flex align-items-center">
-                            <label class="me-2 mb-0 w-50">Cheque</label>
-                            <input asp-for="Deposit.Cheque" class="form-control w-100" id="editCheque" oninput="calculateTotal('edit')" />
+                        <div class="col-md-4 mb-3">
+                            <div class="d-flex align-items-center">
+                                <label class="me-2 mb-0 w-50">Cheque</label>
+                                <input asp-for="Deposit.Cheque" class="form-control flex-grow-1" id="editCheque" oninput="calculateTotal('edit')" />
+                            </div>
+                            <span asp-validation-for="Deposit.Cheque" class="text-danger small"></span>
                         </div>
-                        <div class="col-md-4 d-flex align-items-center">
-                            <label class="me-2 mb-0 w-50">Total</label>
-                            <input asp-for="Deposit.Total" class="form-control w-100" id="editTotal" readonly />
+                        <div class="col-md-4 mb-3">
+                            <div class="d-flex align-items-center">
+                                <label class="me-2 mb-0 w-50">Total</label>
+                                <input asp-for="Deposit.Total" class="form-control flex-grow-1" id="editTotal" readonly />
+                            </div>
+                            <span asp-validation-for="Deposit.Total" class="text-danger small"></span>
                         </div>
                     </div>
-                    
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-warning" type="submit">Edit</button>
@@ -220,8 +485,6 @@
         </div>
     </div>
 </div>
-
-
 
 <!-- Calculate Total Automatically -->
 <script>
@@ -299,4 +562,91 @@
         const modal = new bootstrap.Modal(document.getElementById("delete_deposit"));
         modal.show();
     }
+</script>
+<script>
+    // Initialize check fields when modal opens
+    $('#addDepositModal').on('show.bs.modal', function() {
+        // Clear existing check fields
+        $('#addChecksContainer').empty();
+        // Add one initial check field
+        addCheckField('add');
+    });
+
+    $('#editDepositModal').on('show.bs.modal', function() {
+        // Clear existing check fields
+        $('#editChecksContainer').empty();
+        // Add one initial check field
+        addCheckField('edit');
+    });
+
+    function addCheckField(modalType) {
+        const container = modalType === 'add' ? $('#addChecksContainer') : $('#editChecksContainer');
+        const checkCount = container.find('.check-field').length;
+        const newIndex = checkCount;
+
+        const checkFieldHtml = `
+            <div class="input-group mb-2 check-field" data-index="${newIndex}">
+                <input name="Deposit.Checks[${newIndex}]"
+                       class="form-control check-input"
+                       placeholder="Check Number (5 digits)"
+                       maxlength="5"
+                       oninput="validateCheckField(this)" />
+                <button type="button" class="btn btn-outline-danger" onclick="removeCheckField(this, '${modalType}')">-</button>
+            </div>
+        `;
+
+        container.append(checkFieldHtml);
+        updateCheckValidation(modalType);
+    }
+
+    function removeCheckField(button, modalType) {
+        const container = modalType === 'add' ? $('#addChecksContainer') : $('#editChecksContainer');
+        const fieldCount = container.find('.check-field').length;
+
+        if (fieldCount > 0) {
+            $(button).closest('.check-field').remove();
+            // Re-index remaining fields
+            container.find('.check-field').each(function(index) {
+                $(this).attr('data-index', index);
+                $(this).find('input').attr('name', `Deposit.Checks[${index}]`);
+            });
+        } 
+
+        updateCheckValidation(modalType);
+    }
+
+    function validateCheckField(input) {
+        const value = $(input).val();
+        if (value.length !== 5 && value.length > 0) {
+            $(input).addClass('is-invalid');
+        } else {
+            $(input).removeClass('is-invalid');
+        }
+    }
+
+    function updateCheckValidation(modalType) {
+        const validationElement = modalType === 'add' ? $('#addChecksValidation') : $('#editChecksValidation');
+        const container = modalType === 'add' ? $('#addChecksContainer') : $('#editChecksContainer');
+        let isValid = true;
+
+        container.find('.check-input').each(function() {
+            const value = $(this).val();
+            if (value.length !== 5 && value.length > 0) {
+                isValid = false;
+                return false; // break the loop
+            }
+        });
+
+        if (!isValid) {
+            validationElement.text('All checks must be exactly 5 characters');
+        } else {
+            validationElement.text('');
+        }
+    }
+
+    // Your existing functions
+    function filterAccounts(modalType) {
+        // Your existing implementation
+    }
+
 </script>

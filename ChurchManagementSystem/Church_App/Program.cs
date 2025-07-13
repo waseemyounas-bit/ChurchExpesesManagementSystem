@@ -10,7 +10,7 @@ Bold.Licensing.BoldLicenseProvider.RegisterLicense("Y6LiubUOovhwkp6Tx51f35QqKEWg
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddRazorPages().AddMvcOptions(options =>
+builder.Services.AddRazorPages().AddRazorRuntimeCompilation().AddMvcOptions(options =>
 {
     options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor(
         _ => "This field is required.");
